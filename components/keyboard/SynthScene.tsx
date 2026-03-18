@@ -1,9 +1,7 @@
 'use client'
 
-import { useRef, useState } from 'react'
-import { useFrame } from '@react-three/fiber'
+import { useState } from 'react'
 import { RoundedBox } from '@react-three/drei'
-import * as THREE from 'three'
 import LCDScreen from './LCDScreen'
 import Knob from './Knob'
 import SmallKnob from './SmallKnob'
@@ -38,17 +36,8 @@ function SmallButton({ position }: { position: [number, number, number] }) {
 }
 
 export default function SynthScene() {
-  const groupRef = useRef<THREE.Group>(null)
-
-  // Subtle idle float
-  useFrame(({ clock }) => {
-    if (!groupRef.current) return
-    groupRef.current.position.y = Math.sin(clock.elapsedTime * 0.6) * 0.04
-    groupRef.current.rotation.z = Math.sin(clock.elapsedTime * 0.4) * 0.004
-  })
-
   return (
-    <group ref={groupRef} rotation={[-0.35, 0.15, 0]}>
+    <group rotation={[0, 0, 0]}>
 
       {/* === MAIN BODY — off-white matte === */}
       <RoundedBox args={[5.6, 0.32, 3.2]} radius={0.1} smoothness={4} castShadow receiveShadow>
