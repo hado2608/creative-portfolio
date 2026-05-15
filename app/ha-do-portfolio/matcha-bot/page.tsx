@@ -281,7 +281,7 @@ export default function MatchaBotPage() {
                 }}>
                   {label}
                 </p>
-                <p style={{ fontSize: 14, color: 'var(--color-warm-body)', fontFamily: SANS }}>
+                <p style={{ fontSize: 14, color: 'var(--color-warm-body)', fontFamily: SANS, letterSpacing: '0.02em' }}>
                   {value}
                 </p>
               </div>
