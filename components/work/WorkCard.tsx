@@ -1,11 +1,11 @@
 'use client'
 
-import { useRef } from 'react'
+import Link from 'next/link'
 import { motion } from 'framer-motion'
 import type { Project } from '@/data/projects'
 
 export default function WorkCard({ project }: { project: Project }) {
-  return (
+  const card = (
     <motion.div
       initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
@@ -15,7 +15,7 @@ export default function WorkCard({ project }: { project: Project }) {
       style={{
         background: '#fff',
         borderRadius: 4,
-        cursor: 'pointer',
+        cursor: project.href ? 'pointer' : 'default',
         display: 'flex',
         flexDirection: 'column',
         overflow: 'hidden',
@@ -64,4 +64,14 @@ export default function WorkCard({ project }: { project: Project }) {
       </div>
     </motion.div>
   )
+
+  if (project.href) {
+    return (
+      <Link href={project.href} style={{ textDecoration: 'none' }}>
+        {card}
+      </Link>
+    )
+  }
+
+  return card
 }

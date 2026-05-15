@@ -111,7 +111,7 @@ export default function Home() {
           'linear-gradient(90deg, rgba(0,0,0,0.055) 1px, transparent 1px)',
         ].join(', '),
         backgroundSize: '40px 40px',
-        backgroundColor: '#EAEAEA',
+        backgroundColor: '#F7F7F7',
         inset: 0,
         position: 'fixed',
         zIndex: 0,
