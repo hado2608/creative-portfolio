@@ -562,11 +562,16 @@ export default function MatchaBotPage() {
                 voice instead of touch.
               </p>
 
-              <VisualBlock
-                label="Figma: 2-option rule comparison — left: cluttered multi-option screen (tap-first), right: clean 2-option screen (voice-first)"
-                caption="The difference a single structural rule makes: voice-first vs. tap-first interface feel."
-                aspect="16/9"
-              />
+              <div style={{ marginTop: 32, marginBottom: 8 }}>
+                <img
+                  src="/assets/2-option-rule.png"
+                  alt="Comparison: 4+ options cluttered and tab-focused vs. 2 options clean and voice-first"
+                  style={{ width: '100%', height: 'auto', display: 'block', borderRadius: 8 }}
+                />
+                <p style={{ fontSize: 13, color: 'var(--color-warm-muted)', marginTop: 10, marginBottom: 32, fontFamily: SANS, lineHeight: 1.5 }}>
+                  The difference a single structural rule makes: voice-first vs. tap-first interface feel.
+                </p>
+              </div>
             </SubSection>
 
             <SubSection title="Talking states: making the invisible visible">
