@@ -39,7 +39,7 @@ const SERIF = "'Recoleta', Georgia, serif"
 const SANS  = "'Neue Montreal', sans-serif"
 
 const BODY: React.CSSProperties = {
-  fontSize: 18,
+  fontSize: 16,
   lineHeight: 1.75,
   fontFamily: SANS,
   letterSpacing: '0.02em',
@@ -487,25 +487,22 @@ export default function MatchaBotPage() {
                     { left: 'Serious',  right: 'Playful',     pos: 30, note: 'Light warmth. Not a personality, a posture.' },
                     { left: 'Reserved', right: 'Enthusiastic',pos: 25, note: 'Measured. Enthusiasm is earned, not performed.' },
                     { left: 'Plain',    right: 'Technical',   pos: 20, note: 'Plain by default. Jargon translated the moment it appears.' },
-                  ] as { left: string; right: string; pos: number; note: string }[]).map(({ left, right, pos, note }, i, arr) => (
-                    <div key={left} style={{ marginBottom: i < arr.length - 1 ? 20 : 0 }}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-                        <span style={{ fontSize: 12, color: 'var(--color-warm-muted)', fontFamily: SANS, width: 76, textAlign: 'right', flexShrink: 0, letterSpacing: '0.02em' }}>{left}</span>
-                        <div style={{ flex: 1, position: 'relative', height: 1, background: 'var(--color-warm-border)', minWidth: 0 }}>
-                          <div style={{
-                            position: 'absolute',
-                            left: `${pos}%`,
-                            top: '50%',
-                            transform: 'translate(-50%, -50%)',
-                            width: 10, height: 10,
-                            borderRadius: '50%',
-                            background: 'var(--color-warm-accent)',
-                            boxShadow: '0 0 0 3px rgba(224,145,126,0.2)',
-                          }} />
-                        </div>
-                        <span style={{ fontSize: 12, color: 'var(--color-warm-muted)', fontFamily: SANS, width: 76, flexShrink: 0, letterSpacing: '0.02em' }}>{right}</span>
+                  ] as { left: string; right: string; pos: number; note: string }[]).map(({ left, right, pos }, i, arr) => (
+                    <div key={left} style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: i < arr.length - 1 ? 20 : 0 }}>
+                      <span style={{ fontSize: 12, color: 'var(--color-warm-muted)', fontFamily: SANS, width: 76, textAlign: 'right', flexShrink: 0, letterSpacing: '0.02em' }}>{left}</span>
+                      <div style={{ flex: 1, position: 'relative', height: 1, background: 'var(--color-warm-border)', minWidth: 0 }}>
+                        <div style={{
+                          position: 'absolute',
+                          left: `${pos}%`,
+                          top: '50%',
+                          transform: 'translate(-50%, -50%)',
+                          width: 10, height: 10,
+                          borderRadius: '50%',
+                          background: 'var(--color-warm-accent)',
+                          boxShadow: '0 0 0 3px rgba(224,145,126,0.2)',
+                        }} />
                       </div>
-                      <p style={{ fontSize: 12, color: 'var(--color-warm-muted)', fontFamily: SANS, marginTop: 5, paddingLeft: 88, lineHeight: 1.5, fontStyle: 'italic' }}>{note}</p>
+                      <span style={{ fontSize: 12, color: 'var(--color-warm-muted)', fontFamily: SANS, width: 76, flexShrink: 0, letterSpacing: '0.02em' }}>{right}</span>
                     </div>
                   ))}
                 </div>

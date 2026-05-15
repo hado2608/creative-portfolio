@@ -47,7 +47,7 @@ const labelStyle: React.CSSProperties = {
 }
 
 const bodyStyle: React.CSSProperties = {
-  fontSize: 18,
+  fontSize: 16,
   lineHeight: 1.75,
   color: 'var(--color-warm-body)',
   letterSpacing: '0.02em',
