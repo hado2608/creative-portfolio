@@ -451,17 +451,126 @@ export default function MatchaBotPage() {
               product and respects your time. Knowledgeable, not chatty.
             </p>
 
-            <VisualBlock
-              label="Figma: personality chart — Uzi's tone sliders (formal ↔ casual, brief ↔ expressive) and character do's and don'ts"
-              caption="Uzi's personality chart: the axes that shaped every script decision."
-              aspect="4/3"
-            />
+            {/* Character design table */}
+            <div style={{ marginTop: 32, border: '1px solid var(--color-warm-border)', borderRadius: 8, overflow: 'hidden' }}>
 
-            <VisualBlock
-              label="Figma: Uzi voice samples — 2–3 example utterances showing personality in action (e.g. greeting, out-of-stock, confirmation)"
-              caption="Personality expressed through script: how the same information sounds in Uzi's voice versus a generic bot."
-              aspect="16/5"
-            />
+              {/* Character Traits */}
+              <div style={{ display: 'grid', gridTemplateColumns: '140px 1fr', borderBottom: '1px solid var(--color-warm-border)' }}>
+                <div style={{ padding: '20px 24px', borderRight: '1px solid var(--color-warm-border)' }}>
+                  <span style={{ fontSize: 13, color: 'var(--color-warm-muted)', fontFamily: SANS, lineHeight: 1.6 }}>Character Traits</span>
+                </div>
+                <div style={{ padding: '20px 24px', display: 'flex', flexWrap: 'wrap', gap: 8, alignItems: 'center', minWidth: 0 }}>
+                  {['Knowledgeable', 'Calm', 'Warm', 'Brief', 'Measured'].map(trait => (
+                    <span key={trait} style={{
+                      border: '1px solid var(--color-warm-accent)',
+                      color: 'var(--color-warm-accent)',
+                      borderRadius: 20,
+                      padding: '4px 14px',
+                      fontSize: 13,
+                      fontFamily: SANS,
+                    }}>
+                      {trait}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              {/* Tone sliders */}
+              <div style={{ display: 'grid', gridTemplateColumns: '140px 1fr', borderBottom: '1px solid var(--color-warm-border)' }}>
+                <div style={{ padding: '20px 24px', borderRight: '1px solid var(--color-warm-border)' }}>
+                  <span style={{ fontSize: 13, color: 'var(--color-warm-muted)', fontFamily: SANS }}>Tone</span>
+                </div>
+                <div style={{ padding: '20px 24px', minWidth: 0 }}>
+                  {([
+                    { left: 'Formal',   right: 'Casual',      pos: 35, note: 'Conversational, not stiff. Never slangy.' },
+                    { left: 'Brief',    right: 'Expressive',  pos: 20, note: 'Short turns. One question at a time.' },
+                    { left: 'Serious',  right: 'Playful',     pos: 30, note: 'Light warmth. Not a personality, a posture.' },
+                    { left: 'Reserved', right: 'Enthusiastic',pos: 25, note: 'Measured. Enthusiasm is earned, not performed.' },
+                    { left: 'Plain',    right: 'Technical',   pos: 20, note: 'Plain by default. Jargon translated the moment it appears.' },
+                  ] as { left: string; right: string; pos: number; note: string }[]).map(({ left, right, pos, note }, i, arr) => (
+                    <div key={left} style={{ marginBottom: i < arr.length - 1 ? 20 : 0 }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                        <span style={{ fontSize: 12, color: 'var(--color-warm-muted)', fontFamily: SANS, width: 76, textAlign: 'right', flexShrink: 0 }}>{left}</span>
+                        <div style={{ flex: 1, position: 'relative', height: 1, background: 'var(--color-warm-border)', minWidth: 0 }}>
+                          <div style={{
+                            position: 'absolute',
+                            left: `${pos}%`,
+                            top: '50%',
+                            transform: 'translate(-50%, -50%)',
+                            width: 10, height: 10,
+                            borderRadius: '50%',
+                            background: 'var(--color-warm-accent)',
+                            boxShadow: '0 0 0 3px rgba(224,145,126,0.2)',
+                          }} />
+                        </div>
+                        <span style={{ fontSize: 12, color: 'var(--color-warm-muted)', fontFamily: SANS, width: 76, flexShrink: 0 }}>{right}</span>
+                      </div>
+                      <p style={{ fontSize: 12, color: 'var(--color-warm-muted)', fontFamily: SANS, marginTop: 5, paddingLeft: 88, lineHeight: 1.5, fontStyle: 'italic' }}>{note}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Key Behaviours */}
+              <div style={{ display: 'grid', gridTemplateColumns: '140px 1fr' }}>
+                <div style={{ padding: '20px 24px', borderRight: '1px solid var(--color-warm-border)' }}>
+                  <span style={{ fontSize: 13, color: 'var(--color-warm-muted)', fontFamily: SANS, lineHeight: 1.6 }}>Key Behaviours</span>
+                </div>
+                <div style={{ padding: '20px 24px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0 32px', minWidth: 0 }}>
+                  <div>
+                    <p style={{ fontSize: 11, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--color-warm-accent)', fontFamily: SANS, marginBottom: 12, fontWeight: 600 }}>Do</p>
+                    <ul style={{ paddingLeft: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 8 }}>
+                      {['Translate jargon inline.', 'Ask one thing at a time.', 'Confirm, then move on.', 'Acknowledge briefly. "Got it." "Nice pick."', 'Offer a next step when the user stalls.', "Match the user's pace."].map(item => (
+                        <li key={item} style={{ fontSize: 13, color: 'var(--color-warm-body)', fontFamily: SANS, lineHeight: 1.5, display: 'flex', gap: 8 }}>
+                          <span style={{ color: 'var(--color-warm-accent)', flexShrink: 0 }}>+</span>{item}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div>
+                    <p style={{ fontSize: 11, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--color-warm-muted)', fontFamily: SANS, marginBottom: 12, fontWeight: 600 }}>Don&apos;t</p>
+                    <ul style={{ paddingLeft: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 8 }}>
+                      {['No mascot voice.', 'No sommelier monologues.', 'No unsolicited education.', 'No filler turns.', 'No apologizing for non-errors.', 'No second upsell.'].map(item => (
+                        <li key={item} style={{ fontSize: 13, color: 'var(--color-warm-body)', fontFamily: SANS, lineHeight: 1.5, display: 'flex', gap: 8 }}>
+                          <span style={{ color: 'var(--color-warm-muted)', flexShrink: 0 }}>−</span>{item}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Sample lines table */}
+            <div style={{ marginTop: 20, border: '1px solid var(--color-warm-border)', borderRadius: 8, overflow: 'hidden' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: '160px 1fr', background: '#f5f4f2', borderBottom: '1px solid var(--color-warm-border)' }}>
+                <div style={{ padding: '10px 20px', borderRight: '1px solid var(--color-warm-border)' }}>
+                  <span style={{ fontSize: 11, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--color-warm-muted)', fontFamily: SANS, fontWeight: 600 }}>Moment</span>
+                </div>
+                <div style={{ padding: '10px 20px' }}>
+                  <span style={{ fontSize: 11, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--color-warm-muted)', fontFamily: SANS, fontWeight: 600 }}>Uzi says</span>
+                </div>
+              </div>
+              {([
+                { moment: 'Greeting',            line: 'Hi. What are we making today?' },
+                { moment: "Didn't catch input",  line: 'Sorry — drink, wholesale, or membership?' },
+                { moment: 'Suggestion',          line: 'Want a wagashi? Pairs with the koicha.' },
+                { moment: 'Confirmation',        line: 'Matcha latte, oat, large. Sound right?' },
+                { moment: 'Close',               line: "Order's in. Three minutes." },
+              ] as { moment: string; line: string }[]).map(({ moment, line }, i, arr) => (
+                <div key={moment} style={{ display: 'grid', gridTemplateColumns: '160px 1fr', borderBottom: i < arr.length - 1 ? '1px solid var(--color-warm-border)' : 'none' }}>
+                  <div style={{ padding: '14px 20px', borderRight: '1px solid var(--color-warm-border)' }}>
+                    <span style={{ fontSize: 13, color: 'var(--color-warm-muted)', fontFamily: SANS }}>{moment}</span>
+                  </div>
+                  <div style={{ padding: '14px 20px' }}>
+                    <span style={{ fontSize: 14, color: 'var(--color-warm-body)', fontFamily: SANS, letterSpacing: '0.02em', fontStyle: 'italic' }}>&ldquo;{line}&rdquo;</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <p style={{ fontSize: 13, color: 'var(--color-warm-muted)', marginTop: 10, marginBottom: 0, fontFamily: SANS, lineHeight: 1.5 }}>
+              Tone axes and sample lines that shaped every script decision.
+            </p>
           </section>
 
           {/* ── CONVERSATION FLOW ── */}
