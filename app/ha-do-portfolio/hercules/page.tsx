@@ -47,9 +47,10 @@ const labelStyle: React.CSSProperties = {
 }
 
 const bodyStyle: React.CSSProperties = {
-  fontSize: 16,
+  fontSize: 18,
   lineHeight: 1.75,
   color: 'var(--color-warm-body)',
+  letterSpacing: '0.02em',
 }
 
 // ── Reusable components ───────────────────────────────────────────────────────

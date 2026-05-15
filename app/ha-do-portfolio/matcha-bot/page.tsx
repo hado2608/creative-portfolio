@@ -39,7 +39,7 @@ const SERIF = "'Recoleta', Georgia, serif"
 const SANS  = "'Neue Montreal', sans-serif"
 
 const BODY: React.CSSProperties = {
-  fontSize: 16,
+  fontSize: 18,
   lineHeight: 1.75,
   fontFamily: SANS,
   letterSpacing: '0.02em',
@@ -457,7 +457,7 @@ export default function MatchaBotPage() {
               {/* Character Traits */}
               <div style={{ display: 'grid', gridTemplateColumns: '140px 1fr', borderBottom: '1px solid var(--color-warm-border)' }}>
                 <div style={{ padding: '20px 24px', borderRight: '1px solid var(--color-warm-border)' }}>
-                  <span style={{ fontSize: 13, color: 'var(--color-warm-muted)', fontFamily: SANS, lineHeight: 1.6 }}>Character Traits</span>
+                  <span style={{ fontSize: 13, color: 'var(--color-warm-muted)', fontFamily: SANS, lineHeight: 1.6, letterSpacing: '0.02em' }}>Character Traits</span>
                 </div>
                 <div style={{ padding: '20px 24px', display: 'flex', flexWrap: 'wrap', gap: 8, alignItems: 'center', minWidth: 0 }}>
                   {['Knowledgeable', 'Calm', 'Warm', 'Brief', 'Measured'].map(trait => (
@@ -478,7 +478,7 @@ export default function MatchaBotPage() {
               {/* Tone sliders */}
               <div style={{ display: 'grid', gridTemplateColumns: '140px 1fr', borderBottom: '1px solid var(--color-warm-border)' }}>
                 <div style={{ padding: '20px 24px', borderRight: '1px solid var(--color-warm-border)' }}>
-                  <span style={{ fontSize: 13, color: 'var(--color-warm-muted)', fontFamily: SANS }}>Tone</span>
+                  <span style={{ fontSize: 13, color: 'var(--color-warm-muted)', fontFamily: SANS, letterSpacing: '0.02em' }}>Tone</span>
                 </div>
                 <div style={{ padding: '20px 24px', minWidth: 0 }}>
                   {([
@@ -490,7 +490,7 @@ export default function MatchaBotPage() {
                   ] as { left: string; right: string; pos: number; note: string }[]).map(({ left, right, pos, note }, i, arr) => (
                     <div key={left} style={{ marginBottom: i < arr.length - 1 ? 20 : 0 }}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-                        <span style={{ fontSize: 12, color: 'var(--color-warm-muted)', fontFamily: SANS, width: 76, textAlign: 'right', flexShrink: 0 }}>{left}</span>
+                        <span style={{ fontSize: 12, color: 'var(--color-warm-muted)', fontFamily: SANS, width: 76, textAlign: 'right', flexShrink: 0, letterSpacing: '0.02em' }}>{left}</span>
                         <div style={{ flex: 1, position: 'relative', height: 1, background: 'var(--color-warm-border)', minWidth: 0 }}>
                           <div style={{
                             position: 'absolute',
@@ -503,7 +503,7 @@ export default function MatchaBotPage() {
                             boxShadow: '0 0 0 3px rgba(224,145,126,0.2)',
                           }} />
                         </div>
-                        <span style={{ fontSize: 12, color: 'var(--color-warm-muted)', fontFamily: SANS, width: 76, flexShrink: 0 }}>{right}</span>
+                        <span style={{ fontSize: 12, color: 'var(--color-warm-muted)', fontFamily: SANS, width: 76, flexShrink: 0, letterSpacing: '0.02em' }}>{right}</span>
                       </div>
                       <p style={{ fontSize: 12, color: 'var(--color-warm-muted)', fontFamily: SANS, marginTop: 5, paddingLeft: 88, lineHeight: 1.5, fontStyle: 'italic' }}>{note}</p>
                     </div>
@@ -514,14 +514,14 @@ export default function MatchaBotPage() {
               {/* Key Behaviours */}
               <div style={{ display: 'grid', gridTemplateColumns: '140px 1fr' }}>
                 <div style={{ padding: '20px 24px', borderRight: '1px solid var(--color-warm-border)' }}>
-                  <span style={{ fontSize: 13, color: 'var(--color-warm-muted)', fontFamily: SANS, lineHeight: 1.6 }}>Key Behaviours</span>
+                  <span style={{ fontSize: 13, color: 'var(--color-warm-muted)', fontFamily: SANS, lineHeight: 1.6, letterSpacing: '0.02em' }}>Key Behaviours</span>
                 </div>
                 <div style={{ padding: '20px 24px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0 32px', minWidth: 0 }}>
                   <div>
                     <p style={{ fontSize: 11, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--color-warm-accent)', fontFamily: SANS, marginBottom: 12, fontWeight: 600 }}>Do</p>
                     <ul style={{ paddingLeft: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 8 }}>
                       {['Translate jargon inline.', 'Ask one thing at a time.', 'Confirm, then move on.', 'Acknowledge briefly. "Got it." "Nice pick."', 'Offer a next step when the user stalls.', "Match the user's pace."].map(item => (
-                        <li key={item} style={{ fontSize: 13, color: 'var(--color-warm-body)', fontFamily: SANS, lineHeight: 1.5, display: 'flex', gap: 8 }}>
+                        <li key={item} style={{ fontSize: 13, color: 'var(--color-warm-body)', fontFamily: SANS, lineHeight: 1.5, display: 'flex', gap: 8, letterSpacing: '0.02em' }}>
                           <span style={{ color: 'var(--color-warm-accent)', flexShrink: 0 }}>+</span>{item}
                         </li>
                       ))}
@@ -531,7 +531,7 @@ export default function MatchaBotPage() {
                     <p style={{ fontSize: 11, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--color-warm-muted)', fontFamily: SANS, marginBottom: 12, fontWeight: 600 }}>Don&apos;t</p>
                     <ul style={{ paddingLeft: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 8 }}>
                       {['No mascot voice.', 'No sommelier monologues.', 'No unsolicited education.', 'No filler turns.', 'No apologizing for non-errors.', 'No second upsell.'].map(item => (
-                        <li key={item} style={{ fontSize: 13, color: 'var(--color-warm-body)', fontFamily: SANS, lineHeight: 1.5, display: 'flex', gap: 8 }}>
+                        <li key={item} style={{ fontSize: 13, color: 'var(--color-warm-body)', fontFamily: SANS, lineHeight: 1.5, display: 'flex', gap: 8, letterSpacing: '0.02em' }}>
                           <span style={{ color: 'var(--color-warm-muted)', flexShrink: 0 }}>−</span>{item}
                         </li>
                       ))}
@@ -553,14 +553,14 @@ export default function MatchaBotPage() {
               </div>
               {([
                 { moment: 'Greeting',            line: 'Hi. What are we making today?' },
-                { moment: "Didn't catch input",  line: 'Sorry — drink, wholesale, or membership?' },
+                { moment: "Didn't catch input",  line: 'Sorry, drink, wholesale, or membership?' },
                 { moment: 'Suggestion',          line: 'Want a wagashi? Pairs with the koicha.' },
                 { moment: 'Confirmation',        line: 'Matcha latte, oat, large. Sound right?' },
                 { moment: 'Close',               line: "Order's in. Three minutes." },
               ] as { moment: string; line: string }[]).map(({ moment, line }, i, arr) => (
                 <div key={moment} style={{ display: 'grid', gridTemplateColumns: '160px 1fr', borderBottom: i < arr.length - 1 ? '1px solid var(--color-warm-border)' : 'none' }}>
                   <div style={{ padding: '14px 20px', borderRight: '1px solid var(--color-warm-border)' }}>
-                    <span style={{ fontSize: 13, color: 'var(--color-warm-muted)', fontFamily: SANS }}>{moment}</span>
+                    <span style={{ fontSize: 13, color: 'var(--color-warm-muted)', fontFamily: SANS, letterSpacing: '0.02em' }}>{moment}</span>
                   </div>
                   <div style={{ padding: '14px 20px' }}>
                     <span style={{ fontSize: 14, color: 'var(--color-warm-body)', fontFamily: SANS, letterSpacing: '0.02em', fontStyle: 'italic' }}>&ldquo;{line}&rdquo;</span>
@@ -568,7 +568,7 @@ export default function MatchaBotPage() {
                 </div>
               ))}
             </div>
-            <p style={{ fontSize: 13, color: 'var(--color-warm-muted)', marginTop: 10, marginBottom: 0, fontFamily: SANS, lineHeight: 1.5 }}>
+            <p style={{ fontSize: 13, color: 'var(--color-warm-muted)', marginTop: 10, marginBottom: 0, fontFamily: SANS, lineHeight: 1.5, letterSpacing: '0.02em' }}>
               Tone axes and sample lines that shaped every script decision.
             </p>
           </section>
@@ -601,7 +601,7 @@ export default function MatchaBotPage() {
                   style={{ width: '100%', height: 'auto', display: 'block' }}
                 />
               </div>
-              <p style={{ fontSize: 13, color: 'var(--color-warm-muted)', marginTop: 10, marginBottom: 32, fontFamily: SANS, lineHeight: 1.5 }}>
+              <p style={{ fontSize: 13, color: 'var(--color-warm-muted)', marginTop: 10, marginBottom: 32, fontFamily: SANS, lineHeight: 1.5, letterSpacing: '0.02em' }}>
                 Full conversation flowchart. Gray branches are error and recovery paths.
               </p>
             </div>
@@ -652,7 +652,7 @@ export default function MatchaBotPage() {
                     style={{ width: '100%', height: 'auto', display: 'block' }}
                   />
                 </div>
-                <p style={{ fontSize: 13, color: 'var(--color-warm-muted)', marginTop: 10, marginBottom: 32, fontFamily: SANS, lineHeight: 1.5 }}>
+                <p style={{ fontSize: 13, color: 'var(--color-warm-muted)', marginTop: 10, marginBottom: 32, fontFamily: SANS, lineHeight: 1.5, letterSpacing: '0.02em' }}>
                   The MVP flow: wholesale ordering end-to-end, chosen because it exercises every layer of the system.
                 </p>
               </div>
@@ -677,7 +677,7 @@ export default function MatchaBotPage() {
                   alt="Comparison: 4+ options cluttered and tab-focused vs. 2 options clean and voice-first"
                   style={{ width: '100%', height: 'auto', display: 'block', borderRadius: 8 }}
                 />
-                <p style={{ fontSize: 13, color: 'var(--color-warm-muted)', marginTop: 10, marginBottom: 32, fontFamily: SANS, lineHeight: 1.5 }}>
+                <p style={{ fontSize: 13, color: 'var(--color-warm-muted)', marginTop: 10, marginBottom: 32, fontFamily: SANS, lineHeight: 1.5, letterSpacing: '0.02em' }}>
                   The difference a single structural rule makes: voice-first vs. tap-first interface feel.
                 </p>
               </div>
@@ -703,7 +703,7 @@ export default function MatchaBotPage() {
                   style={{ width: '100%', height: 'auto', display: 'block' }}
                 />
               </div>
-              <p style={{ fontSize: 13, color: 'var(--color-warm-muted)', marginTop: 10, marginBottom: 32, fontFamily: SANS, lineHeight: 1.5 }}>
+              <p style={{ fontSize: 13, color: 'var(--color-warm-muted)', marginTop: 10, marginBottom: 32, fontFamily: SANS, lineHeight: 1.5, letterSpacing: '0.02em' }}>
                 Four distinct states, each with a visual and audio signal. Designed so neither channel depends on the other.
               </p>
             </SubSection>
@@ -726,7 +726,7 @@ export default function MatchaBotPage() {
                   alt="Four iterations of the results display, from list to final 2-card layout"
                   style={{ width: '100%', height: 'auto', display: 'block', borderRadius: 8 }}
                 />
-                <p style={{ fontSize: 13, color: 'var(--color-warm-muted)', marginTop: 10, marginBottom: 32, fontFamily: SANS, lineHeight: 1.5 }}>
+                <p style={{ fontSize: 13, color: 'var(--color-warm-muted)', marginTop: 10, marginBottom: 32, fontFamily: SANS, lineHeight: 1.5, letterSpacing: '0.02em' }}>
                   Results display: from list (form-like, scan-first) to cards (decision-like, voice-compatible).
                 </p>
               </div>
