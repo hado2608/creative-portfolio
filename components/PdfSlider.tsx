@@ -78,7 +78,6 @@ export default function PdfSlider({ file }: { file: string }) {
             renderTextLayer={false}
             renderAnnotationLayer={false}
             canvasBackground="transparent"
-            style={{ width: '100%', display: 'block' }}
           />
         </Document>
 
