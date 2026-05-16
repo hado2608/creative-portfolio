@@ -39,7 +39,7 @@ const SERIF = "'Recoleta', Georgia, serif"
 const SANS  = "'Neue Montreal', sans-serif"
 
 const BODY: React.CSSProperties = {
-  fontSize: 16,
+  fontSize: 18,
   lineHeight: 1.75,
   fontFamily: SANS,
   letterSpacing: '0.02em',
@@ -168,28 +168,25 @@ function SideNavItem({ item, active }: { item: typeof NAV_ITEMS[0]; active: stri
         style={{
           display: 'flex',
           alignItems: 'center',
-          gap: 8,
-          fontSize: 11,
+          gap: 10,
+          fontSize: 12,
           letterSpacing: '0.12em',
           textTransform: 'uppercase',
-          fontFamily: SANS,
+          fontFamily: "'Neue Montreal', sans-serif",
           background: 'none',
           border: 'none',
           cursor: 'pointer',
           padding: 0,
-          color: isActive ? 'var(--color-warm-text)' : 'var(--color-warm-muted)',
-          fontWeight: isActive ? 600 : 500,
-          transition: 'color 200ms',
+          color: 'rgba(40,40,40,0.5)',
+          fontWeight: isActive ? 700 : 500,
+          lineHeight: 1.2,
+          transition: 'font-weight 150ms',
           textAlign: 'left',
-          lineHeight: 1.4,
         }}
       >
-        <span style={{
-          display: 'inline-block',
-          width: 16,
-          flexShrink: 0,
-          color: isActive ? 'var(--color-warm-accent)' : 'transparent',
-        }}>—</span>
+        <svg width="26" height="4" viewBox="0 0 26 4" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ flexShrink: 0, transition: 'opacity 150ms' }}>
+          <path d="M0 0H25.9151L24 4H0V0Z" fill={isActive ? 'var(--color-warm-accent)' : 'transparent'} />
+        </svg>
         {item.label}
       </button>
     </li>
@@ -223,17 +220,17 @@ export default function MatchaBotPage() {
       <CaseStudyNav nextHref="/ha-do-portfolio/gamesense" nextLabel="Next case study" />
 
       {/* ── HERO ── */}
-      <header style={{ ...CENTERED, height: '100vh', paddingTop: 80, paddingBottom: 0, display: 'flex', flexDirection: 'column' }}>
+      <header style={{ ...CENTERED, paddingTop: 80 }}>
 
         {/* Hero video */}
-        <div style={{ flex: 1, minHeight: 0, borderRadius: 8, overflow: 'hidden', marginBottom: 40 }}>
+        <div style={{ borderRadius: 8, overflow: 'hidden', marginBottom: 40 }}>
           <video
             src="/assets/matcha-bot-hero.mov"
             autoPlay
             muted
             loop
             playsInline
-            style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+            style={{ width: '100%', height: 'auto', display: 'block' }}
           />
         </div>
 
@@ -248,10 +245,10 @@ export default function MatchaBotPage() {
           <div>
             <h1 style={{
               fontFamily: SERIF,
-              fontWeight: 500,
-              fontSize: 'clamp(36px, 5vw, 72px)',
+              fontWeight: 400,
+              fontSize: 80,
               letterSpacing: '-0.02em',
-              lineHeight: 1.1,
+              lineHeight: 1.05,
               color: 'var(--color-warm-text)',
               marginBottom: 20,
             }}>
@@ -273,15 +270,15 @@ export default function MatchaBotPage() {
                 <p style={{
                   fontFamily: SANS,
                   fontWeight: 700,
-                  fontSize: 11,
-                  letterSpacing: '0.1em',
-                  textTransform: 'uppercase',
+                  fontSize: 18,
+                  letterSpacing: '0.02em',
+                  lineHeight: 1.75,
                   color: 'var(--color-warm-text)',
-                  marginBottom: 6,
+                  marginBottom: 2,
                 }}>
                   {label}
                 </p>
-                <p style={{ fontSize: 14, color: 'var(--color-warm-body)', fontFamily: SANS, letterSpacing: '0.02em' }}>
+                <p style={{ fontFamily: SANS, fontSize: 18, letterSpacing: '0.02em', lineHeight: 1.75, color: 'var(--color-warm-body)' }}>
                   {value}
                 </p>
               </div>
