@@ -173,27 +173,16 @@ function SideNavItem({ item, active }: { item: typeof NAV_ITEMS[0]; active: stri
           border: 'none',
           cursor: 'pointer',
           padding: 0,
-          color: '#282828',
+          color: isActive ? '#282828' : 'rgba(40,40,40,0.5)',
           fontWeight: isActive ? 700 : 500,
           lineHeight: 1.2,
           transition: 'font-weight 150ms',
           textAlign: 'left',
         }}
       >
-        <span style={{
-          display: 'inline-block',
-          width: 26,
-          height: 4,
-          flexShrink: 0,
-          maskImage: "url('/assets/template/nav-retangle.svg')",
-          WebkitMaskImage: "url('/assets/template/nav-retangle.svg')",
-          maskSize: 'contain',
-          WebkitMaskSize: 'contain',
-          maskRepeat: 'no-repeat',
-          WebkitMaskRepeat: 'no-repeat',
-          backgroundColor: isActive ? '#5A77DF' : 'transparent',
-          transition: 'background-color 150ms',
-        }} />
+        <svg width="26" height="4" viewBox="0 0 26 4" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ flexShrink: 0, transition: 'opacity 150ms' }}>
+          <path d="M0 0H25.9151L24 4H0V0Z" fill={isActive ? '#5A77DF' : 'transparent'} />
+        </svg>
         {item.label}
       </button>
     </li>
