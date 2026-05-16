@@ -73,12 +73,12 @@ function VisualBlock({ label, caption, aspect = '16/9' }: { label: string; capti
 function StatCard({ title, items }: { title: string; items: string[] }) {
   return (
     <div style={{ background: '#fff', borderRadius: 8, padding: '28px 32px', borderTop: '3px solid var(--color-warm-accent)' }}>
-      <p style={{ fontFamily: SANS, fontWeight: 600, fontSize: 12, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--color-warm-text)', marginBottom: 20 }}>
+      <p style={{ fontFamily: SANS, fontWeight: 700, fontSize: 18, letterSpacing: '0.02em', color: 'var(--color-warm-text)', marginBottom: 20, lineHeight: 1.75 }}>
         {title}
       </p>
       <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 12 }}>
         {items.map((item, i) => (
-          <li key={i} style={{ display: 'flex', gap: 12, alignItems: 'flex-start', fontSize: 15, lineHeight: 1.6, color: 'var(--color-warm-text)', letterSpacing: '0.02em', fontFamily: SANS }}>
+          <li key={i} style={{ display: 'flex', gap: 12, alignItems: 'flex-start', fontSize: 18, lineHeight: 1.75, color: 'var(--color-warm-body)', letterSpacing: '0.02em', fontFamily: SANS }}>
             <span style={{ color: 'var(--color-warm-accent)', flexShrink: 0, marginTop: 2 }}>—</span>
             {item}
           </li>
@@ -164,8 +164,8 @@ function SideNavItem({ item, active }: { item: typeof NAV_ITEMS[0]; active: stri
         style={{
           display: 'flex',
           alignItems: 'center',
-          gap: 8,
-          fontSize: 11,
+          gap: 10,
+          fontSize: 12,
           letterSpacing: '0.12em',
           textTransform: 'uppercase',
           fontFamily: SANS,
@@ -173,14 +173,27 @@ function SideNavItem({ item, active }: { item: typeof NAV_ITEMS[0]; active: stri
           border: 'none',
           cursor: 'pointer',
           padding: 0,
-          color: isActive ? 'var(--color-warm-text)' : 'var(--color-warm-muted)',
-          fontWeight: isActive ? 600 : 500,
-          transition: 'color 200ms',
+          color: '#282828',
+          fontWeight: isActive ? 700 : 500,
+          lineHeight: 1.2,
+          transition: 'font-weight 150ms',
           textAlign: 'left',
-          lineHeight: 1.4,
         }}
       >
-        <span style={{ display: 'inline-block', width: 16, flexShrink: 0, color: isActive ? 'var(--color-warm-accent)' : 'transparent' }}>—</span>
+        <span style={{
+          display: 'inline-block',
+          width: 26,
+          height: 4,
+          flexShrink: 0,
+          maskImage: "url('/assets/template/nav-retangle.svg')",
+          WebkitMaskImage: "url('/assets/template/nav-retangle.svg')",
+          maskSize: 'contain',
+          WebkitMaskSize: 'contain',
+          maskRepeat: 'no-repeat',
+          WebkitMaskRepeat: 'no-repeat',
+          backgroundColor: isActive ? '#5A77DF' : 'transparent',
+          transition: 'background-color 150ms',
+        }} />
         {item.label}
       </button>
     </li>
@@ -210,26 +223,26 @@ export default function HerculesPage() {
       <CaseStudyNav nextHref="/ha-do-portfolio/matcha-bot" nextLabel="Next case study" />
 
       {/* ── HERO ── */}
-      <header style={{ ...CENTERED, height: '100vh', paddingTop: 80, paddingBottom: 0, display: 'flex', flexDirection: 'column' }}>
+      <header style={{ ...CENTERED, paddingTop: 80, paddingBottom: 0 }}>
 
-        <div style={{ flex: 1, minHeight: 0, borderRadius: 8, overflow: 'hidden', marginBottom: 40 }}>
+        <div style={{ borderRadius: 8, overflow: 'hidden', marginBottom: 40 }}>
           <img
             src="/assets/hercules-hero.png"
             alt="Hercules UI Kit"
-            style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+            style={{ width: '100%', display: 'block' }}
           />
         </div>
 
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 80, paddingBottom: 56, borderBottom: '1px solid var(--color-warm-border)' }}>
           <div>
-            <h1 style={{ fontFamily: SERIF, fontWeight: 500, fontSize: 'clamp(36px, 5vw, 72px)', letterSpacing: '-0.02em', lineHeight: 1.1, color: 'var(--color-warm-text)', marginBottom: 16 }}>
+            <h1 style={{ fontFamily: SERIF, fontWeight: 400, fontSize: 80, letterSpacing: '-0.02em', lineHeight: 1.05, color: 'var(--color-warm-text)', marginBottom: 16 }}>
               Hercules
             </h1>
-            <p style={{ fontFamily: SANS, fontSize: 16, lineHeight: 1.75, color: 'var(--color-warm-body)', letterSpacing: '0.02em' }}>
+            <p style={{ ...bodyStyle, color: 'var(--color-warm-body)' }}>
               An unofficial design system for ClassPass — building the foundation that lets the product grow stronger.
             </p>
           </div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 28, justifyContent: 'flex-end' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 20, justifyContent: 'flex-end' }}>
             {[
               { label: 'Role',     value: 'Systems Designer — Typography lead' },
               { label: 'Timeline', value: 'One semester' },
@@ -237,8 +250,8 @@ export default function HerculesPage() {
               { label: 'Tools',    value: 'Figma · Zeroheight' },
             ].map(({ label, value }) => (
               <div key={label}>
-                <p style={{ fontFamily: SANS, fontWeight: 700, fontSize: 11, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--color-warm-text)', marginBottom: 6 }}>{label}</p>
-                <p style={{ fontSize: 14, color: 'var(--color-warm-body)', letterSpacing: '0.02em', fontFamily: SANS }}>{value}</p>
+                <p style={{ ...bodyStyle, fontWeight: 700, color: 'var(--color-warm-text)', marginBottom: 2 }}>{label}</p>
+                <p style={{ ...bodyStyle, color: 'var(--color-warm-body)' }}>{value}</p>
               </div>
             ))}
           </div>
