@@ -173,7 +173,7 @@ function SideNavItem({ item, active }: { item: typeof NAV_ITEMS[0]; active: stri
           border: 'none',
           cursor: 'pointer',
           padding: 0,
-          color: isActive ? '#282828' : 'rgba(40,40,40,0.5)',
+          color: 'rgba(40,40,40,0.5)',
           fontWeight: isActive ? 700 : 500,
           lineHeight: 1.2,
           transition: 'font-weight 150ms',
