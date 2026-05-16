@@ -32,6 +32,7 @@ const h2Style: React.CSSProperties = {
   fontSize: 'clamp(28px, 3.5vw, 40px)',
   fontWeight: 500,
   lineHeight: 1.2,
+  letterSpacing: '-0.01em',
   color: 'var(--color-warm-text)',
   marginBottom: 8,
 }
@@ -47,7 +48,7 @@ const labelStyle: React.CSSProperties = {
 }
 
 const bodyStyle: React.CSSProperties = {
-  fontSize: 16,
+  fontSize: 18,
   lineHeight: 1.75,
   color: 'var(--color-warm-body)',
   letterSpacing: '0.02em',
@@ -440,7 +441,7 @@ export default function HerculesPage() {
             </div>
 
             <div style={{ borderTop: '1px solid var(--color-warm-border)', paddingTop: 48, marginTop: 48 }}>
-                      <h3 style={{ fontFamily: SERIF, fontWeight: 500, fontSize: 22, color: 'var(--color-warm-text)', marginBottom: 16, lineHeight: 1.3 }}>
+                      <h3 style={{ fontFamily: SERIF, fontWeight: 500, fontSize: 22, letterSpacing: '-0.01em', color: 'var(--color-warm-text)', marginBottom: 16, lineHeight: 1.3 }}>
                 Component vs. component group
               </h3>
               <p style={{ ...bodyStyle, marginBottom: 24 }}>
@@ -521,7 +522,7 @@ export default function HerculesPage() {
             <BrowserFrame label="Zeroheight documentation — component page" />
 
             <div style={{ marginTop: 48, borderTop: '1px solid var(--color-warm-border)', paddingTop: 40 }}>
-              <h3 style={{ fontFamily: SERIF, fontWeight: 500, fontSize: 22, color: 'var(--color-warm-text)', marginBottom: 16, lineHeight: 1.3 }}>
+              <h3 style={{ fontFamily: SERIF, fontWeight: 500, fontSize: 22, letterSpacing: '-0.01em', color: 'var(--color-warm-text)', marginBottom: 16, lineHeight: 1.3 }}>
                 Contribution model
               </h3>
               <p style={{ ...bodyStyle, marginBottom: 24 }}>
