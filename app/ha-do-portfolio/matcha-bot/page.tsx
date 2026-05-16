@@ -185,7 +185,7 @@ function SideNavItem({ item, active }: { item: typeof NAV_ITEMS[0]; active: stri
         }}
       >
         <svg width="26" height="4" viewBox="0 0 26 4" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ flexShrink: 0, transition: 'opacity 150ms' }}>
-          <path d="M0 0H25.9151L24 4H0V0Z" fill={isActive ? 'var(--color-warm-accent)' : 'transparent'} />
+          <path d="M0 0H25.9151L24 4H0V0Z" fill={isActive ? '#677850' : 'transparent'} />
         </svg>
         {item.label}
       </button>
