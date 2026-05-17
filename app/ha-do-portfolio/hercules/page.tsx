@@ -434,7 +434,7 @@ export default function HerculesPage() {
               playsInline
               style={{ width: '100%', borderRadius: 8, display: 'block', marginBottom: 8 }}
             />
-            <p style={{ fontSize: 12, color: 'var(--color-warm-muted)', marginTop: 8, marginBottom: 32, fontFamily: SANS }}>
+            <p style={{ ...bodyStyle, color: 'var(--color-warm-muted)', marginTop: 8, marginBottom: 32 }}>
               ClassPass mobile UI inventory: 10 component categories mapped in Figma
             </p>
 
@@ -443,9 +443,25 @@ export default function HerculesPage() {
               alt="ClassPass deconstruction board"
               style={{ width: '100%', borderRadius: 8, display: 'block' }}
             />
-            <p style={{ ...bodyStyle, color: 'var(--color-warm-muted)', marginTop: 10 }}>
+            <p style={{ ...bodyStyle, color: 'var(--color-warm-muted)', marginTop: 10, marginBottom: 56 }}>
               The full audit board: navigation, color, typography, media, buttons, carousels, blocks, interactive components, illustrations, and forms
             </p>
+
+            {/* Inconsistency findings */}
+            <div style={{ borderTop: '1px solid var(--color-warm-border)', paddingTop: 48 }}>
+              <p style={labelStyle}>What we found</p>
+              <h2 style={h2Style}>The inconsistencies were everywhere.</h2>
+
+              <p style={{ ...bodyStyle, marginBottom: 32 }}>
+                The audit made the problems concrete. Across buttons alone we found accessibility violations, redundant styles, and components that diverged from the visual language without explanation. The same pattern repeated across every category: designs made in isolation, with no shared rules to pull from.
+              </p>
+
+              <VisualBlock
+                label="Figma: ClassPass button audit with accessibility and inconsistency annotation callouts — screenshot from Figma and save as /assets/hercules/hercules-inconsistencies.png"
+                caption="Button audit: accessibility violations and unexpected style divergence across the ClassPass UI"
+                aspect="16/9"
+              />
+            </div>
           </section>
 
           {/* ── TOKEN SYSTEM ── */}
