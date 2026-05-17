@@ -766,17 +766,6 @@ export default function HerculesPage() {
               <FeedbackQuote quote="The visual design of the deck is amazing!" />
             </div>
 
-            <div style={{ marginTop: 32, marginBottom: 32 }}>
-              <img
-                src="/assets/hercules/hercules-team.JPG"
-                alt="The Hercules team after the final presentation"
-                style={{ width: '100%', borderRadius: 8, display: 'block' }}
-              />
-              <p style={{ ...bodyStyle, color: 'var(--color-warm-muted)', marginTop: 10 }}>
-                The Hercules team after the final presentation
-              </p>
-            </div>
-
             <p style={{ fontSize: 18, lineHeight: 1.75, color: 'var(--color-warm-muted)', fontFamily: SANS, marginTop: 24 }}>
               It is worth noting that this presentation was delivered as a course final. Classmates took on the role of ClassPass stakeholders and gave critiques on both the product and the presentation, offering perspectives on clarity, usability, and adoption.
             </p>
