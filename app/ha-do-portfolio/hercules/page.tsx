@@ -64,7 +64,7 @@ function VisualBlock({ label, caption, aspect = '16/9' }: { label: string; capti
         <span style={{ fontSize: 13, color: '#9ba3af', textAlign: 'center', padding: '0 24px', fontFamily: SANS }}>{label}</span>
       </div>
       {caption && (
-        <p style={{ fontSize: 12, color: 'var(--color-warm-muted)', marginTop: 10, fontFamily: SANS }}>
+        <p style={{ ...bodyStyle, color: 'var(--color-warm-muted)', marginTop: 10 }}>
           {caption}
         </p>
       )}
@@ -420,7 +420,7 @@ export default function HerculesPage() {
               alt="ClassPass deconstruction board"
               style={{ width: '100%', borderRadius: 8, display: 'block' }}
             />
-            <p style={{ fontSize: 12, color: 'var(--color-warm-muted)', marginTop: 10, fontFamily: SANS }}>
+            <p style={{ ...bodyStyle, color: 'var(--color-warm-muted)', marginTop: 10 }}>
               The full audit board: navigation, color, typography, media, buttons, carousels, blocks, interactive components, illustrations, and forms
             </p>
           </section>
@@ -567,7 +567,7 @@ export default function HerculesPage() {
                 alt="Ha facilitating a usability test session with the Hercules UI kit"
                 style={{ width: '100%', borderRadius: 8, display: 'block' }}
               />
-              <p style={{ fontSize: 12, color: 'var(--color-warm-muted)', marginTop: 10, fontFamily: SANS }}>
+              <p style={{ ...bodyStyle, color: 'var(--color-warm-muted)', marginTop: 10 }}>
                 Testing the Hercules UI kit with designers from our network
               </p>
             </div>
@@ -694,7 +694,7 @@ export default function HerculesPage() {
                 alt="The Hercules team after the final presentation"
                 style={{ width: '100%', borderRadius: 8, display: 'block' }}
               />
-              <p style={{ fontSize: 12, color: 'var(--color-warm-muted)', marginTop: 10, fontFamily: SANS }}>
+              <p style={{ ...bodyStyle, color: 'var(--color-warm-muted)', marginTop: 10 }}>
                 The Hercules team after the final presentation
               </p>
             </div>
@@ -783,28 +783,21 @@ export default function HerculesPage() {
             </div>
           </section>
 
-        </div>
-      </div>
-
-      {/* ── TEAM ── */}
-      <div style={{ ...CENTERED, paddingBottom: 160 }}>
-        <div style={{ borderTop: '1px solid var(--color-warm-border)', paddingTop: 80 }}>
-          <p style={labelStyle}>About the Team</p>
-          <h2 style={{ ...h2Style, marginBottom: 24 }}>Couldn&apos;t have done it without my team.</h2>
-          <p style={{ ...bodyStyle, marginBottom: 48 }}>
-            Working with Anvita, Simran, and Matthew for a full semester was both productive and genuinely fun. Everyone brought the same level of care to the work, ideas were exchanged freely, and we kept each other accountable at every stage. The strong team dynamic made the collaboration easy and the system stronger.
-          </p>
-
-          <div style={{ marginTop: 32, marginBottom: 32 }}>
+          {/* ── TEAM ── */}
+          <section style={{ marginBottom: 160 }}>
             <img
               src="/assets/hercules/hercules-team.JPG"
               alt="Ha Do, Anvita Shah, Simran Kaur, Matthew Thien after the Hercules final presentation"
-              style={{ width: '100%', borderRadius: 8, display: 'block' }}
+              style={{ width: '100%', borderRadius: 8, display: 'block', marginBottom: 24 }}
             />
-            <p style={{ fontSize: 12, color: 'var(--color-warm-muted)', marginTop: 10, fontFamily: SANS }}>
+            <p style={{ ...bodyStyle, marginBottom: 12 }}>
+              Working with Anvita, Simran, and Matthew for a full semester was both productive and genuinely fun. Everyone brought the same level of care to the work, ideas were exchanged freely, and we kept each other accountable at every stage. The strong team dynamic made the collaboration easy and the system stronger.
+            </p>
+            <p style={{ ...bodyStyle, color: 'var(--color-warm-muted)' }}>
               Ha Do · Anvita Shah · Simran Kaur · Matthew Thien
             </p>
-          </div>
+          </section>
+
         </div>
       </div>
 
