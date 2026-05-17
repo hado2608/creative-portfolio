@@ -620,14 +620,16 @@ export default function HerculesPage() {
                 ))}
                 <div style={{ flex: 1, background: '#e0e0e0', borderRadius: 4, height: 20, marginLeft: 8 }} />
               </div>
-              <video
-                src="/assets/hercules/hercules-zeroheight.mov"
-                autoPlay
-                muted
-                loop
-                playsInline
-                style={{ width: '100%', display: 'block' }}
-              />
+              <div style={{ overflow: 'hidden' }}>
+                <video
+                  src="/assets/hercules/hercules-zeroheight.mov"
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  style={{ width: '100%', display: 'block', transform: 'scale(1.08)', transformOrigin: 'top center' }}
+                />
+              </div>
             </div>
           </section>
 
