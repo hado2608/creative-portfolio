@@ -484,9 +484,9 @@ export default function HerculesPage() {
 
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 16, marginTop: 40 }}>
               {[
-                { src: '/assets/hercules/hercules-tokens-color.png', alt: 'Color variables — primitive palette', label: 'Color' },
-                { src: '/assets/hercules/hercules-tokens-semantic.png', alt: 'Semantic token variables — tokens-color', label: 'Semantic' },
-                { src: '/assets/hercules/hercules-tokens-spacing.png', alt: 'Spacing variables — primitive spacing scale', label: 'Spacing' },
+                { src: '/assets/hercules/hercules-tokens-color.png', alt: 'Primitive color variables — blue scale', label: 'Color Variables' },
+                { src: '/assets/hercules/typography.png', alt: 'Typography variables — font family and weight tokens', label: 'Typography Variables' },
+                { src: '/assets/hercules/spacing-variables.png', alt: 'Primitive spacing variables — scale 25 to 200', label: 'Spacing Variables' },
               ].map(({ src, alt, label }) => (
                 <div key={label}>
                   <img src={src} alt={alt} style={{ width: '100%', borderRadius: 8, display: 'block', border: '1px solid var(--color-warm-border)' }} />
@@ -520,7 +520,7 @@ export default function HerculesPage() {
             </CalloutCard>
             <div style={{ marginTop: 24, marginBottom: 40 }}>
               <img
-                src="/assets/hercules/hercules-typography.png"
+                src="/assets/hercules/hercules-type-scale.png"
                 alt="Hercules typography system — heading, label, and paragraph scale in Figma"
                 style={{ width: '100%', borderRadius: 8, display: 'block' }}
               />
