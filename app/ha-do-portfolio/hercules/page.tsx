@@ -613,7 +613,22 @@ export default function HerculesPage() {
               Every component page follows the same structure: overview, anatomy, usage guidelines, specs, and dos and don&apos;ts. I added dos and don&apos;ts guidelines across the board after seeing how often components get misused without explicit guardrails. A button used as a link, a label dropped into a heading slot, a card stretched beyond its intended width. Those are the errors that erode consistency quietly over time, and clear guidance is what prevents them from compounding.
             </p>
 
-            <BrowserFrame label="Zeroheight: Hercules component documentation" />
+            <div style={{ borderRadius: 10, overflow: 'hidden', boxShadow: '0 20px 60px rgba(0,0,0,0.1)', border: '1px solid var(--color-warm-border)' }}>
+              <div style={{ background: '#f0f0f0', padding: '10px 14px', display: 'flex', alignItems: 'center', gap: 6 }}>
+                {['#ff5f57', '#febc2e', '#28c840'].map(c => (
+                  <div key={c} style={{ width: 12, height: 12, borderRadius: '50%', background: c }} />
+                ))}
+                <div style={{ flex: 1, background: '#e0e0e0', borderRadius: 4, height: 20, marginLeft: 8 }} />
+              </div>
+              <video
+                src="/assets/hercules/hercules-zeroheight.mov"
+                autoPlay
+                muted
+                loop
+                playsInline
+                style={{ width: '100%', display: 'block' }}
+              />
+            </div>
           </section>
 
           {/* ── OUTCOME ── */}
