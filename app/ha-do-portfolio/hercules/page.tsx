@@ -285,14 +285,32 @@ export default function HerculesPage() {
           <section id="overview" style={{ marginBottom: 128 }}>
 
             <p style={labelStyle}>Overview</p>
-            <h2 style={h2Style}>The world&apos;s largest fitness platform had no design system.</h2>
+            <h2 style={h2Style}>The world&apos;s largest fitness app is scaling&hellip; without a design system.</h2>
 
             <p style={{ ...bodyStyle, marginBottom: 24 }}>
-              ClassPass is the world&apos;s largest fitness and wellness marketplace, operating across 30+ countries with millions of members booking studios, gyms, salons, and spas every day. As the product scaled, so did the complexity behind it.
+              ClassPass is the world&apos;s largest fitness and wellness marketplace: 30+ countries, millions of members booking studios, gyms, salons, and spas every day. As the product scaled, especially after the merger with EGYM, so did the complexity behind it.
             </p>
-            <p style={{ ...bodyStyle, marginBottom: 56 }}>
-              But no one had built the infrastructure to match. Components lived in scattered Figma files. Tokens were inconsistent across platforms. Accessibility guidelines existed in a shared doc no one had opened in months. Every new feature meant rebuilding patterns from scratch, or from memory.
+
+            <VisualBlock
+              label="Figma: screenshot of Fitt Insider article — EGYM Merges with Mindbody, ClassPass Parent in $7.5B Deal (Jan 15, 2026) — save as /assets/hercules/hercules-merger.png"
+              caption="EGYM merges with Mindbody, ClassPass's parent company, in a $7.5B deal. January 2026."
+              aspect="16/9"
+            />
+
+            <p style={{ ...bodyStyle, marginBottom: 24 }}>
+              However, we believe that its lack of a matching design infrastructure is pulling the team behind from its growth. Every new feature meant rebuilding patterns from scratch, or from memory.
             </p>
+
+            <blockquote style={{
+              borderLeft: '3px solid var(--color-warm-accent)',
+              paddingLeft: 28,
+              margin: '48px 0',
+            }}>
+              <p style={{ fontFamily: SERIF, fontSize: 'clamp(20px, 2.5vw, 26px)', fontStyle: 'italic', lineHeight: 1.4, letterSpacing: '-0.01em', color: 'var(--color-warm-text)', marginBottom: 12 }}>
+                &ldquo;Design systems are culture change disguised as a UI kit.&rdquo;
+              </p>
+              <p style={{ fontFamily: SANS, fontSize: 18, color: 'var(--color-warm-muted)', letterSpacing: '0.02em' }}>Loren LoPrete</p>
+            </blockquote>
 
             {/* Problem */}
             <div style={{ borderTop: '1px solid var(--color-warm-border)', paddingTop: 48, marginBottom: 56 }}>
