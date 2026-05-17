@@ -74,14 +74,14 @@ function VisualBlock({ label, caption, aspect = '16/9' }: { label: string; capti
 
 function StatCard({ title, items }: { title: string; items: string[] }) {
   return (
-    <div style={{ background: '#fff', borderRadius: 8, padding: '28px 32px', borderTop: '3px solid var(--color-warm-accent)' }}>
+    <div style={{ background: '#fff', borderRadius: 8, padding: '28px 32px', borderTop: '3px solid #5A77DF' }}>
       <p style={{ fontFamily: SANS, fontWeight: 700, fontSize: 18, letterSpacing: '0.02em', color: 'var(--color-warm-text)', marginBottom: 20, lineHeight: 1.75 }}>
         {title}
       </p>
       <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 12 }}>
         {items.map((item, i) => (
           <li key={i} style={{ display: 'flex', gap: 12, alignItems: 'flex-start', fontSize: 18, lineHeight: 1.75, color: 'var(--color-warm-body)', letterSpacing: '0.02em', fontFamily: SANS }}>
-            <div style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--color-warm-accent)', flexShrink: 0, marginTop: 8 }} />
+            <div style={{ width: 6, height: 6, borderRadius: '50%', background: '#5A77DF', flexShrink: 0, marginTop: 8 }} />
             {item}
           </li>
         ))}
@@ -93,7 +93,7 @@ function StatCard({ title, items }: { title: string; items: string[] }) {
 function PullQuote({ children }: { children: React.ReactNode }) {
   return (
     <blockquote style={{
-      borderLeft: '3px solid var(--color-warm-accent)',
+      borderLeft: '3px solid #5A77DF',
       paddingLeft: 28,
       margin: '48px 0',
       fontFamily: SERIF,
@@ -131,7 +131,7 @@ function CalloutCard({ title, children }: { title: string; children: React.React
       borderRadius: 8,
       padding: '28px 32px',
       border: '1px solid var(--color-warm-border)',
-      borderLeft: '3px solid var(--color-warm-accent)',
+      borderLeft: '3px solid #5A77DF',
       margin: '32px 0',
     }}>
       <p style={{ fontFamily: SANS, fontWeight: 600, fontSize: 18, color: 'var(--color-warm-text)', marginBottom: 16, letterSpacing: '0.02em' }}>
@@ -307,7 +307,7 @@ export default function HerculesPage() {
             </p>
 
             <blockquote style={{
-              borderLeft: '3px solid var(--color-warm-accent)',
+              borderLeft: '3px solid #5A77DF',
               paddingLeft: 28,
               margin: '48px 0',
             }}>
@@ -405,7 +405,7 @@ export default function HerculesPage() {
                   },
                 ].map(({ num, title, body }) => (
                   <div key={num} style={{ borderTop: '1px solid var(--color-warm-border)', paddingTop: 20 }}>
-                    <p style={{ fontFamily: SANS, fontSize: 11, fontWeight: 600, letterSpacing: '0.1em', color: 'var(--color-warm-accent)', marginBottom: 8 }}>{num}</p>
+                    <p style={{ fontFamily: SANS, fontSize: 11, fontWeight: 600, letterSpacing: '0.1em', color: '#5A77DF', marginBottom: 8 }}>{num}</p>
                     <p style={{ fontFamily: SANS, fontWeight: 600, fontSize: 18, color: 'var(--color-warm-text)', marginBottom: 10 }}>{title}</p>
                     <p style={{ fontSize: 18, lineHeight: 1.75, color: 'var(--color-warm-muted)', fontFamily: SANS }}>{body}</p>
                   </div>
@@ -482,11 +482,18 @@ export default function HerculesPage() {
               Then we started building actual mobile components and hit the edges. Mobile layouts are tighter than desktop. The gap between an icon and its label, the inner padding on a chip, the margin before a section divider: none of those fit neatly into an 8pt grid. We expanded to include 2, 4, and 12. Border radius needed the same treatment. A full-bleed sheet, a button, and a chip all live very differently in space, and &ldquo;medium&rdquo; was not a specific enough answer.
             </p>
 
-            <VisualBlock
-              label="Token architecture: primitive scale (2 / 4 / 8 / 12 / 16 / 32) → semantic naming → component usage"
-              caption="Token structure: raw values map to semantic names, which feed into every component in the system"
-              aspect="16/7"
-            />
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 16, marginTop: 40 }}>
+              {[
+                { src: '/assets/hercules/hercules-tokens-color.png', alt: 'Color variables — primitive palette', label: 'Color' },
+                { src: '/assets/hercules/hercules-tokens-semantic.png', alt: 'Semantic token variables — tokens-color', label: 'Semantic' },
+                { src: '/assets/hercules/hercules-tokens-spacing.png', alt: 'Spacing variables — primitive spacing scale', label: 'Spacing' },
+              ].map(({ src, alt, label }) => (
+                <div key={label}>
+                  <img src={src} alt={alt} style={{ width: '100%', borderRadius: 8, display: 'block', border: '1px solid var(--color-warm-border)' }} />
+                  <p style={{ ...bodyStyle, color: 'var(--color-warm-muted)', fontSize: 13, marginTop: 8, textAlign: 'center' }}>{label}</p>
+                </div>
+              ))}
+            </div>
           </section>
 
           {/* ── ATOMS → ORGANISMS ── */}
@@ -511,6 +518,13 @@ export default function HerculesPage() {
                 I added medium and subtle weights. That gave designers a vocabulary to distinguish a section label from a caption from an inline detail, without reaching outside the system every time ClassPass needed to show studio distance, ratings, or class duration alongside richer content.
               </p>
             </CalloutCard>
+            <div style={{ marginTop: 24, marginBottom: 40 }}>
+              <img
+                src="/assets/hercules/hercules-typography.png"
+                alt="Hercules typography system — heading, label, and paragraph scale in Figma"
+                style={{ width: '100%', borderRadius: 8, display: 'block' }}
+              />
+            </div>
 
             <CalloutCard title="02 — Navigation and Tabs">
               <p style={{ ...bodyStyle, marginBottom: 16 }}>
@@ -520,6 +534,13 @@ export default function HerculesPage() {
                 I built both with full interactive state coverage: default, active, hover, disabled. Tabs in particular needed careful attention to how the selected state communicated without relying on color alone, to stay accessible at the token level rather than requiring manual overrides later.
               </p>
             </CalloutCard>
+            <div style={{ marginTop: 24, marginBottom: 40 }}>
+              <img
+                src="/assets/hercules/hercules-navigation.png"
+                alt="Hercules navigation and tabs component — all interactive states"
+                style={{ width: '100%', borderRadius: 8, display: 'block' }}
+              />
+            </div>
 
             <CalloutCard title="03 — Carousels and Filter Patterns">
               <p style={{ ...bodyStyle, marginBottom: 16 }}>
@@ -529,6 +550,13 @@ export default function HerculesPage() {
                 Filter patterns required a similar approach. Filters on ClassPass are contextual: they change depending on which page you&apos;re on and what you&apos;re browsing. I built them as composable components so the pattern could be reused across contexts without losing consistency.
               </p>
             </CalloutCard>
+            <div style={{ marginTop: 24, marginBottom: 40 }}>
+              <img
+                src="/assets/hercules/hercules-carousel.png"
+                alt="Hercules carousel and filter pattern components in Figma"
+                style={{ width: '100%', borderRadius: 8, display: 'block' }}
+              />
+            </div>
 
             <div style={{ borderTop: '1px solid var(--color-warm-border)', paddingTop: 48 }}>
               <h3 style={{ fontFamily: SERIF, fontWeight: 500, fontSize: 22, letterSpacing: '-0.01em', color: 'var(--color-warm-text)', marginBottom: 16, lineHeight: 1.3 }}>
@@ -670,6 +698,17 @@ export default function HerculesPage() {
                 />
               </div>
             </div>
+
+            <div style={{ marginTop: 40 }}>
+              <img
+                src="/assets/hercules/hercules-zeroheight-grid.png"
+                alt="Hercules Zeroheight documentation — grid and layout guidelines"
+                style={{ width: '100%', borderRadius: 8, display: 'block' }}
+              />
+              <p style={{ ...bodyStyle, color: 'var(--color-warm-muted)', marginTop: 10 }}>
+                Grid and layout documentation in Zeroheight
+              </p>
+            </div>
           </section>
 
           {/* ── OUTCOME ── */}
@@ -754,7 +793,7 @@ export default function HerculesPage() {
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: 32 }}>
               <div style={{ borderTop: '1px solid var(--color-warm-border)', paddingTop: 24, display: 'grid', gridTemplateColumns: '80px 1fr', gap: 24 }}>
-                <p style={{ fontFamily: SANS, fontSize: 11, fontWeight: 600, letterSpacing: '0.1em', color: 'var(--color-warm-accent)', paddingTop: 4 }}>01</p>
+                <p style={{ fontFamily: SANS, fontSize: 11, fontWeight: 600, letterSpacing: '0.1em', color: '#5A77DF', paddingTop: 4 }}>01</p>
                 <div>
                   <p style={{ fontFamily: SANS, fontWeight: 600, fontSize: 18, color: 'var(--color-warm-text)', marginBottom: 12 }}>
                     Expand to the full mobile app
@@ -766,7 +805,7 @@ export default function HerculesPage() {
               </div>
 
               <div style={{ borderTop: '1px solid var(--color-warm-border)', paddingTop: 24, display: 'grid', gridTemplateColumns: '80px 1fr', gap: 24 }}>
-                <p style={{ fontFamily: SANS, fontSize: 11, fontWeight: 600, letterSpacing: '0.1em', color: 'var(--color-warm-accent)', paddingTop: 4 }}>02</p>
+                <p style={{ fontFamily: SANS, fontSize: 11, fontWeight: 600, letterSpacing: '0.1em', color: '#5A77DF', paddingTop: 4 }}>02</p>
                 <div>
                   <p style={{ fontFamily: SANS, fontWeight: 600, fontSize: 18, color: 'var(--color-warm-text)', marginBottom: 12 }}>
                     Consolidate with the ClassPass website
