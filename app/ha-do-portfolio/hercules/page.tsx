@@ -134,7 +134,7 @@ function CalloutCard({ title, children }: { title: string; children: React.React
       borderLeft: '3px solid var(--color-warm-accent)',
       margin: '32px 0',
     }}>
-      <p style={{ fontFamily: SANS, fontWeight: 600, fontSize: 13, color: 'var(--color-warm-text)', marginBottom: 16, letterSpacing: '0.02em' }}>
+      <p style={{ fontFamily: SANS, fontWeight: 600, fontSize: 18, color: 'var(--color-warm-text)', marginBottom: 16, letterSpacing: '0.02em' }}>
         {title}
       </p>
       {children}
@@ -145,8 +145,8 @@ function CalloutCard({ title, children }: { title: string; children: React.React
 function ChallengeCard({ title, body }: { title: string; body: string }) {
   return (
     <div style={{ background: '#fff', borderRadius: 8, padding: '28px 28px 32px', display: 'flex', flexDirection: 'column', gap: 12, border: '1px solid var(--color-warm-border)' }}>
-      <p style={{ fontFamily: SANS, fontWeight: 600, fontSize: 13, color: 'var(--color-warm-text)', letterSpacing: '0.02em' }}>{title}</p>
-      <p style={{ fontSize: 15, lineHeight: 1.7, color: 'var(--color-warm-muted)', fontFamily: SANS, letterSpacing: '0.02em' }}>{body}</p>
+      <p style={{ fontFamily: SANS, fontWeight: 600, fontSize: 18, color: 'var(--color-warm-text)', letterSpacing: '0.02em' }}>{title}</p>
+      <p style={{ fontSize: 18, lineHeight: 1.75, color: 'var(--color-warm-muted)', fontFamily: SANS, letterSpacing: '0.02em' }}>{body}</p>
     </div>
   )
 }
@@ -383,8 +383,8 @@ export default function HerculesPage() {
                 ].map(({ num, title, body }) => (
                   <div key={num} style={{ borderTop: '1px solid var(--color-warm-border)', paddingTop: 20 }}>
                     <p style={{ fontFamily: SANS, fontSize: 11, fontWeight: 600, letterSpacing: '0.1em', color: 'var(--color-warm-accent)', marginBottom: 8 }}>{num}</p>
-                    <p style={{ fontFamily: SANS, fontWeight: 600, fontSize: 16, color: 'var(--color-warm-text)', marginBottom: 10 }}>{title}</p>
-                    <p style={{ fontSize: 15, lineHeight: 1.7, color: 'var(--color-warm-muted)', fontFamily: SANS }}>{body}</p>
+                    <p style={{ fontFamily: SANS, fontWeight: 600, fontSize: 18, color: 'var(--color-warm-text)', marginBottom: 10 }}>{title}</p>
+                    <p style={{ fontSize: 18, lineHeight: 1.75, color: 'var(--color-warm-muted)', fontFamily: SANS }}>{body}</p>
                   </div>
                 ))}
               </div>
@@ -576,7 +576,7 @@ export default function HerculesPage() {
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
               <div style={{ borderTop: '1px solid var(--color-warm-border)', paddingTop: 24 }}>
-                <p style={{ fontFamily: SANS, fontWeight: 600, fontSize: 16, color: 'var(--color-warm-text)', marginBottom: 10 }}>
+                <p style={{ fontFamily: SANS, fontWeight: 600, fontSize: 18, color: 'var(--color-warm-text)', marginBottom: 10 }}>
                   Restyled component labels for clarity
                 </p>
                 <p style={{ ...bodyStyle }}>
@@ -585,7 +585,7 @@ export default function HerculesPage() {
               </div>
 
               <div style={{ borderTop: '1px solid var(--color-warm-border)', paddingTop: 24 }}>
-                <p style={{ fontFamily: SANS, fontWeight: 600, fontSize: 16, color: 'var(--color-warm-text)', marginBottom: 10 }}>
+                <p style={{ fontFamily: SANS, fontWeight: 600, fontSize: 18, color: 'var(--color-warm-text)', marginBottom: 10 }}>
                   Standardized margins out of components
                 </p>
                 <p style={{ ...bodyStyle }}>
@@ -682,7 +682,7 @@ export default function HerculesPage() {
               </p>
             </div>
 
-            <p style={{ fontSize: 14, lineHeight: 1.7, color: 'var(--color-warm-muted)', fontFamily: SANS, marginTop: 24 }}>
+            <p style={{ fontSize: 18, lineHeight: 1.75, color: 'var(--color-warm-muted)', fontFamily: SANS, marginTop: 24 }}>
               It is worth noting that this presentation was delivered as a course final. Classmates took on the role of ClassPass stakeholders and gave critiques on both the product and the presentation, offering perspectives on clarity, usability, and adoption.
             </p>
           </section>
