@@ -250,10 +250,10 @@ export default function HerculesPage() {
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 20, justifyContent: 'flex-end' }}>
             {[
-              { label: 'Role',     value: 'Systems Designer — Typography lead' },
-              { label: 'Timeline', value: 'One semester' },
-              { label: 'Team',     value: 'Ha Do · Anvita Shah · Simran Kaur · Matthew Thien' },
-              { label: 'Tools',    value: 'Figma · Zeroheight' },
+              { label: 'Role',     value: 'Systems Designer, Typography Lead' },
+              { label: 'Timeline', value: '3 months (Feb–May 2026)' },
+              { label: 'Team',     value: 'Ha Do, Simran Kaur, Anvita Shah, Matthew Thien' },
+              { label: 'Outcome',  value: 'Figma UI Kit, Zeroheight Documentation, Pitch Deck' },
             ].map(({ label, value }) => (
               <div key={label}>
                 <p style={{ ...bodyStyle, fontWeight: 700, color: 'var(--color-warm-text)', marginBottom: 2 }}>{label}</p>
