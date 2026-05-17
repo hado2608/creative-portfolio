@@ -694,7 +694,7 @@ export default function HerculesPage() {
                   muted
                   loop
                   playsInline
-                  style={{ width: '100%', display: 'block', transform: 'scale(1.08)', transformOrigin: 'top center' }}
+                  style={{ width: '100%', display: 'block', clipPath: 'inset(0 0 3% 0)' }}
                 />
               </div>
             </div>
