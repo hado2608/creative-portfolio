@@ -2,12 +2,11 @@
 
 import { useRef, useEffect, useState } from 'react'
 
-// Figma MCP asset URLs (valid for 7 days from generation)
-const IMG_ILLUSTRATION = 'https://www.figma.com/api/mcp/asset/cde83a1b-1311-4aae-aee0-5a0ac7e33ad4'
-const IMG_ABOUT_DOT    = 'https://www.figma.com/api/mcp/asset/1b20eabf-8a47-4297-ba8e-a7d280995aa6'
-const IMG_EMAIL_ICON   = 'https://www.figma.com/api/mcp/asset/3b31d72f-cc55-4eeb-b179-de1830381fcb'
-const IMG_SOCIAL_ICON  = 'https://www.figma.com/api/mcp/asset/e5d3ba9e-2cf5-4818-84d4-50b4ab23115e'
-const IMG_BLACK_KEY    = 'https://www.figma.com/api/mcp/asset/f21ed72a-c6ab-4b64-97ac-169e83a21a46'
+const IMG_ILLUSTRATION = '/assets/ha-illustration.png'
+const IMG_ABOUT_DOT    = '/assets/about-dot.png'
+const IMG_EMAIL_ICON   = '/assets/email-icon.png'
+const IMG_SOCIAL_ICON  = '/assets/social-icon.png'
+const IMG_BLACK_KEY    = '/assets/black-key.png'
 
 // Base Figma canvas size — all pixel values are from this coordinate space
 const FIGMA_W = 591

@@ -291,11 +291,16 @@ export default function HerculesPage() {
               ClassPass is the world&apos;s largest fitness and wellness marketplace: 30+ countries, millions of members booking studios, gyms, salons, and spas every day. As the product scaled, especially after the merger with EGYM, so did the complexity behind it.
             </p>
 
-            <VisualBlock
-              label="Figma: screenshot of Fitt Insider article — EGYM Merges with Mindbody, ClassPass Parent in $7.5B Deal (Jan 15, 2026) — save as /assets/hercules/hercules-merger.png"
-              caption="EGYM merges with Mindbody, ClassPass's parent company, in a $7.5B deal. January 2026."
-              aspect="16/9"
-            />
+            <div style={{ marginTop: 32, marginBottom: 32 }}>
+              <img
+                src="/assets/hercules/hercules-merger.png"
+                alt="Fitt Insider: EGYM Merges with Mindbody, ClassPass Parent in $7.5B Deal"
+                style={{ width: '100%', borderRadius: 8, display: 'block' }}
+              />
+              <p style={{ ...bodyStyle, color: 'var(--color-warm-muted)', marginTop: 10 }}>
+                EGYM merges with Mindbody, ClassPass&apos;s parent company, in a $7.5B deal. January 2026.
+              </p>
+            </div>
 
             <p style={{ ...bodyStyle, marginBottom: 24 }}>
               However, we believe that its lack of a matching design infrastructure is pulling the team behind from its growth. Every new feature meant rebuilding patterns from scratch, or from memory.
