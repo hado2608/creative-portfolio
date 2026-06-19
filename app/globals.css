@@ -57,6 +57,48 @@
 }
 
 @font-face {
+  font-family: 'The Seasons';
+  src: url('/fonts/The Seasons Font Family/Fontspring-DEMO-theseasons-lt.otf') format('opentype');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'The Seasons';
+  src: url('/fonts/The Seasons Font Family/Fontspring-DEMO-theseasons-ltit.otf') format('opentype');
+  font-weight: 300;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'The Seasons';
+  src: url('/fonts/The Seasons Font Family/Fontspring-DEMO-theseasons-reg.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'The Seasons';
+  src: url('/fonts/The Seasons Font Family/Fontspring-DEMO-theseasons-it.otf') format('opentype');
+  font-weight: 400;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'The Seasons';
+  src: url('/fonts/The Seasons Font Family/Fontspring-DEMO-theseasons-bd.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'The Seasons';
+  src: url('/fonts/The Seasons Font Family/Fontspring-DEMO-theseasons-bdit.otf') format('opentype');
+  font-weight: 700;
+  font-style: italic;
+}
+
+@font-face {
   font-family: 'Recoleta';
   src: url('/fonts/Recoleta/Recoleta Thin.woff2') format('woff2');
   font-weight: 100;
@@ -111,6 +153,31 @@
   --font-serif: 'Recoleta', Georgia, serif;
 }
 
+@keyframes vinyl-spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes eq-bounce {
+  0%, 100% { height: 4px; }
+  50%       { height: 13px; }
+}
+
+.eq-bar {
+  width: 1px;
+  height: 7px;
+  background: #d9d9d9;
+  transition: background 0.2s ease;
+}
+
+.eq-bar--playing {
+  background: #617180;
+  animation: eq-bounce 0.65s ease-in-out infinite;
+}
+
+.eq-bar--playing:nth-child(2) { animation-delay: 0.15s; }
+.eq-bar--playing:nth-child(3) { animation-delay: 0.08s; }
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -138,7 +205,66 @@
   body {
     background: #F7F7F7;
     color: #473E3D;
-    font-family: 'Neue Montreal', 'DM Sans', system-ui, sans-serif;
+    font-family: 'Neue Montreal', sans-serif;
+  }
+}
+
+/* Homepage 3-column layout */
+@layer components {
+  .home-grid {
+    align-items: start;
+    display: grid;
+    grid-template-columns: 280px 1fr 160px;
+    min-height: 100vh;
+  }
+
+  .home-projects {
+    background-color: #F7F7F7;
+    background-image:
+      linear-gradient(rgba(0, 0, 0, 0.055) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 0, 0, 0.055) 1px, transparent 1px);
+    background-size: 40px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    padding: 40px 40px 187px;
+  }
+
+  .home-projects-row {
+    align-items: flex-start;
+    display: flex;
+    gap: 40px;
+  }
+
+  @media (max-width: 767px) {
+    .home-grid {
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Sidebars: flow inline, no sticky, no fixed height */
+    .home-grid > *:first-child,
+    .home-grid > *:last-child {
+      position: relative !important;
+      height: auto !important;
+      border-right: none !important;
+      border-left: none !important;
+    }
+
+    .home-projects {
+      padding: 24px 16px;
+      gap: 32px;
+    }
+
+    .home-projects-row {
+      flex-direction: column;
+      gap: 32px;
+    }
+
+    .home-projects-inner-col {
+      flex: none !important;
+      width: 100%;
+    }
   }
 }
 
@@ -175,4 +301,411 @@
       padding: 16px 24px;
     }
   }
+}
+
+@keyframes card-pop {
+  from { opacity: 0; translate: 0 20px; }
+  to   { opacity: 1; translate: 0 0; }
+}
+
+@keyframes footer-slide-up {
+  from { transform: translateY(100%); }
+  to   { transform: translateY(0); }
+}
+
+/* About page */
+.about-page {
+  min-height: 100vh;
+  background-color: #F7F7F7;
+  background-image: linear-gradient(rgba(71, 62, 61, 0.05) 1px, transparent 1px);
+  background-size: 100% 40px;
+  background-attachment: local;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 147px;
+}
+
+/* Two-column CSS Grid matching Figma 12-col layout:
+   80px margin + 522px desc + 20px gap + 738px pinboard + 80px margin = 1440px */
+.about-scroll {
+  position: relative;
+  width: 1440px;
+  max-width: 1440px;
+  display: grid;
+  grid-template-columns: 522px 738px;
+  column-gap: 20px;
+  padding: 0 80px 200px;
+  align-items: start;
+}
+
+/* Left description column */
+.about-desc {
+  position: relative;
+  height: 758px;
+}
+
+/* Content block — Figma: left 22px, top 34px, width 391px */
+.about-desc-content {
+  position: absolute;
+  left: 22px;
+  top: 34px;
+  width: 391px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  color: #535659;
+}
+
+/* Body text block */
+.about-body {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  font-family: 'Neue Montreal', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: 0.16px;
+  color: #535659;
+}
+
+.about-para {
+  margin: 0;
+  line-height: 1.3;
+}
+
+.about-italic {
+  margin: 0;
+  font-style: italic;
+  line-height: 1.3;
+  font-family: 'Neue Montreal', sans-serif;
+  font-size: 16px;
+  letter-spacing: 0.16px;
+  color: #535659;
+}
+
+.about-values {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.about-list {
+  margin: 0;
+  padding: 0;
+  list-style: disc;
+  padding-left: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.about-list li {
+  line-height: 1.3;
+  font-family: 'Neue Montreal', sans-serif;
+  font-size: 16px;
+  letter-spacing: 0.16px;
+  color: #535659;
+}
+
+.about-cta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.about-em-blue-bold {
+  font-weight: 700;
+  color: #4580bb;
+  text-decoration: none;
+}
+
+.about-em-blue {
+  color: #5087bf;
+}
+
+/* Pin-board column — Figma col 7–12, width 738px, height 760px */
+.about-pinboard {
+  position: relative;
+  height: 760px;
+}
+
+.about-photo {
+  position: absolute;
+  cursor: default;
+  animation: card-pop 0.35s ease-out both;
+}
+
+.about-photo-hover {
+  transition: transform 0.25s ease, filter 0.25s ease;
+}
+
+.about-photo:hover .about-photo-hover {
+  transform: rotate(-3deg) scale(1.04);
+  filter: drop-shadow(0px 12px 28px rgba(0, 0, 0, 0.18));
+}
+
+.about-photo img {
+  display: block;
+  object-fit: cover;
+}
+
+/* Music widget */
+.about-music {
+  position: absolute;
+  left: 14px;
+  top: 633px;
+  display: flex;
+  gap: 7px;
+  align-items: center;
+  background: #f7f7f7;
+  border: 1px solid #d1dce8;
+  border-radius: 8px;
+  padding: 8px;
+  cursor: pointer;
+  transition: filter 0.25s ease, transform 0.25s ease;
+  animation: card-pop 0.35s ease-out both;
+}
+
+.about-music:hover {
+  filter: drop-shadow(0px 12px 28px rgba(0, 0, 0, 0.18));
+  transform: scale(1.04);
+}
+
+/* Annotate button */
+.annotate-btn {
+  position: absolute;
+  right: 0;
+  top: 42px;
+  z-index: 10;
+  width: 106px;
+  height: 46px;
+  border: 1.5px solid #e8e8e8;
+  border-radius: 10px;
+  box-shadow: 1px 1px 1px 0px rgba(0, 0, 0, 0.35);
+  background: #ededeb;
+  font-family: var(--font-geist-mono), 'Courier New', monospace;
+  font-size: 16px;
+  color: #617180;
+  letter-spacing: -0.32px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.annotate-btn.active {
+  background: linear-gradient(-66.52deg, #ededeb 24.67%, #bec2c6 93.08%);
+}
+
+/* ── Work page ───────────────────────────────────────────────────────────── */
+
+.work-page {
+  min-height: 100vh;
+  background: #f7f7f7;
+}
+
+.work-grid {
+  display: grid;
+  grid-template-columns: 521fr 359fr 359fr;
+  gap: 20px;
+  padding: 60px 80px 187px;
+}
+
+.work-page-desc {
+  color: #6b6b6b;
+  font-family: 'Neue Montreal', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.work-page-desc strong {
+  font-weight: 700;
+  color: #473E3D;
+}
+
+/* ── Shared footer ───────────────────────────────────────────────────────── */
+
+.about-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 147px;
+  z-index: 50;
+  overflow: hidden;
+  background: linear-gradient(to bottom, rgba(247, 247, 247, 0) 6%, rgb(222, 222, 223) 82%);
+  display: flex;
+  align-items: center;
+  padding: 0 80px;
+  animation: footer-slide-up 0.55s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Signature + location block — 157×85px fixed container matching Figma */
+.about-footer-left {
+  position: relative;
+  width: 157px;
+  height: 85px;
+  flex-shrink: 0;
+}
+
+.about-signature {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 124px;
+  height: 60px;
+  object-fit: contain;
+}
+
+.about-location {
+  position: absolute;
+  left: 70px;
+  top: 44px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  color: #858e8e;
+  font-family: 'Neue Montreal', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: normal;
+  white-space: nowrap;
+}
+
+.about-nav-box {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  border: 0.5px solid #c3c9d0;
+  border-radius: 4px;
+  padding: 10px;
+}
+
+/* work / vibe wrapper */
+.nav-pair {
+  display: flex;
+  align-items: center;
+}
+
+.nav-pair-sep {
+  font-family: 'Neue Montreal', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: #535659;
+}
+
+.about-footer-right {
+  margin-left: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0;
+  flex-shrink: 0;
+}
+
+.about-contact-row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  padding: 8px 16px;
+  font-family: 'Neue Montreal', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: #475050;
+  line-height: normal;
+}
+
+.about-contact-row a {
+  color: #475050;
+  text-decoration: none;
+  transition: opacity 0.15s ease;
+}
+
+.about-contact-row a:hover {
+  opacity: 0.6;
+}
+
+.about-contact-row span {
+  opacity: 0.4;
+}
+
+/* Nav bracket system — DOM brackets, opacity controls visibility, width is always stable */
+.nav-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 16px;
+  cursor: pointer;
+  user-select: none;
+  text-decoration: none;
+}
+
+.nav-item-inner {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  font-family: 'Neue Montreal', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  white-space: nowrap;
+  line-height: normal;
+}
+
+/* Brackets always in DOM — opacity 0 = invisible but occupies space */
+.nav-bracket {
+  opacity: 0;
+  color: rgba(83, 86, 89, 0.4);
+  font-weight: 400;
+  font-style: normal;
+  transition: opacity 0.15s ease;
+}
+
+.nav-label {
+  color: #535659;
+  font-weight: 400;
+  font-style: normal;
+  transition: color 0.15s ease;
+}
+
+/* Hover: brackets appear faded, text fades to match */
+.nav-item:hover .nav-bracket {
+  opacity: 1;
+}
+
+.nav-item:hover .nav-label {
+  color: rgba(83, 86, 89, 0.4);
+}
+
+/* Active: brackets full color, text bold italic */
+.nav-item.active .nav-bracket {
+  opacity: 1;
+  color: #535659;
+}
+
+.nav-item.active .nav-label {
+  color: #535659;
+  font-weight: 700;
+  font-style: italic;
+}
+
+/* Pinboard annotations */
+.about-annotation {
+  position: absolute;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.about-annotation-text {
+  font-family: var(--font-geist-mono), 'Courier New', monospace;
+  font-size: 16px;
+  font-weight: 400;
+  color: #617180;
+  letter-spacing: -0.32px;
+  line-height: normal;
+  margin: 0;
 }

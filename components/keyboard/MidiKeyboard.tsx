@@ -73,7 +73,7 @@ function ActionButton({ label, showDot }: { label: string; showDot?: boolean }) 
       )}
       <p style={{
         color: '#575757',
-        fontFamily: "'Neue Montreal', 'DM Sans', sans-serif",
+        fontFamily: "'Neue Montreal', sans-serif",
         fontSize: 12,
         left: '50%',
         lineHeight: 'normal',
@@ -111,7 +111,7 @@ function IconButton({ icon, label }: { icon: string; label: string }) {
       </div>
       <p style={{
         color: '#9f9f9f',
-        fontFamily: "'Neue Montreal', 'DM Sans', sans-serif",
+        fontFamily: "'Neue Montreal', sans-serif",
         fontSize: 12,
         lineHeight: 'normal',
         textAlign: 'center',
@@ -208,7 +208,7 @@ export default function MidiKeyboard() {
               color: '#909090',
               display: 'flex',
               flexDirection: 'column',
-              fontFamily: "'Neue Montreal', 'DM Sans', sans-serif",
+              fontFamily: "'Neue Montreal', sans-serif",
               fontSize: 12,
               gap: 5,
               left: 20,

@@ -12,7 +12,7 @@ const PILL: React.CSSProperties = {
   background: 'rgba(247, 247, 247, 0.88)',
   backdropFilter: 'blur(12px)',
   WebkitBackdropFilter: 'blur(12px)',
-  fontSize: 13,
+  fontSize: 16,
   color: '#473E3D',
   textDecoration: 'none',
   fontFamily: "'Neue Montreal', sans-serif",
@@ -30,10 +30,11 @@ function HomeIcon() {
   )
 }
 
-function ArrowIcon() {
+function CornerDownRightIcon() {
   return (
     <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M2 6.5H11M7.5 3L11 6.5L7.5 10" stroke="currentColor" strokeWidth="1.1" strokeLinecap="round" strokeLinejoin="round"/>
+      <path d="M2 2V7.5C2 8.6 2.9 9.5 4 9.5H11" stroke="currentColor" strokeWidth="1.1" strokeLinecap="round" strokeLinejoin="round"/>
+      <path d="M8.5 7L11 9.5L8.5 12" stroke="currentColor" strokeWidth="1.1" strokeLinecap="round" strokeLinejoin="round"/>
     </svg>
   )
 }
@@ -66,8 +67,8 @@ export default function CaseStudyNav({
       </Link>
 
       <Link href={nextHref} style={PILL}>
+        <CornerDownRightIcon />
         {nextLabel}
-        <ArrowIcon />
       </Link>
     </nav>
   )
