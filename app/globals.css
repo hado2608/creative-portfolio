@@ -963,7 +963,7 @@
   display: grid;
   grid-template-columns: 521fr 359fr 359fr;
   gap: 20px;
-  padding: 60px 80px 187px;
+  padding: 60px 80px 0;
 }
 
 .work-page-desc {
