@@ -206,7 +206,7 @@ export default function AboutPage() {
           {showAllAnnotations ? '🪄' : 'annotate'}
         </button>
 
-        {/* Right — pin-board */}
+        {/* Right — pin-board (desktop) */}
         <div className="about-pinboard">
 
           {/* Sky / NYC skyline — 250×333, rotate -2.26° */}
@@ -270,7 +270,7 @@ export default function AboutPage() {
           {/* Sky: arrow top-left, text right of arrow */}
           <div className="about-annotation" style={{ left: 285, top: 69, width: 305, height: 41, opacity: showAllAnnotations || activeAnnotation === 'sky' ? 1 : 0 }}>
             <div style={{ position: 'absolute', left: 0, top: 0, width: 32.93, height: 19.75, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <div style={{ transform: 'rotate(110deg)', flexShrink: 0 }}>
+              <div style={{ transform: 'rotate(25.99deg)', flexShrink: 0 }}>
                 <img src="/assets/annotations/arrow-sky.svg" alt="" style={{ display: 'block', width: 34, height: 16 }} />
               </div>
             </div>
@@ -281,7 +281,7 @@ export default function AboutPage() {
           <div className="about-annotation" style={{ left: 539, top: 292, width: 179, height: 91, opacity: showAllAnnotations || activeAnnotation === 'jazz' ? 1 : 0 }}>
             <p className="about-annotation-text" style={{ marginTop: 4, marginLeft: 10, width: 163, whiteSpace: 'normal' }}>i&apos;m a jazz singer by night!</p>
             <div style={{ position: 'absolute', left: 0, top: 62, width: 27.08, height: 28.6, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <div style={{ transform: 'rotate(78deg)', flexShrink: 0 }}>
+              <div style={{ transform: 'rotate(132.84deg)', flexShrink: 0 }}>
                 <img src="/assets/annotations/arrow-jazz.svg" alt="" style={{ display: 'block', width: 24, height: 26 }} />
               </div>
             </div>
@@ -290,7 +290,7 @@ export default function AboutPage() {
           {/* Nails: arrow top-right, text below */}
           <div className="about-annotation" style={{ left: 1, top: 442, width: 107, height: 119, opacity: showAllAnnotations || activeAnnotation === 'nails' ? 1 : 0 }}>
             <div style={{ position: 'absolute', left: 63.48, top: 15.93, width: 44.08, height: 16.4, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <div style={{ transform: 'rotate(-144deg)', flexShrink: 0 }}>
+              <div style={{ transform: 'rotate(165.04deg) scaleY(-1)', flexShrink: 0 }}>
                 <img src="/assets/annotations/arrow-nails.svg" alt="" style={{ display: 'block', width: 44, height: 13 }} />
               </div>
             </div>
@@ -300,7 +300,7 @@ export default function AboutPage() {
           {/* Sunset: arrow top-left, text below */}
           <div className="about-annotation" style={{ left: 509, top: 566, width: 135, height: 126, opacity: showAllAnnotations || activeAnnotation === 'sunset' ? 1 : 0 }}>
             <div style={{ position: 'absolute', left: 7, top: 5, width: 33.19, height: 23.49, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <div style={{ transform: 'rotate(-39deg)', flexShrink: 0 }}>
+              <div style={{ transform: 'rotate(-150deg) scaleY(-1)', flexShrink: 0 }}>
                 <img src="/assets/annotations/arrow-sunset.svg" alt="" style={{ display: 'block', width: 30, height: 19 }} />
               </div>
             </div>
@@ -310,7 +310,7 @@ export default function AboutPage() {
           {/* Album: arrow points left toward music widget */}
           <div className="about-annotation" style={{ left: 280, top: 665, width: 106, height: 81, opacity: showAllAnnotations || activeAnnotation === 'album' ? 1 : 0 }}>
             <div style={{ position: 'absolute', left: 7, top: 5, width: 33.19, height: 23.49, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <div style={{ transform: 'rotate(-34deg)', flexShrink: 0 }}>
+              <div style={{ transform: 'rotate(-150deg) scaleY(-1)', flexShrink: 0 }}>
                 <img src="/assets/annotations/arrow-album.svg" alt="" style={{ display: 'block', width: 30, height: 19 }} />
               </div>
             </div>
@@ -367,6 +367,80 @@ export default function AboutPage() {
             </div>
           </div>
 
+        </div>
+
+        {/* Mobile pinboard — annotations always visible, stacked vertically */}
+        <div className="about-pinboard-mobile">
+          <div className="mobile-pin-row">
+            <div className="mobile-pin-photo">
+              <div style={{ width: 170, height: 227, overflow: 'hidden', borderRadius: 8, transform: 'rotate(-2.26deg)' }}>
+                <img src="/assets/about-sky.jpg" alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+              </div>
+            </div>
+            <p className="mobile-pin-note">the sky is full of inspirations</p>
+          </div>
+
+          <div className="mobile-pin-row mobile-pin-row--reverse">
+            <div className="mobile-pin-photo">
+              <div style={{ width: 150, height: 200, overflow: 'hidden', borderRadius: 8, transform: 'rotate(4.6deg)' }}>
+                <img src="/assets/about-jazz.jpg" alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+              </div>
+            </div>
+            <p className="mobile-pin-note">i&apos;m a jazz singer by night!</p>
+          </div>
+
+          <div className="mobile-pin-row">
+            <div className="mobile-pin-photo">
+              <div style={{ width: 150, height: 150, borderRadius: '50%', overflow: 'hidden' }}>
+                <img src="/assets/about-nails.jpg" alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+              </div>
+            </div>
+            <p className="mobile-pin-note">obsessed with doing my nail arts</p>
+          </div>
+
+          <div className="mobile-pin-row mobile-pin-row--reverse">
+            <div className="mobile-pin-photo">
+              <div style={{ width: 130, height: 173, overflow: 'hidden', borderRadius: 4, transform: 'rotate(0.99deg)' }}>
+                <img src="/assets/about-sunset.jpg" alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+              </div>
+            </div>
+            <p className="mobile-pin-note">another sky pic cause why not!</p>
+          </div>
+
+          <div
+            className="about-music"
+            style={{ position: 'static', animation: 'none' }}
+            onMouseEnter={handleMusicEnter}
+            onMouseLeave={handleMusicLeave}
+          >
+            <div style={{ position: 'relative', flexShrink: 0, width: 80, height: 80 }}>
+              <div style={{
+                width: 80, height: 80, borderRadius: '50%', overflow: 'hidden',
+                animation: isPlaying ? 'vinyl-spin 3s linear infinite' : 'none',
+              }}>
+                <img src="/assets/about-album.jpg" alt="Portrait — Samara Joy" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+              </div>
+              <div style={{
+                position: 'absolute', left: '50%', top: 'calc(50% + 1px)',
+                width: 5, height: 5, borderRadius: '50%',
+                background: '#f7f7f7', border: '0.5px solid rgba(71,62,61,0.15)',
+                transform: 'translate(-50%, -50%)',
+              }} />
+            </div>
+            <div style={{ display: 'flex', alignSelf: 'stretch', alignItems: 'center' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', alignItems: 'flex-end', height: '100%' }}>
+                <div style={{ display: 'flex', gap: 1, alignItems: 'flex-end' }}>
+                  <div className={`eq-bar${isPlaying ? ' eq-bar--playing' : ''}`} />
+                  <div className={`eq-bar${isPlaying ? ' eq-bar--playing' : ''}`} />
+                  <div className={`eq-bar${isPlaying ? ' eq-bar--playing' : ''}`} />
+                </div>
+                <div>
+                  <p style={{ fontFamily: "'Neue Montreal', sans-serif", fontWeight: 500, fontSize: 14, color: '#535659', margin: 0, lineHeight: 'normal' }}>Portrait</p>
+                  <p style={{ fontFamily: "'Neue Montreal', sans-serif", fontStyle: 'italic', fontSize: 14, color: '#535659', margin: 0, lineHeight: 'normal' }}>Samara Joy</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
       </main>
