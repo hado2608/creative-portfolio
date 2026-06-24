@@ -61,9 +61,9 @@ export default function CaseStudyNav({
         padding: '14px 40px',
       }}
     >
-      <Link href="/" style={PILL}>
+      <Link href="/work" style={PILL}>
         <HomeIcon />
-        back to home
+        back to work
       </Link>
 
       <Link href={nextHref} style={PILL}>
