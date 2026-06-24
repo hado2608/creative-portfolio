@@ -224,8 +224,10 @@
   position: absolute;
   left: 6.3%;
   top: 22.6%;
-  width: 318px;
-  height: 465px;
+  width: 22vw;
+  min-width: 180px;
+  max-width: 420px;
+  height: auto;
   transform: rotate(-16.34deg);
   transform-origin: center center;
   object-fit: contain;
@@ -235,8 +237,10 @@
   position: absolute;
   right: 8.03%;
   top: 38.58%;
-  width: 242px;
-  height: 219px;
+  width: 16.8vw;
+  min-width: 140px;
+  max-width: 320px;
+  height: auto;
   object-fit: contain;
 }
 

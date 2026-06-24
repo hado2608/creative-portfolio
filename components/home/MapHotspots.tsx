@@ -40,24 +40,34 @@ function Hotspot({
 
   return (
     <g>
-      {/* Invisible hit area — generous 28px radius so it's easy to hover */}
+      {/* Subtle always-visible dot — hints at interactivity */}
+      <circle cx={cx} cy={cy} r="3" fill="#4A7AB5" opacity="0.25" style={{ pointerEvents: 'none' }} />
+
+      {/* Invisible hit area */}
       <circle
         cx={cx}
         cy={cy}
         r="28"
         fill="transparent"
-        style={{ cursor: 'default', pointerEvents: 'all' }}
+        style={{ cursor: 'crosshair', pointerEvents: 'all' }}
         onMouseEnter={() => setActive(true)}
         onMouseLeave={() => setActive(false)}
       />
 
       {active && (
-        <foreignObject x={tx} y={ty} width={TOOLTIP_W} height={TOOLTIP_H}>
-          <div className="map-tooltip">
-            <span className="map-tooltip-label">{label}</span>
-            <span className="map-tooltip-time">{time}</span>
-          </div>
-        </foreignObject>
+        <>
+          {/* Outer pulse ring */}
+          <circle cx={cx} cy={cy} r="12" fill="none" stroke="#4A7AB5" strokeWidth="1.5" opacity="0.35" style={{ pointerEvents: 'none' }} />
+          {/* Inner pin dot */}
+          <circle cx={cx} cy={cy} r="5" fill="#4A7AB5" style={{ pointerEvents: 'none' }} />
+
+          <foreignObject x={tx} y={ty} width={TOOLTIP_W} height={TOOLTIP_H}>
+            <div className="map-tooltip">
+              <span className="map-tooltip-label">{label}</span>
+              <span className="map-tooltip-time">{time}</span>
+            </div>
+          </foreignObject>
+        </>
       )}
     </g>
   )
