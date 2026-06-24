@@ -3,123 +3,111 @@
 import { useState } from 'react'
 import { useLocalTime } from '@/hooks/useLocalTime'
 
-// All coordinates are in the shared 1440×900 SVG space.
-// Maps and pins live in the same coordinate system so they always align.
+// All coords are in the shared 1440×900 SVG space.
+// Maps and pins scale together via xMidYMid slice at any viewport size.
 
-// Left map: home-left-shape.svg (318×465), placed at (91,203), rotated -16.34° around its center
-const LEFT_MAP = { x: 91, y: 203, w: 318, h: 465, rotateDeg: -16.34 }
-// Rotation center = geometric center of the placed image
-const LEFT_CX = LEFT_MAP.x + LEFT_MAP.w / 2   // 250
-const LEFT_CY = LEFT_MAP.y + LEFT_MAP.h / 2   // 435
+const LEFT_X = 91, LEFT_Y = 203, LEFT_W = 318, LEFT_H = 465
+const LEFT_PIN_CX = LEFT_X + LEFT_W / 2   // 250 — rotation centre, stays fixed
+const LEFT_PIN_CY = LEFT_Y + LEFT_H / 2   // 435
+const LEFT_ROT = -16.34
 
-// Right map: home-right-map.svg (242×219), placed at (1082, 347)
-const RIGHT_MAP = { x: 1082, y: 347, w: 242, h: 219 }
+const RIGHT_X = 1082, RIGHT_Y = 347, RIGHT_W = 242, RIGHT_H = 219
+const RIGHT_PIN_CX = RIGHT_X + RIGHT_W / 2  // 1203
+const RIGHT_PIN_CY = RIGHT_Y + RIGHT_H / 2  // 457
 
-const HOTSPOTS = [
-  {
-    // Pin sits on the left (Vietnam outline) map — upper-centre of the shape
-    cx: 240,
-    cy: 360,
-    location: 'brooklyn',
-    label: 'brooklyn, ny',
-    timeZone: 'America/New_York',
-    tooltipAnchor: 'right' as const,
-  },
-  {
-    // Pin sits on the right map — centre of the shape
-    cx: RIGHT_MAP.x + RIGHT_MAP.w / 2,   // 1203
-    cy: RIGHT_MAP.y + RIGHT_MAP.h / 2,   // 457
-    location: 'vietnam',
-    label: 'buôn ma thuột, vietnam',
-    timeZone: 'Asia/Ho_Chi_Minh',
-    tooltipAnchor: 'left' as const,
-  },
-]
+const TOOLTIP_W = 200
+const TOOLTIP_H = 48
 
-const TOOLTIP_W = 176
-const TOOLTIP_H = 44
-
-function Hotspot({
-  cx,
-  cy,
-  label,
-  timeZone,
-  tooltipAnchor,
-}: (typeof HOTSPOTS)[0]) {
-  const [active, setActive] = useState(false)
+function Tooltip({ x, y, label, timeZone }: { x: number; y: number; label: string; timeZone: string }) {
   const time = useLocalTime(timeZone)
-
-  const tx = tooltipAnchor === 'left' ? cx - TOOLTIP_W - 14 : cx + 14
-  const ty = cy - TOOLTIP_H / 2
-
   return (
-    <g>
-      {/* Subtle always-visible dot */}
-      <circle cx={cx} cy={cy} r="3" fill="#4A7AB5" opacity="0.3" style={{ pointerEvents: 'none' }} />
+    <foreignObject x={x} y={y} width={TOOLTIP_W} height={TOOLTIP_H} style={{ pointerEvents: 'none' }}>
+      <div className="map-tooltip">
+        <span className="map-tooltip-label">{label}</span>
+        <span className="map-tooltip-time">{time}</span>
+      </div>
+    </foreignObject>
+  )
+}
 
-      {/* Invisible hit area */}
-      <circle
-        cx={cx}
-        cy={cy}
-        r="28"
-        fill="transparent"
-        style={{ cursor: 'crosshair', pointerEvents: 'all' }}
-        onMouseEnter={() => setActive(true)}
-        onMouseLeave={() => setActive(false)}
-      />
-
+function Pin({ cx, cy, active }: { cx: number; cy: number; active: boolean }) {
+  return (
+    <>
+      <circle cx={cx} cy={cy} r={3} fill="#4A7AB5" opacity={0.3} style={{ pointerEvents: 'none' }} />
       {active && (
         <>
-          <circle cx={cx} cy={cy} r="12" fill="none" stroke="#4A7AB5" strokeWidth="1.5" opacity="0.35" style={{ pointerEvents: 'none' }} />
-          <circle cx={cx} cy={cy} r="5" fill="#4A7AB5" style={{ pointerEvents: 'none' }} />
-          <foreignObject x={tx} y={ty} width={TOOLTIP_W} height={TOOLTIP_H}>
-            <div className="map-tooltip">
-              <span className="map-tooltip-label">{label}</span>
-              <span className="map-tooltip-time">{time}</span>
-            </div>
-          </foreignObject>
+          <circle cx={cx} cy={cy} r={12} fill="none" stroke="#4A7AB5" strokeWidth={1.5} opacity={0.35} style={{ pointerEvents: 'none' }} />
+          <circle cx={cx} cy={cy} r={5} fill="#4A7AB5" style={{ pointerEvents: 'none' }} />
         </>
       )}
-    </g>
+    </>
   )
 }
 
 export default function MapHotspots({ visible }: { visible: boolean }) {
+  const [hovered, setHovered] = useState<'brooklyn' | 'vietnam' | null>(null)
+
   if (!visible) return null
 
   return (
-    <div
-      style={{
-        position: 'fixed',
-        inset: 0,
-        zIndex: 5,
-        pointerEvents: 'none',
-      }}
-    >
+    <div style={{ position: 'fixed', inset: 0, zIndex: 5, pointerEvents: 'none' }}>
       <svg
         viewBox="0 0 1440 900"
         preserveAspectRatio="xMidYMid slice"
         style={{ width: '100%', height: '100%' }}
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        xmlnsXlink="http://www.w3.org/1999/xlink"
       >
-        {/* Maps live inside the SVG so they share the same coordinate space as the pins */}
-        <image
-          href="/assets/home-left-shape.svg"
-          x={LEFT_MAP.x} y={LEFT_MAP.y}
-          width={LEFT_MAP.w} height={LEFT_MAP.h}
-          transform={`rotate(${LEFT_MAP.rotateDeg} ${LEFT_CX} ${LEFT_CY})`}
-        />
-        <image
-          href="/assets/home-right-map.svg"
-          x={RIGHT_MAP.x} y={RIGHT_MAP.y}
-          width={RIGHT_MAP.w} height={RIGHT_MAP.h}
-        />
+        {/* ── Left map (Vietnam outline) ─────────────────────────────────────────
+            Hover the entire shape — transform on the <g> so the hit area
+            matches the visible rotated image exactly. */}
+        <g
+          transform={`rotate(${LEFT_ROT} ${LEFT_PIN_CX} ${LEFT_PIN_CY})`}
+          onMouseEnter={() => setHovered('brooklyn')}
+          onMouseLeave={() => setHovered(null)}
+          style={{ cursor: 'crosshair', pointerEvents: 'all' }}
+        >
+          <image
+            href="/assets/home-left-shape.svg"
+            x={LEFT_X} y={LEFT_Y}
+            width={LEFT_W} height={LEFT_H}
+          />
+          <Pin cx={LEFT_PIN_CX} cy={LEFT_PIN_CY} active={hovered === 'brooklyn'} />
+        </g>
 
-        {HOTSPOTS.map((h) => (
-          <Hotspot key={h.location} {...h} />
-        ))}
+        {/* Brooklyn tooltip — rendered OUTSIDE the rotated group so it stays upright */}
+        {hovered === 'brooklyn' && (
+          <Tooltip
+            x={LEFT_PIN_CX + LEFT_W / 2 + 20}
+            y={LEFT_PIN_CY - TOOLTIP_H / 2}
+            label="brooklyn, ny"
+            timeZone="America/New_York"
+          />
+        )}
+
+        {/* ── Right map ──────────────────────────────────────────────────────── */}
+        <g
+          onMouseEnter={() => setHovered('vietnam')}
+          onMouseLeave={() => setHovered(null)}
+          style={{ cursor: 'crosshair', pointerEvents: 'all' }}
+        >
+          <image
+            href="/assets/home-right-map.svg"
+            x={RIGHT_X} y={RIGHT_Y}
+            width={RIGHT_W} height={RIGHT_H}
+          />
+          <Pin cx={RIGHT_PIN_CX} cy={RIGHT_PIN_CY} active={hovered === 'vietnam'} />
+        </g>
+
+        {/* Vietnam tooltip — to the left of the right map */}
+        {hovered === 'vietnam' && (
+          <Tooltip
+            x={RIGHT_X - TOOLTIP_W - 16}
+            y={RIGHT_PIN_CY - TOOLTIP_H / 2}
+            label="buôn ma thuột, vietnam"
+            timeZone="Asia/Ho_Chi_Minh"
+          />
+        )}
       </svg>
     </div>
   )
