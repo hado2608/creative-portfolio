@@ -47,7 +47,9 @@ export default function PortfolioFooter() {
   return (
     <footer key={pathname} className="about-footer">
       <div className="about-footer-left">
-        <img src="/assets/signature-figma.svg" alt="" className="about-signature" />
+        <Link href="/">
+          <img src="/assets/signature-figma.svg" alt="Ha Do" className="about-signature" />
+        </Link>
         <div className="about-location">
           <span>brooklyn, ny</span>
           <span>{time}</span>
@@ -68,7 +70,7 @@ export default function PortfolioFooter() {
         <div className="about-contact-row">
           <a href="mailto:hanguyendo01@gmail.com">hanguyendo01@gmail.com</a>
           <span>/</span>
-          <a href="#">resume</a>
+          <a href="https://drive.google.com/file/d/1OajC3F4kzyqCz-QaGbuAEUiWJGHFOwtU/view" target="_blank" rel="noopener noreferrer">resume</a>
         </div>
         <div className="about-contact-row">
           <a href="https://www.linkedin.com/in/hadodesign/" target="_blank" rel="noopener noreferrer">linkedin</a>

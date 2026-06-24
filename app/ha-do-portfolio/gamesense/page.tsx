@@ -64,6 +64,7 @@ function SubSection({ title, children }: { title: string; children: React.ReactN
 
 function SideNavItem({ item, active }: { item: typeof NAV_ITEMS[0]; active: string }) {
   const isActive = active === item.id
+  const [isHovered, setIsHovered] = useState(false)
 
   const handleClick = (e: React.MouseEvent) => {
     e.preventDefault()
@@ -74,6 +75,8 @@ function SideNavItem({ item, active }: { item: typeof NAV_ITEMS[0]; active: stri
     <li>
       <button
         onClick={handleClick}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
         style={{
           display: 'flex',
           alignItems: 'center',
@@ -86,10 +89,9 @@ function SideNavItem({ item, active }: { item: typeof NAV_ITEMS[0]; active: stri
           border: 'none',
           cursor: 'pointer',
           padding: 0,
-          color: 'rgba(40,40,40,0.5)',
-          fontWeight: isActive ? 700 : 500,
+          color: isActive ? 'rgba(40,40,40,0.8)' : 'rgba(40,40,40,0.5)',
+          fontWeight: isActive || isHovered ? 700 : 400,
           lineHeight: 1.2,
-          transition: 'font-weight 150ms',
           textAlign: 'left',
         }}
       >
