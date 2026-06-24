@@ -81,9 +81,17 @@ export default function IDCard() {
 
   return (
     <div className="id-assembly">
+      {/* Dangler loop — hangs from top of viewport */}
+      <div className="id-dangler-wrap">
+        <img src="/assets/dangler.svg" alt="" className="id-dangler-img" aria-hidden />
+      </div>
+
+      {/* Thread connecting dangler to card */}
+      <div className="id-thread" aria-hidden />
+
       {/* Perspective wrapper */}
       <div className="id-card-scene">
-        {/* SVG card — tilt target */}
+        {/* Card — tilt target, card body only */}
         <div
           className="id-svg-card"
           ref={cardRef}
@@ -95,7 +103,7 @@ export default function IDCard() {
           <div className="id-card-gloss" ref={glossRef} aria-hidden />
 
           <img
-            src="/svg/hero_id.svg"
+            src="/svg/card-body.svg"
             alt="Ha Do design license card"
             className="id-svg-img"
             draggable={false}
