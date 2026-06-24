@@ -81,19 +81,11 @@ export default function IDCard() {
 
   return (
     <div className="id-assembly">
-      {/* Dangler loop — comes from off-screen top */}
-      <div className="id-dangler-wrap">
-        <img src="/assets/dangler.svg" alt="" className="id-dangler-img" aria-hidden />
-      </div>
-
-      {/* Thread connecting dangler to card */}
-      <div className="id-thread" aria-hidden />
-
       {/* Perspective wrapper */}
       <div className="id-card-scene">
-        {/* Card outer — tilt target */}
+        {/* SVG card — tilt target */}
         <div
-          className="id-card-outer"
+          className="id-svg-card"
           ref={cardRef}
           onMouseMove={handleMouseMove}
           onMouseEnter={handleMouseEnter}
@@ -102,64 +94,21 @@ export default function IDCard() {
           {/* Gloss highlight follows cursor */}
           <div className="id-card-gloss" ref={glossRef} aria-hidden />
 
-          {/* Card inner — white surface */}
-          <div className="id-card-inner">
-            {/* "design license" wide spaced header */}
-            <p className="id-card-header">design license</p>
+          <img
+            src="/svg/hero_id.svg"
+            alt="Ha Do design license card"
+            className="id-svg-img"
+            draggable={false}
+          />
 
-            {/* Punch holes */}
-            <div className="id-holes-bar">
-              <img src="/assets/card-holes.svg" alt="" aria-hidden />
-            </div>
-
-            {/* Photo section — left side */}
-            <div className="id-photo-section">
-              <p className="id-photo-tag">professional viber (vibe-coder)</p>
-              <div className="id-photo-img-wrap">
-                <img src="/assets/ha-photo.jpg" alt="Ha Do" className="id-photo-img" />
-                <div className="id-photo-gradient" aria-hidden />
-              </div>
-            </div>
-
-            {/* Ha Do name */}
-            <p className="id-name">Ha Do</p>
-
-            {/* Handwritten signature overlaid on photo bottom */}
-            <div className="id-signature-wrap" aria-hidden>
-              <img src="/assets/card-signature.svg" alt="" className="id-signature-img" />
-            </div>
-
-            {/* Info boxes — right column */}
-            <div className="id-info-boxes">
-              <div className="id-info-box">
-                <span className="id-info-label">role</span>
-                <span className="id-info-value">product designer / design engineer</span>
-              </div>
-              <div className="id-info-box">
-                <span className="id-info-label">experience</span>
-                <span className="id-info-value">3+ years shipping startups</span>
-              </div>
-              <div className="id-info-box id-info-box--last">
-                <span className="id-info-label">philosophy</span>
-                <span className="id-info-value">
-                  to design is to put a&nbsp;
-                  <img src="/assets/card-smiley.png" alt="smile" className="id-smiley" />
-                  &nbsp;on people
-                </span>
-              </div>
-            </div>
-          </div>
-
-          {/* Resume panel — attached to right edge of outer card */}
+          {/* Transparent clickable overlay over the "my resume" button in the SVG */}
           <a
-            href="/assets/sample-script.pdf"
-            className="id-resume-panel"
+            href="https://drive.google.com/file/d/1OajC3F4kzyqCz-QaGbuAEUiWJGHFOwtU/view"
             target="_blank"
             rel="noopener noreferrer"
-          >
-            <img src="/assets/resume-icon.svg" alt="" className="id-resume-icon" aria-hidden />
-            <span className="id-resume-label">my resume</span>
-          </a>
+            className="id-svg-resume-link"
+            aria-label="View my resume"
+          />
         </div>
       </div>
     </div>
