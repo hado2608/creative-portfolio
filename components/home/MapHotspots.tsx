@@ -63,7 +63,7 @@ export default function MapHotspots({ visible }: { visible: boolean }) {
             matches the visible rotated image exactly. */}
         <g
           transform={`rotate(${LEFT_ROT} ${LEFT_PIN_CX} ${LEFT_PIN_CY})`}
-          onMouseEnter={() => setHovered('brooklyn')}
+          onMouseEnter={() => setHovered('vietnam')}
           onMouseLeave={() => setHovered(null)}
           style={{ cursor: 'crosshair', pointerEvents: 'all' }}
         >
@@ -72,22 +72,22 @@ export default function MapHotspots({ visible }: { visible: boolean }) {
             x={LEFT_X} y={LEFT_Y}
             width={LEFT_W} height={LEFT_H}
           />
-          <Pin cx={LEFT_PIN_CX} cy={LEFT_PIN_CY} active={hovered === 'brooklyn'} />
+          <Pin cx={LEFT_PIN_CX} cy={LEFT_PIN_CY} active={hovered === 'vietnam'} />
         </g>
 
-        {/* Brooklyn tooltip — rendered OUTSIDE the rotated group so it stays upright */}
-        {hovered === 'brooklyn' && (
+        {/* Vietnam tooltip — rendered OUTSIDE the rotated group so it stays upright, adjacent to pin */}
+        {hovered === 'vietnam' && (
           <Tooltip
-            x={LEFT_PIN_CX + LEFT_W / 2 + 20}
+            x={LEFT_PIN_CX + 16}
             y={LEFT_PIN_CY - TOOLTIP_H / 2}
-            label="brooklyn, ny"
-            timeZone="America/New_York"
+            label="buôn ma thuột, vietnam"
+            timeZone="Asia/Ho_Chi_Minh"
           />
         )}
 
         {/* ── Right map ──────────────────────────────────────────────────────── */}
         <g
-          onMouseEnter={() => setHovered('vietnam')}
+          onMouseEnter={() => setHovered('brooklyn')}
           onMouseLeave={() => setHovered(null)}
           style={{ cursor: 'crosshair', pointerEvents: 'all' }}
         >
@@ -96,16 +96,16 @@ export default function MapHotspots({ visible }: { visible: boolean }) {
             x={RIGHT_X} y={RIGHT_Y}
             width={RIGHT_W} height={RIGHT_H}
           />
-          <Pin cx={RIGHT_PIN_CX} cy={RIGHT_PIN_CY} active={hovered === 'vietnam'} />
+          <Pin cx={RIGHT_PIN_CX} cy={RIGHT_PIN_CY} active={hovered === 'brooklyn'} />
         </g>
 
-        {/* Vietnam tooltip — to the left of the right map */}
-        {hovered === 'vietnam' && (
+        {/* Brooklyn tooltip — to the left of the pin, adjacent */}
+        {hovered === 'brooklyn' && (
           <Tooltip
-            x={RIGHT_X - TOOLTIP_W - 16}
+            x={RIGHT_PIN_CX - TOOLTIP_W - 16}
             y={RIGHT_PIN_CY - TOOLTIP_H / 2}
-            label="buôn ma thuột, vietnam"
-            timeZone="Asia/Ho_Chi_Minh"
+            label="brooklyn, ny"
+            timeZone="America/New_York"
           />
         )}
       </svg>
