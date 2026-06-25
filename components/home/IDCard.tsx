@@ -84,10 +84,8 @@ export default function IDCard() {
       {/* Dangler loop — hangs from top of viewport */}
       <div className="id-dangler-wrap">
         <img src="/assets/dangler.svg" alt="" className="id-dangler-img" aria-hidden />
-      </div>
 
-      {/* Thread connecting dangler to card */}
-      <div className="id-thread" aria-hidden />
+      </div>
 
       {/* Perspective wrapper */}
       <div className="id-card-scene">

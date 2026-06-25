@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Instrument_Serif, Geist_Mono } from "next/font/google";
 import PortfolioFooter from "@/components/shared/PortfolioFooter";
+import CustomCursor from "@/components/shared/CustomCursor";
 import "./globals.css";
 
 const instrumentSerif = Instrument_Serif({
@@ -32,6 +33,7 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col">
         {children}
         <PortfolioFooter />
+        <CustomCursor />
       </body>
     </html>
   );

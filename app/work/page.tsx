@@ -1,6 +1,8 @@
 'use client'
 
+import { useEffect, useRef } from 'react'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { motion } from 'framer-motion'
 import { Thumbnail } from '@/components/work/WorkCard'
 import { projects } from '@/data/projects'
@@ -50,13 +52,13 @@ const WORK_ENTRIES: WorkEntry[] = [
   },
 ]
 
-function WorkPageCard({ entry, project }: { entry: WorkEntry; project: Project }) {
+function WorkPageCard({ entry, project, index }: { entry: WorkEntry; project: Project; index: number }) {
   const card = (
     <motion.div
-      initial={{ opacity: 0, y: 16 }}
+      initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-40px' }}
-      transition={{ duration: 0.5, ease: [0.25, 0, 0, 1] }}
+      transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1], delay: index * 0.08 }}
       style={{
         cursor: project.href ? 'pointer' : 'default',
         display: 'flex',
@@ -104,11 +106,47 @@ function WorkPageCard({ entry, project }: { entry: WorkEntry; project: Project }
 
 export default function WorkPage() {
   const projectsById = Object.fromEntries(projects.map(p => [p.id, p]))
+  const router = useRouter()
+  const navigating = useRef(false)
+  const scrollRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const go = () => {
+      if (navigating.current) return
+      navigating.current = true
+      document.documentElement.dataset.navDir = 'up'
+      const nav = () => router.push('/')
+      if ('startViewTransition' in document) {
+        (document as any).startViewTransition(nav)
+      } else {
+        nav()
+      }
+    }
+
+    const el = scrollRef.current
+    const onWheel = (e: WheelEvent) => {
+      if (e.deltaY < -30 && (el?.scrollTop ?? 0) === 0) go()
+    }
+    const touchStart = { y: 0 }
+    const onTouchStart = (e: TouchEvent) => { touchStart.y = e.touches[0].clientY }
+    const onTouchEnd = (e: TouchEvent) => {
+      if (e.changedTouches[0].clientY - touchStart.y > 40 && (el?.scrollTop ?? 0) === 0) go()
+    }
+
+    window.addEventListener('wheel', onWheel, { passive: true })
+    window.addEventListener('touchstart', onTouchStart, { passive: true })
+    window.addEventListener('touchend', onTouchEnd, { passive: true })
+    return () => {
+      window.removeEventListener('wheel', onWheel)
+      window.removeEventListener('touchstart', onTouchStart)
+      window.removeEventListener('touchend', onTouchEnd)
+    }
+  }, [router])
 
   return (
-    <div className="work-page">
+    <div className="work-page" ref={scrollRef}>
       <main className="work-grid">
-        {WORK_ENTRIES.map(entry => {
+        {WORK_ENTRIES.map((entry, i) => {
           const project = projectsById[entry.projectId]
           if (!project) return null
           return (
@@ -120,7 +158,7 @@ export default function WorkPage() {
                   : String(entry.col),
               }}
             >
-              <WorkPageCard entry={entry} project={project} />
+              <WorkPageCard entry={entry} project={project} index={i} />
             </div>
           )
         })}

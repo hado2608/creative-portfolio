@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+*, *::before, *::after {
+  cursor: none !important;
+}
+
 @font-face {
   font-family: 'Neue Montreal';
   src: url('/fonts/Neue Montreal/NeueMontreal-Light.otf') format('opentype');
@@ -250,6 +254,7 @@
   position: absolute;
   top: 0;
   left: calc(50% - 353px);
+  width: 706px;
   z-index: 10;
   transform-origin: center top;
   animation:
@@ -266,9 +271,10 @@
 /* Dangler loop — the oval ring above the card */
 .id-dangler-wrap {
   width: 72px;
-  height: 189px;
+  height: 191px;
   position: relative;
-  margin-bottom: -12px; /* overlaps the string top so they connect */
+  margin-top: -30px;  /* clip top 30px of ring above viewport (hero-page overflow:hidden) */
+  margin-bottom: -13px;
   z-index: 12;
 }
 
@@ -278,14 +284,6 @@
   object-fit: contain;
 }
 
-/* Thread — thin vertical line from dangler bottom to card top */
-.id-thread {
-  width: 1px;
-  height: 24px;
-  background: rgba(0, 0, 0, 0.35);
-  margin-bottom: -1px;
-  z-index: 11;
-}
 
 /* Perspective wrapper for 3D tilt */
 .id-card-scene {
@@ -587,34 +585,19 @@
 /* ── Map hotspot tooltips ──────────────────────────────────────────────────── */
 
 .map-tooltip {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  background: rgba(247, 247, 247, 0.95);
-  border: 1px solid rgba(80, 90, 100, 0.15);
-  border-radius: 6px;
-  padding: 8px 10px;
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
-  width: 100%;
-  height: 100%;
-  box-sizing: border-box;
-}
-
-.map-tooltip-label {
-  font-size: 10px;
-  font-family: 'Neue Montreal', sans-serif;
-  letter-spacing: 0.06em;
-  color: rgba(60, 70, 80, 0.8);
+  display: inline-block;
+  background: #e2e2e3;
+  border-radius: 999px;
+  padding: 10px 18px;
   white-space: nowrap;
-}
-
-.map-tooltip-time {
-  font-size: 13px;
-  font-family: var(--font-geist-mono), 'Geist Mono', monospace;
-  letter-spacing: 0.02em;
-  color: rgba(60, 70, 80, 0.65);
+  width: max-content;
+  border: none;
+  box-shadow: none;
+  font-family: 'Neue Montreal', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: #2e4b68;
+  line-height: 1;
 }
 
 /* ── /Map hotspot tooltips ────────────────────────────────────────────────── */
@@ -974,6 +957,43 @@
   height: calc(100vh - 147px);
   overflow-y: auto;
   background: #f7f7f7;
+  animation: page-enter 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+  outline: none;
+}
+
+/* ── Page transition animations ──────────────────────────────────────────── */
+
+@keyframes page-enter {
+  from { opacity: 0; transform: translateY(32px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes page-exit-up {
+  from { opacity: 1; transform: translateY(0); }
+  to   { opacity: 0; transform: translateY(-32px); }
+}
+
+/* View Transitions API — direction-aware */
+[data-nav-dir="down"]::view-transition-old(root) {
+  animation: 400ms cubic-bezier(0.4, 0, 1, 1) both page-exit-up;
+}
+[data-nav-dir="down"]::view-transition-new(root) {
+  animation: 500ms cubic-bezier(0.22, 1, 0.36, 1) both page-enter;
+}
+[data-nav-dir="up"]::view-transition-old(root) {
+  animation: 400ms cubic-bezier(0.4, 0, 1, 1) both page-enter-reverse-out;
+}
+[data-nav-dir="up"]::view-transition-new(root) {
+  animation: 500ms cubic-bezier(0.22, 1, 0.36, 1) both page-enter-reverse-in;
+}
+
+@keyframes page-enter-reverse-out {
+  from { opacity: 1; transform: translateY(0); }
+  to   { opacity: 0; transform: translateY(32px); }
+}
+@keyframes page-enter-reverse-in {
+  from { opacity: 0; transform: translateY(-32px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 .work-grid {
