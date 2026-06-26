@@ -1,8 +1,7 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
-// All coords are in the shared 1440×900 SVG space.
 const LEFT_X = 91, LEFT_Y = 203, LEFT_W = 318, LEFT_H = 465
 const LEFT_PIN_CX = LEFT_X + LEFT_W / 2   // 250
 const LEFT_PIN_CY = LEFT_Y + LEFT_H / 2   // 435
@@ -12,17 +11,14 @@ const RIGHT_X = 1082, RIGHT_Y = 347, RIGHT_W = 242, RIGHT_H = 219
 const RIGHT_PIN_CX = RIGHT_X + RIGHT_W / 2  // 1203
 const RIGHT_PIN_CY = RIGHT_Y + RIGHT_H / 2  // 457
 
-const TOOLTIP_H = 40
-const TOOLTIP_W = 220
+const VIEWBOX_W = 1440, VIEWBOX_H = 900
 
-function Tooltip({ x, y, label, alignRight }: { x: number; y: number; label: string; alignRight?: boolean }) {
-  return (
-    <foreignObject x={x} y={y} width={400} height={TOOLTIP_H} style={{ pointerEvents: 'none', overflow: 'visible' }}>
-      <div style={alignRight ? { display: 'flex', justifyContent: 'flex-end' } : undefined}>
-        <div className="map-tooltip">{label}</div>
-      </div>
-    </foreignObject>
-  )
+// Convert SVG viewBox coords → screen px, accounting for xMidYMid slice scaling
+function svgToScreen(svgX: number, svgY: number, vw: number, vh: number) {
+  const scale = Math.max(vw / VIEWBOX_W, vh / VIEWBOX_H)
+  const offsetX = (vw - VIEWBOX_W * scale) / 2
+  const offsetY = (vh - VIEWBOX_H * scale) / 2
+  return { x: svgX * scale + offsetX, y: svgY * scale + offsetY }
 }
 
 function Pin({ cx, cy, active }: { cx: number; cy: number; active: boolean }) {
@@ -41,6 +37,14 @@ function Pin({ cx, cy, active }: { cx: number; cy: number; active: boolean }) {
 
 export default function MapHotspots({ visible }: { visible: boolean }) {
   const [hovered, setHovered] = useState<'brooklyn' | 'vietnam' | null>(null)
+  const [viewport, setViewport] = useState({ w: 0, h: 0 })
+
+  useEffect(() => {
+    const update = () => setViewport({ w: window.innerWidth, h: window.innerHeight })
+    update()
+    window.addEventListener('resize', update)
+    return () => window.removeEventListener('resize', update)
+  }, [])
 
   if (!visible) return null
 
@@ -51,9 +55,13 @@ export default function MapHotspots({ visible }: { visible: boolean }) {
     fill: 'none',
   }
 
+  const { w, h } = viewport
+  const brooklynScreen = w ? svgToScreen(RIGHT_PIN_CX, RIGHT_PIN_CY, w, h) : null
+  const vietnamScreen  = w ? svgToScreen(LEFT_PIN_CX,  LEFT_PIN_CY,  w, h) : null
+
   return (
     <>
-      {/* ── Layer 1: map shapes — below ID card (root z-index 5) ── */}
+      {/* ── Layer 1: map shapes — below ID card ── */}
       <div style={{ position: 'fixed', inset: 0, pointerEvents: 'none', zIndex: 5 }}>
         <svg {...svgProps}>
           <g
@@ -74,19 +82,38 @@ export default function MapHotspots({ visible }: { visible: boolean }) {
         </svg>
       </div>
 
-      {/* ── Layer 2: pins + tooltips — above ID card (root z-index 15) ── */}
+      {/* ── Layer 2: pins — above ID card ── */}
       <div style={{ position: 'fixed', inset: 0, pointerEvents: 'none', zIndex: 15 }}>
         <svg {...svgProps}>
-          <Pin cx={LEFT_PIN_CX} cy={LEFT_PIN_CY} active={hovered === 'vietnam'} />
-          {hovered === 'vietnam' && (
-            <Tooltip x={LEFT_PIN_CX + 12} y={LEFT_PIN_CY - TOOLTIP_H / 2} label="Buôn Ma Thuột, Việt Nam" />
-          )}
+          <Pin cx={LEFT_PIN_CX}  cy={LEFT_PIN_CY}  active={hovered === 'vietnam'} />
           <Pin cx={RIGHT_PIN_CX} cy={RIGHT_PIN_CY} active={hovered === 'brooklyn'} />
-          {hovered === 'brooklyn' && (
-            <Tooltip x={RIGHT_PIN_CX - 400 - 12} y={RIGHT_PIN_CY - TOOLTIP_H / 2} label="Brooklyn, NY" alignRight />
-          )}
         </svg>
       </div>
+
+      {/* ── Layer 3: HTML tooltips — fixed 16px, immune to SVG scaling ── */}
+      {hovered === 'vietnam' && vietnamScreen && (
+        <div style={{
+          position: 'fixed',
+          left: vietnamScreen.x + 14,
+          top: vietnamScreen.y - 20,
+          zIndex: 15,
+          pointerEvents: 'none',
+        }}>
+          <div className="map-tooltip">Buôn Ma Thuột, Việt Nam</div>
+        </div>
+      )}
+      {hovered === 'brooklyn' && brooklynScreen && (
+        <div style={{
+          position: 'fixed',
+          left: brooklynScreen.x - 14,
+          top: brooklynScreen.y - 20,
+          transform: 'translateX(-100%)',
+          zIndex: 15,
+          pointerEvents: 'none',
+        }}>
+          <div className="map-tooltip">Brooklyn, NY</div>
+        </div>
+      )}
     </>
   )
 }

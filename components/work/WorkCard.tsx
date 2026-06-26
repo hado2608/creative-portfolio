@@ -2,7 +2,6 @@
 
 import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { useRef, useState, useCallback } from 'react'
 import type { Project } from '@/data/projects'
 
 function CardTitle({ title }: { title: string }) {
@@ -21,118 +20,24 @@ function CardTitle({ title }: { title: string }) {
 }
 
 export function Thumbnail({ project }: { project: Project }) {
-  const containerRef = useRef<HTMLDivElement>(null)
-  const videoRef = useRef<HTMLVideoElement>(null)
-  const [hovered, setHovered] = useState(false)
-  const [pos, setPos] = useState({ x: 0.5, y: 0.5 })
-
-  const onMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
-    if (!containerRef.current) return
-    const r = containerRef.current.getBoundingClientRect()
-    setPos({
-      x: (e.clientX - r.left) / r.width,
-      y: (e.clientY - r.top) / r.height,
-    })
-  }, [])
-
-  const onEnter = useCallback(() => {
-    setHovered(true)
-    if (project.video && videoRef.current) {
-      videoRef.current.currentTime = 0
-      videoRef.current.play().catch(() => {})
-    }
-  }, [project.video])
-
-  const onLeave = useCallback(() => {
-    setHovered(false)
-    setPos({ x: 0.5, y: 0.5 })
-    if (videoRef.current) {
-      videoRef.current.pause()
-      videoRef.current.currentTime = 0
-    }
-  }, [])
-
-  const tiltX = (pos.y - 0.5) * -14
-  const tiltY = (pos.x - 0.5) * 14
-
   return (
-    <div
-      ref={containerRef}
-      onMouseMove={onMove}
-      onMouseEnter={onEnter}
-      onMouseLeave={onLeave}
-      style={{
-        borderRadius: 4,
-        overflow: 'hidden',
-        position: 'relative',
-        transform: hovered
-          ? `perspective(700px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale(1.02)`
-          : 'perspective(700px) rotateX(0deg) rotateY(0deg) scale(1)',
-        transition: hovered
-          ? 'transform 80ms linear'
-          : 'transform 550ms cubic-bezier(0.23, 1, 0.32, 1)',
-        willChange: 'transform',
-      }}
-    >
-      {/* Static thumbnail */}
+    <div style={{ borderRadius: 4, overflow: 'hidden', position: 'relative' }}>
+      {/* Image sets the natural aspect ratio of the slot */}
       <img
         src={project.thumbnail}
         alt={project.title}
-        style={{
-          display: 'block',
-          height: 'auto',
-          width: '100%',
-          opacity: hovered && project.video ? 0 : 1,
-          transition: 'opacity 250ms ease',
-        }}
+        style={{ display: 'block', width: '100%', height: 'auto', visibility: project.video ? 'hidden' : 'visible' }}
       />
-
-      {/* Video — only mounted when a path is provided */}
       {project.video && (
         <video
-          ref={videoRef}
+          autoPlay
           muted
           loop
           playsInline
           src={project.video}
-          style={{
-            height: '100%',
-            inset: 0,
-            objectFit: 'cover',
-            opacity: hovered ? 1 : 0,
-            position: 'absolute',
-            transition: 'opacity 250ms ease',
-            width: '100%',
-          }}
+          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
         />
       )}
-
-      {/* Metallic shine overlay — two-layer: radial specular + sweeping band */}
-      <div
-        style={{
-          borderRadius: 4,
-          inset: 0,
-          mixBlendMode: 'overlay',
-          opacity: hovered ? 1 : 0,
-          pointerEvents: 'none',
-          position: 'absolute',
-          transition: 'opacity 150ms ease',
-          background: `
-            radial-gradient(
-              ellipse 60% 50% at ${pos.x * 100}% ${pos.y * 100}%,
-              rgba(255,255,255,0.22) 0%,
-              rgba(255,255,255,0.07) 45%,
-              transparent 70%
-            ),
-            linear-gradient(
-              ${pos.x * 80 + 70}deg,
-              transparent 25%,
-              rgba(255,255,255,0.09) 50%,
-              transparent 75%
-            )
-          `,
-        }}
-      />
     </div>
   )
 }

@@ -232,7 +232,7 @@ export default function AboutPage() {
           >
             <div className="about-photo-hover">
               <div style={{ width: 200, height: 267, overflow: 'hidden', borderRadius: 8 }}>
-                <img src="/assets/about-jazz.jpg" alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+                <img src="/assets/about-jazz.jpg" alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 15%', display: 'block' }} />
               </div>
             </div>
           </div>
@@ -270,7 +270,7 @@ export default function AboutPage() {
           {/* Sky: arrow top-left, text right of arrow */}
           <div className="about-annotation" style={{ left: 285, top: 69, width: 305, height: 41, opacity: showAllAnnotations || activeAnnotation === 'sky' ? 1 : 0 }}>
             <div style={{ position: 'absolute', left: 0, top: 0, width: 32.93, height: 19.75, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <div style={{ transform: 'rotate(25.99deg)', flexShrink: 0 }}>
+              <div style={{ transform: 'scaleX(-1) rotate(25.99deg)', flexShrink: 0 }}>
                 <img src="/assets/annotations/arrow-sky.svg" alt="" style={{ display: 'block', width: 34, height: 16 }} />
               </div>
             </div>
@@ -281,7 +281,7 @@ export default function AboutPage() {
           <div className="about-annotation" style={{ left: 539, top: 292, width: 179, height: 91, opacity: showAllAnnotations || activeAnnotation === 'jazz' ? 1 : 0 }}>
             <p className="about-annotation-text" style={{ marginTop: 4, marginLeft: 10, width: 163, whiteSpace: 'normal' }}>i&apos;m a jazz singer by night!</p>
             <div style={{ position: 'absolute', left: 0, top: 62, width: 27.08, height: 28.6, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <div style={{ transform: 'rotate(132.84deg)', flexShrink: 0 }}>
+              <div style={{ flexShrink: 0 }}>
                 <img src="/assets/annotations/arrow-jazz.svg" alt="" style={{ display: 'block', width: 24, height: 26 }} />
               </div>
             </div>
@@ -308,7 +308,7 @@ export default function AboutPage() {
           </div>
 
           {/* Album: arrow points left toward music widget */}
-          <div className="about-annotation" style={{ left: 280, top: 665, width: 106, height: 81, opacity: showAllAnnotations || activeAnnotation === 'album' ? 1 : 0 }}>
+          <div className="about-annotation" style={{ left: 228, top: 647, width: 106, height: 81, opacity: showAllAnnotations || activeAnnotation === 'album' ? 1 : 0 }}>
             <div style={{ position: 'absolute', left: 7, top: 5, width: 33.19, height: 23.49, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <div style={{ transform: 'rotate(-150deg) scaleY(-1)', flexShrink: 0 }}>
                 <img src="/assets/annotations/arrow-album.svg" alt="" style={{ display: 'block', width: 30, height: 19 }} />
@@ -353,7 +353,7 @@ export default function AboutPage() {
                 height: '100%',
               }}>
                 {/* Equalizer bars — top right */}
-                <div style={{ display: 'flex', gap: 1, alignItems: 'flex-end' }}>
+                <div style={{ display: 'flex', gap: 1, alignItems: 'flex-end', height: 13 }}>
                   <div className={`eq-bar${isPlaying ? ' eq-bar--playing' : ''}`} />
                   <div className={`eq-bar${isPlaying ? ' eq-bar--playing' : ''}`} />
                   <div className={`eq-bar${isPlaying ? ' eq-bar--playing' : ''}`} />
@@ -383,7 +383,7 @@ export default function AboutPage() {
           <div className="mobile-pin-row mobile-pin-row--reverse">
             <div className="mobile-pin-photo">
               <div style={{ width: 150, height: 200, overflow: 'hidden', borderRadius: 8, transform: 'rotate(4.6deg)' }}>
-                <img src="/assets/about-jazz.jpg" alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+                <img src="/assets/about-jazz.jpg" alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 15%', display: 'block' }} />
               </div>
             </div>
             <p className="mobile-pin-note">i&apos;m a jazz singer by night!</p>
@@ -429,7 +429,7 @@ export default function AboutPage() {
             </div>
             <div style={{ display: 'flex', alignSelf: 'stretch', alignItems: 'center' }}>
               <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', alignItems: 'flex-end', height: '100%' }}>
-                <div style={{ display: 'flex', gap: 1, alignItems: 'flex-end' }}>
+                <div style={{ display: 'flex', gap: 1, alignItems: 'flex-end', height: 13 }}>
                   <div className={`eq-bar${isPlaying ? ' eq-bar--playing' : ''}`} />
                   <div className={`eq-bar${isPlaying ? ' eq-bar--playing' : ''}`} />
                   <div className={`eq-bar${isPlaying ? ' eq-bar--playing' : ''}`} />
