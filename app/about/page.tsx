@@ -218,7 +218,7 @@ export default function AboutPage() {
           >
             <div className="about-photo-hover">
               <div style={{ width: 250, height: 333, overflow: 'hidden', borderRadius: 8 }}>
-                <img src="/assets/about-sky.jpg" alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+                <img src="/assets/about-sky.jpg" alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center bottom', display: 'block' }} />
               </div>
             </div>
           </div>
@@ -270,7 +270,7 @@ export default function AboutPage() {
           {/* Sky: arrow top-left, text right of arrow */}
           <div className="about-annotation" style={{ left: 285, top: 69, width: 305, height: 41, opacity: showAllAnnotations || activeAnnotation === 'sky' ? 1 : 0 }}>
             <div style={{ position: 'absolute', left: 0, top: 0, width: 32.93, height: 19.75, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <div style={{ transform: 'scaleX(-1) rotate(25.99deg)', flexShrink: 0 }}>
+              <div style={{ transform: 'rotate(25.99deg)', flexShrink: 0 }}>
                 <img src="/assets/annotations/arrow-sky.svg" alt="" style={{ display: 'block', width: 34, height: 16 }} />
               </div>
             </div>
@@ -374,7 +374,7 @@ export default function AboutPage() {
           <div className="mobile-pin-row">
             <div className="mobile-pin-photo">
               <div style={{ width: 170, height: 227, overflow: 'hidden', borderRadius: 8, transform: 'rotate(-2.26deg)' }}>
-                <img src="/assets/about-sky.jpg" alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+                <img src="/assets/about-sky.jpg" alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center bottom', display: 'block' }} />
               </div>
             </div>
             <p className="mobile-pin-note">the sky is full of inspirations</p>
