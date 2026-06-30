@@ -81,6 +81,8 @@ export const projects: Project[] = [
     description: 'Designed and built a scrollytelling website for my data project researching how music genres have traveled through time and space.',
     category: 'Data visualization & scrollytelling',
     year: '2024',
+    href: 'https://music-map-seven.vercel.app',
+    external: true,
     thumbnail: '/assets/thumbnails/musicmap-thumbnail.png',
     row: 3,
     column: 'right',
