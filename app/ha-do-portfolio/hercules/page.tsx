@@ -24,7 +24,7 @@ const CENTERED: React.CSSProperties = {
   paddingRight: 40,
 }
 
-const SERIF = "'Recoleta', Georgia, serif"
+const SERIF = "'Neue Montreal', sans-serif"
 const SANS  = "'Neue Montreal', sans-serif"
 
 const h2Style: React.CSSProperties = {
@@ -228,7 +228,7 @@ export default function HerculesPage() {
   return (
     <article style={{ background: 'var(--color-warm-bg)', color: 'var(--color-warm-body)', minHeight: '100vh' }}>
 
-      <CaseStudyNav nextHref="/ha-do-portfolio/matcha-bot" nextLabel="Next case study" />
+      <CaseStudyNav nextHref="/ha-do-portfolio/matcha-bot" />
 
       {/* ── HERO ── */}
       <header style={{ ...CENTERED, paddingTop: 80, paddingBottom: 0 }}>
@@ -243,7 +243,7 @@ export default function HerculesPage() {
 
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 80, paddingBottom: 56, borderBottom: '1px solid var(--color-warm-border)' }}>
           <div>
-            <h1 style={{ fontFamily: SERIF, fontWeight: 400, fontSize: 80, letterSpacing: '-0.02em', lineHeight: 1.05, color: 'var(--color-warm-text)', marginBottom: 16 }}>
+            <h1 style={{ fontFamily: "'The Seasons', Georgia, serif", fontWeight: 400, fontSize: 128, letterSpacing: '-0.03em', lineHeight: 'normal', color: 'var(--color-warm-text)', marginBottom: 16 }}>
               Hercules
             </h1>
             <p style={{ ...bodyStyle, color: 'var(--color-warm-body)' }}>

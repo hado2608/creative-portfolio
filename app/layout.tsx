@@ -30,7 +30,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`h-full antialiased ${instrumentSerif.variable} ${geistMono.variable}`}>
-      <body className="min-h-full flex flex-col">
+<body className="min-h-full flex flex-col">
         {children}
         <PortfolioFooter />
         <CustomCursor />

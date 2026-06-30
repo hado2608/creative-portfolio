@@ -38,17 +38,16 @@ export default function CustomCursor() {
         position: 'fixed',
         top: 0,
         left: 0,
-        width: 40,
-        height: 40,
-        marginLeft: -20,
-        marginTop: -20,
+        width: 56,
+        height: 53,
+        marginLeft: -28,
+        marginTop: -26,
         pointerEvents: 'none',
         zIndex: 99999,
-        mixBlendMode: 'multiply',
         willChange: 'transform',
       }}
     >
-      <img src="/assets/cursor-star.svg" width={40} height={40} alt="" draggable={false} />
+      <img src="/assets/cursor-wings.png" width={56} height={53} alt="" draggable={false} />
     </div>
   )
 }

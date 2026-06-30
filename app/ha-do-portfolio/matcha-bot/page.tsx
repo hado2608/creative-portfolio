@@ -35,7 +35,7 @@ const CENTERED: React.CSSProperties = {
   paddingRight: 40,
 }
 
-const SERIF = "'Recoleta', Georgia, serif"
+const SERIF = "'Neue Montreal', sans-serif"
 const SANS  = "'Neue Montreal', sans-serif"
 
 const BODY: React.CSSProperties = {
@@ -219,7 +219,7 @@ export default function MatchaBotPage() {
   return (
     <article style={{ background: 'var(--color-warm-bg)', color: 'var(--color-warm-body)', minHeight: '100vh' }}>
 
-      <CaseStudyNav nextHref="/ha-do-portfolio/gamesense" nextLabel="Next case study" />
+      <CaseStudyNav nextHref="/ha-do-portfolio/gamesense" />
 
       {/* ── HERO ── */}
       <header style={{ ...CENTERED, paddingTop: 80 }}>
@@ -246,11 +246,11 @@ export default function MatchaBotPage() {
         }}>
           <div>
             <h1 style={{
-              fontFamily: SERIF,
+              fontFamily: "'The Seasons', Georgia, serif",
               fontWeight: 400,
-              fontSize: 80,
-              letterSpacing: '-0.02em',
-              lineHeight: 1.05,
+              fontSize: 128,
+              letterSpacing: '-0.03em',
+              lineHeight: 'normal',
               color: 'var(--color-warm-text)',
               marginBottom: 20,
             }}>

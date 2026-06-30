@@ -54,7 +54,7 @@ function SectionLabel({ text }: { text: string }) {
 function SubSection({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div style={{ marginTop: 56 }}>
-      <h3 style={{ fontFamily: 'var(--font-serif)', fontWeight: 500, fontSize: 20, color: 'var(--color-warm-text)', marginBottom: 16, lineHeight: 1.4 }}>
+      <h3 style={{ fontFamily: "'Neue Montreal', sans-serif", fontWeight: 500, fontSize: 20, color: 'var(--color-warm-text)', marginBottom: 16, lineHeight: 1.4 }}>
         {title}
       </h3>
       {children}
@@ -62,7 +62,7 @@ function SubSection({ title, children }: { title: string; children: React.ReactN
   )
 }
 
-function SideNavItem({ item, active }: { item: typeof NAV_ITEMS[0]; active: string }) {
+function SideNavItem({ item, active, accentColor }: { item: typeof NAV_ITEMS[0]; active: string; accentColor: string }) {
   const isActive = active === item.id
   const [isHovered, setIsHovered] = useState(false)
 
@@ -96,7 +96,7 @@ function SideNavItem({ item, active }: { item: typeof NAV_ITEMS[0]; active: stri
         }}
       >
         <svg width="26" height="4" viewBox="0 0 26 4" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ flexShrink: 0, transition: 'opacity 150ms' }}>
-          <path d="M0 0H25.9151L24 4H0V0Z" fill={isActive ? 'var(--color-warm-accent)' : 'transparent'} />
+          <path d="M0 0H25.9151L24 4H0V0Z" fill={isActive ? accentColor : 'transparent'} />
         </svg>
         {item.label}
       </button>
@@ -128,7 +128,7 @@ export default function GameSensePage() {
   return (
     <article style={{ background: 'var(--color-warm-bg)', color: 'var(--color-warm-body)', minHeight: '100vh' }}>
 
-      <CaseStudyNav nextHref="/ha-do-portfolio/hercules" nextLabel="Next: Hercules" />
+      <CaseStudyNav nextHref="/ha-do-portfolio/toyota" />
 
       {/* ── HERO ── */}
       <header style={{ ...CENTERED, paddingTop: 80 }}>
@@ -149,7 +149,7 @@ export default function GameSensePage() {
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 80, paddingBottom: 56, borderBottom: '1px solid var(--color-warm-border)' }}>
           {/* Left: title + description */}
           <div>
-            <h1 style={{ fontFamily: 'var(--font-serif)', fontWeight: 400, fontSize: 80, letterSpacing: '-0.02em', lineHeight: 1.05, color: 'var(--color-warm-text)', marginBottom: 20 }}>
+            <h1 style={{ fontFamily: "'The Seasons', Georgia, serif", fontWeight: 400, fontSize: 128, letterSpacing: '-0.03em', lineHeight: 'normal', color: 'var(--color-warm-text)', marginBottom: 20 }}>
               GameSense
             </h1>
             <p style={{ color: 'var(--color-warm-body)', fontSize: 18, lineHeight: 1.75, letterSpacing: '0.02em' }}>
@@ -185,7 +185,7 @@ export default function GameSensePage() {
         <nav className="cs-sidenav" aria-label="Case study sections">
           <ul style={{ position: 'sticky', top: 96, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 20 }}>
             {NAV_ITEMS.map(item => (
-              <SideNavItem key={item.id} item={item} active={activeSection} />
+              <SideNavItem key={item.id} item={item} active={activeSection} accentColor="#38BDF8" />
             ))}
           </ul>
         </nav>
@@ -196,7 +196,7 @@ export default function GameSensePage() {
           {/* OVERVIEW */}
           <section id="overview" style={{ marginBottom: 128 }}>
             <SectionLabel text="Overview" />
-            <h2 style={{ fontFamily: 'var(--font-serif)', fontWeight: 500, fontSize: 'clamp(28px, 3.5vw, 40px)', lineHeight: 1.2, color: 'var(--color-warm-text)', marginBottom: 24 }}>
+            <h2 style={{ fontFamily: "'Neue Montreal', sans-serif", fontWeight: 500, fontSize: 32, lineHeight: 1.2, color: 'var(--color-warm-text)', marginBottom: 24 }}>
               What is Conduit Gaming?
             </h2>
             <p style={{ lineHeight: 1.75, fontSize: 18, letterSpacing: '0.02em' }}>
@@ -210,7 +210,7 @@ export default function GameSensePage() {
           {/* WHY THIS PROJECT */}
           <section id="why-this-project" style={{ marginBottom: 128 }}>
             <SectionLabel text="Why This Project" />
-            <h2 style={{ fontFamily: 'var(--font-serif)', fontWeight: 500, fontSize: 'clamp(28px, 3.5vw, 40px)', lineHeight: 1.2, color: 'var(--color-warm-text)', marginBottom: 24 }}>
+            <h2 style={{ fontFamily: "'Neue Montreal', sans-serif", fontWeight: 500, fontSize: 32, lineHeight: 1.2, color: 'var(--color-warm-text)', marginBottom: 24 }}>
               Building a discovery experience that feels like play.
             </h2>
             <p style={{ lineHeight: 1.75, fontSize: 18, letterSpacing: '0.02em' }}>
@@ -224,7 +224,7 @@ export default function GameSensePage() {
           {/* INITIAL PROBLEM DISCOVERY */}
           <section id="initial-problem-discovery" style={{ marginBottom: 128 }}>
             <SectionLabel text="Initial Problem Discovery" />
-            <h2 style={{ fontFamily: 'var(--font-serif)', fontWeight: 500, fontSize: 'clamp(28px, 3.5vw, 40px)', lineHeight: 1.3, color: 'var(--color-warm-text)', marginBottom: 24 }}>
+            <h2 style={{ fontFamily: "'Neue Montreal', sans-serif", fontWeight: 500, fontSize: 32, lineHeight: 1.3, color: 'var(--color-warm-text)', marginBottom: 24 }}>
               Three design problems, pulled apart.
             </h2>
             <p style={{ lineHeight: 1.75, fontSize: 18, letterSpacing: '0.02em' }}>
@@ -269,7 +269,7 @@ export default function GameSensePage() {
           {/* CARD ANATOMY */}
           <section id="card-anatomy" style={{ marginBottom: 128 }}>
             <SectionLabel text="Card Anatomy" />
-            <h2 style={{ fontFamily: 'var(--font-serif)', fontWeight: 500, fontSize: 'clamp(28px, 3.5vw, 40px)', lineHeight: 1.2, color: 'var(--color-warm-text)', marginBottom: 24 }}>
+            <h2 style={{ fontFamily: "'Neue Montreal', sans-serif", fontWeight: 500, fontSize: 32, lineHeight: 1.2, color: 'var(--color-warm-text)', marginBottom: 24 }}>
               Zones, not freeform layout.
             </h2>
             <p style={{ lineHeight: 1.75, fontSize: 18, letterSpacing: '0.02em' }}>
@@ -301,7 +301,7 @@ export default function GameSensePage() {
           {/* NOTABLE ITERATIONS */}
           <section id="notable-iterations" style={{ marginBottom: 128 }}>
             <SectionLabel text="Notable Iterations" />
-            <h2 style={{ fontFamily: 'var(--font-serif)', fontWeight: 500, fontSize: 'clamp(28px, 3.5vw, 40px)', lineHeight: 1.2, color: 'var(--color-warm-text)', marginBottom: 24 }}>
+            <h2 style={{ fontFamily: "'Neue Montreal', sans-serif", fontWeight: 500, fontSize: 32, lineHeight: 1.2, color: 'var(--color-warm-text)', marginBottom: 24 }}>
               Three decisions worth showing.
             </h2>
 
@@ -356,7 +356,7 @@ export default function GameSensePage() {
           {/* FINAL DESIGNS */}
           <section id="final-designs" style={{ marginBottom: 128 }}>
             <SectionLabel text="Final Designs" />
-            <h2 style={{ fontFamily: 'var(--font-serif)', fontWeight: 500, fontSize: 'clamp(28px, 3.5vw, 40px)', lineHeight: 1.2, color: 'var(--color-warm-text)', marginBottom: 24 }}>
+            <h2 style={{ fontFamily: "'Neue Montreal', sans-serif", fontWeight: 500, fontSize: 32, lineHeight: 1.2, color: 'var(--color-warm-text)', marginBottom: 24 }}>
               Mobile and desktop, currently in QA.
             </h2>
             <p style={{ lineHeight: 1.75, fontSize: 18, letterSpacing: '0.02em', marginBottom: 40 }}>
@@ -377,7 +377,7 @@ export default function GameSensePage() {
             <SectionLabel text="Retrospective" />
             <ul style={{ marginTop: 24, paddingLeft: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 40 }}>
               <li>
-                <p style={{ fontFamily: 'var(--font-serif)', fontSize: 16, color: 'var(--color-warm-text)', marginBottom: 8, fontWeight: 500, lineHeight: 1.4 }}>
+                <p style={{ fontFamily: "'Neue Montreal', sans-serif", fontSize: 16, color: 'var(--color-warm-text)', marginBottom: 8, fontWeight: 500, lineHeight: 1.4 }}>
                   Creativity has to live inside technical reality.
                 </p>
                 <p style={{ lineHeight: 1.75, fontSize: 18, letterSpacing: '0.02em' }}>
@@ -385,7 +385,7 @@ export default function GameSensePage() {
                 </p>
               </li>
               <li>
-                <p style={{ fontFamily: 'var(--font-serif)', fontSize: 16, color: 'var(--color-warm-text)', marginBottom: 8, fontWeight: 500, lineHeight: 1.4 }}>
+                <p style={{ fontFamily: "'Neue Montreal', sans-serif", fontSize: 16, color: 'var(--color-warm-text)', marginBottom: 8, fontWeight: 500, lineHeight: 1.4 }}>
                   Designing for gamers requires a different mental map.
                 </p>
                 <p style={{ lineHeight: 1.75, fontSize: 18, letterSpacing: '0.02em' }}>
@@ -393,7 +393,7 @@ export default function GameSensePage() {
                 </p>
               </li>
               <li>
-                <p style={{ fontFamily: 'var(--font-serif)', fontSize: 16, color: 'var(--color-warm-text)', marginBottom: 8, fontWeight: 500, lineHeight: 1.4 }}>
+                <p style={{ fontFamily: "'Neue Montreal', sans-serif", fontSize: 16, color: 'var(--color-warm-text)', marginBottom: 8, fontWeight: 500, lineHeight: 1.4 }}>
                   Don&apos;t break what works.
                 </p>
                 <p style={{ lineHeight: 1.75, fontSize: 18, letterSpacing: '0.02em' }}>

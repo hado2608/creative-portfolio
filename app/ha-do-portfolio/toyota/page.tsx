@@ -51,7 +51,7 @@ function PullQuote({ children }: { children: React.ReactNode }) {
         borderLeft: '3px solid var(--color-warm-accent)',
         paddingLeft: 24,
         margin: '24px 0',
-        fontFamily: 'var(--font-serif)',
+        fontFamily: "'Neue Montreal', sans-serif",
         fontSize: 20,
         fontStyle: 'italic',
         color: 'var(--color-warm-text)',
@@ -93,7 +93,7 @@ function SubSection({ title, children }: { title: string; children: React.ReactN
     <div style={{ marginTop: 56 }}>
       <h3
         style={{
-          fontFamily: 'var(--font-serif)',
+          fontFamily: "'Neue Montreal', sans-serif",
           fontWeight: 500,
           fontSize: 20,
           color: 'var(--color-warm-text)',
@@ -108,7 +108,7 @@ function SubSection({ title, children }: { title: string; children: React.ReactN
   )
 }
 
-function SideNavItem({ item, active }: { item: typeof NAV_ITEMS[0]; active: string }) {
+function SideNavItem({ item, active, accentColor }: { item: typeof NAV_ITEMS[0]; active: string; accentColor: string }) {
   const isActive = active === item.id
   const [isHovered, setIsHovered] = useState(false)
 
@@ -151,7 +151,7 @@ function SideNavItem({ item, active }: { item: typeof NAV_ITEMS[0]; active: stri
         >
           <path
             d="M0 0H25.9151L24 4H0V0Z"
-            fill={isActive ? 'var(--color-warm-accent)' : 'transparent'}
+            fill={isActive ? accentColor : 'transparent'}
           />
         </svg>
         {item.label}
@@ -184,7 +184,7 @@ export default function ToyotaPage() {
   return (
     <article style={{ background: 'var(--color-warm-bg)', color: 'var(--color-warm-body)', minHeight: '100vh' }}>
 
-      <CaseStudyNav nextHref="/ha-do-portfolio/gamesense" nextLabel="Next: GameSense" />
+      <CaseStudyNav nextHref="/ha-do-portfolio/cityharvest" />
 
       {/* ── HERO ── */}
       <header style={{ ...CENTERED, paddingTop: 80 }}>
@@ -212,11 +212,11 @@ export default function ToyotaPage() {
           <div>
             <h1
               style={{
-                fontFamily: 'var(--font-serif)',
+                fontFamily: "'The Seasons', Georgia, serif",
                 fontWeight: 400,
-                fontSize: 80,
-                letterSpacing: '-0.02em',
-                lineHeight: 1.05,
+                fontSize: 128,
+                letterSpacing: '-0.03em',
+                lineHeight: 'normal',
                 color: 'var(--color-warm-text)',
                 marginBottom: 20,
               }}
@@ -257,7 +257,7 @@ export default function ToyotaPage() {
         <nav className="cs-sidenav" aria-label="Case study sections">
           <ul style={{ position: 'sticky', top: 96, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 20 }}>
             {NAV_ITEMS.map(item => (
-              <SideNavItem key={item.id} item={item} active={activeSection} />
+              <SideNavItem key={item.id} item={item} active={activeSection} accentColor="#F87F7F" />
             ))}
           </ul>
         </nav>
@@ -270,7 +270,7 @@ export default function ToyotaPage() {
             <SectionLabel text="Overview" />
             <h2
               style={{
-                fontFamily: 'var(--font-serif)',
+                fontFamily: "'Neue Montreal', sans-serif",
                 fontWeight: 500,
                 fontSize: 'clamp(28px, 3.5vw, 40px)',
                 lineHeight: 1.2,
@@ -347,7 +347,7 @@ export default function ToyotaPage() {
             <SectionLabel text="Ethnography Research" />
             <h2
               style={{
-                fontFamily: 'var(--font-serif)',
+                fontFamily: "'Neue Montreal', sans-serif",
                 fontWeight: 500,
                 fontSize: 'clamp(28px, 3.5vw, 40px)',
                 lineHeight: 1.2,
@@ -546,7 +546,7 @@ export default function ToyotaPage() {
             <SectionLabel text="Design Iterations" />
             <h2
               style={{
-                fontFamily: 'var(--font-serif)',
+                fontFamily: "'Neue Montreal', sans-serif",
                 fontWeight: 500,
                 fontSize: 'clamp(28px, 3.5vw, 40px)',
                 lineHeight: 1.2,
@@ -644,7 +644,7 @@ export default function ToyotaPage() {
             <SectionLabel text="Final Designs" />
             <h2
               style={{
-                fontFamily: 'var(--font-serif)',
+                fontFamily: "'Neue Montreal', sans-serif",
                 fontWeight: 500,
                 fontSize: 'clamp(28px, 3.5vw, 40px)',
                 lineHeight: 1.2,

@@ -51,7 +51,7 @@ function PullQuote({ children }: { children: React.ReactNode }) {
       style={{
         borderLeft: '3px solid var(--color-warm-accent)',
         paddingLeft: 24,
-        fontFamily: 'var(--font-serif)',
+        fontFamily: "'Neue Montreal', sans-serif",
         fontSize: 20,
         fontStyle: 'italic',
         color: 'var(--color-warm-text)',
@@ -92,7 +92,7 @@ function SubSection({ title, children }: { title: string; children: React.ReactN
   return (
     <div style={{ marginTop: 56 }}>
       <h3 style={{
-        fontFamily: 'var(--font-serif)',
+        fontFamily: "'Neue Montreal', sans-serif",
         fontWeight: 500,
         fontSize: 20,
         color: 'var(--color-warm-text)',
@@ -106,7 +106,7 @@ function SubSection({ title, children }: { title: string; children: React.ReactN
   )
 }
 
-function SideNavItem({ item, active }: { item: typeof NAV_ITEMS[0]; active: string }) {
+function SideNavItem({ item, active, accentColor }: { item: typeof NAV_ITEMS[0]; active: string; accentColor: string }) {
   const isActive = active === item.id
   const [isHovered, setIsHovered] = useState(false)
 
@@ -140,7 +140,7 @@ function SideNavItem({ item, active }: { item: typeof NAV_ITEMS[0]; active: stri
         }}
       >
         <svg width="26" height="4" viewBox="0 0 26 4" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ flexShrink: 0, transition: 'opacity 150ms' }}>
-          <path d="M0 0H25.9151L24 4H0V0Z" fill={isActive ? 'var(--color-warm-accent)' : 'transparent'} />
+          <path d="M0 0H25.9151L24 4H0V0Z" fill={isActive ? accentColor : 'transparent'} />
         </svg>
         {item.label}
       </button>
@@ -172,7 +172,7 @@ export default function BouncePage() {
   return (
     <article style={{ background: 'var(--color-warm-bg)', color: 'var(--color-warm-body)', minHeight: '100vh' }}>
 
-      <CaseStudyNav nextHref="/ha-do-portfolio/cityharvest" nextLabel="Next: City Harvest" />
+      <CaseStudyNav nextHref="/ha-do-portfolio/gamesense" />
 
       {/* ── HERO ── */}
       <header style={{ ...CENTERED, paddingTop: 80 }}>
@@ -190,7 +190,7 @@ export default function BouncePage() {
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 80, paddingBottom: 56, borderBottom: '1px solid var(--color-warm-border)' }}>
           {/* Left: title + description */}
           <div>
-            <h1 style={{ fontFamily: 'var(--font-serif)', fontWeight: 400, fontSize: 80, letterSpacing: '-0.02em', lineHeight: 1.05, color: 'var(--color-warm-text)', marginBottom: 20 }}>
+            <h1 style={{ fontFamily: "'The Seasons', Georgia, serif", fontWeight: 400, fontSize: 128, letterSpacing: '-0.03em', lineHeight: 'normal', color: 'var(--color-warm-text)', marginBottom: 20 }}>
               Bounce
             </h1>
             <p style={{ color: 'var(--color-warm-body)', fontSize: 18, lineHeight: 1.75, letterSpacing: '0.02em' }}>
@@ -226,7 +226,7 @@ export default function BouncePage() {
         <nav className="cs-sidenav" aria-label="Case study sections">
           <ul style={{ position: 'sticky', top: 96, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 20 }}>
             {NAV_ITEMS.map(item => (
-              <SideNavItem key={item.id} item={item} active={activeSection} />
+              <SideNavItem key={item.id} item={item} active={activeSection} accentColor="#A8A24A" />
             ))}
           </ul>
         </nav>
@@ -237,7 +237,7 @@ export default function BouncePage() {
           {/* OVERVIEW */}
           <section id="overview" style={{ marginBottom: 128 }}>
             <SectionLabel text="Overview" />
-            <h2 style={{ fontFamily: 'var(--font-serif)', fontWeight: 500, fontSize: 'clamp(28px, 3.5vw, 40px)', lineHeight: 1.2, color: 'var(--color-warm-text)', marginBottom: 24 }}>
+            <h2 style={{ fontFamily: "'Neue Montreal', sans-serif", fontWeight: 500, fontSize: 32, lineHeight: 1.2, color: 'var(--color-warm-text)', marginBottom: 24 }}>
               What are Digital Audio Workstations (DAWs)?
             </h2>
             <p style={{ lineHeight: 1.75, fontSize: 18, letterSpacing: '0.02em' }}>
@@ -274,7 +274,7 @@ export default function BouncePage() {
           {/* DEFINING THE PROBLEM */}
           <section id="defining-the-problem" style={{ marginBottom: 128 }}>
             <SectionLabel text="Defining the Problem" />
-            <h2 style={{ fontFamily: 'var(--font-serif)', fontWeight: 500, fontSize: 'clamp(28px, 3.5vw, 40px)', lineHeight: 1.2, color: 'var(--color-warm-text)', marginBottom: 24 }}>
+            <h2 style={{ fontFamily: "'Neue Montreal', sans-serif", fontWeight: 500, fontSize: 32, lineHeight: 1.2, color: 'var(--color-warm-text)', marginBottom: 24 }}>
               Defining the Problem
             </h2>
 
@@ -333,7 +333,7 @@ export default function BouncePage() {
           {/* NOTABLE ITERATIONS */}
           <section id="notable-iterations" style={{ marginBottom: 128 }}>
             <SectionLabel text="Notable Iterations" />
-            <h2 style={{ fontFamily: 'var(--font-serif)', fontWeight: 500, fontSize: 'clamp(28px, 3.5vw, 40px)', lineHeight: 1.2, color: 'var(--color-warm-text)', marginBottom: 24 }}>
+            <h2 style={{ fontFamily: "'Neue Montreal', sans-serif", fontWeight: 500, fontSize: 32, lineHeight: 1.2, color: 'var(--color-warm-text)', marginBottom: 24 }}>
               Notable Iterations
             </h2>
 
@@ -379,7 +379,7 @@ export default function BouncePage() {
           {/* STYLE GUIDE */}
           <section id="style-guide" style={{ marginBottom: 128 }}>
             <SectionLabel text="Style Guide" />
-            <h2 style={{ fontFamily: 'var(--font-serif)', fontWeight: 500, fontSize: 'clamp(28px, 3.5vw, 40px)', lineHeight: 1.2, color: 'var(--color-warm-text)', marginBottom: 24 }}>
+            <h2 style={{ fontFamily: "'Neue Montreal', sans-serif", fontWeight: 500, fontSize: 32, lineHeight: 1.2, color: 'var(--color-warm-text)', marginBottom: 24 }}>
               Style Guide
             </h2>
 
@@ -397,7 +397,7 @@ export default function BouncePage() {
           {/* FINAL DESIGNS */}
           <section id="final-designs" style={{ marginBottom: 128 }}>
             <SectionLabel text="Final Designs" />
-            <h2 style={{ fontFamily: 'var(--font-serif)', fontWeight: 500, fontSize: 'clamp(28px, 3.5vw, 40px)', lineHeight: 1.2, color: 'var(--color-warm-text)', marginBottom: 24 }}>
+            <h2 style={{ fontFamily: "'Neue Montreal', sans-serif", fontWeight: 500, fontSize: 32, lineHeight: 1.2, color: 'var(--color-warm-text)', marginBottom: 24 }}>
               Final Designs
             </h2>
             <p style={{ lineHeight: 1.75, fontSize: 18, letterSpacing: '0.02em', marginBottom: 40 }}>
@@ -447,12 +447,12 @@ export default function BouncePage() {
           {/* RETROSPECTIVE */}
           <section id="retrospective">
             <SectionLabel text="Retrospective" />
-            <h2 style={{ fontFamily: 'var(--font-serif)', fontWeight: 500, fontSize: 'clamp(28px, 3.5vw, 40px)', lineHeight: 1.2, color: 'var(--color-warm-text)', marginBottom: 24 }}>
+            <h2 style={{ fontFamily: "'Neue Montreal', sans-serif", fontWeight: 500, fontSize: 32, lineHeight: 1.2, color: 'var(--color-warm-text)', marginBottom: 24 }}>
               Retrospective
             </h2>
             <ul style={{ marginTop: 24, paddingLeft: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 40 }}>
               <li>
-                <p style={{ fontFamily: 'var(--font-serif)', fontSize: 16, color: 'var(--color-warm-text)', marginBottom: 8, fontWeight: 500, lineHeight: 1.4 }}>
+                <p style={{ fontFamily: "'Neue Montreal', sans-serif", fontSize: 16, color: 'var(--color-warm-text)', marginBottom: 8, fontWeight: 500, lineHeight: 1.4 }}>
                   Designing a tool for creators requires thinking in meta
                 </p>
                 <p style={{ lineHeight: 1.75, fontSize: 18, letterSpacing: '0.02em' }}>
@@ -460,7 +460,7 @@ export default function BouncePage() {
                 </p>
               </li>
               <li>
-                <p style={{ fontFamily: 'var(--font-serif)', fontSize: 16, color: 'var(--color-warm-text)', marginBottom: 8, fontWeight: 500, lineHeight: 1.4 }}>
+                <p style={{ fontFamily: "'Neue Montreal', sans-serif", fontSize: 16, color: 'var(--color-warm-text)', marginBottom: 8, fontWeight: 500, lineHeight: 1.4 }}>
                   Abstraction is key to convey complex functionalities
                 </p>
                 <p style={{ lineHeight: 1.75, fontSize: 18, letterSpacing: '0.02em' }}>
@@ -468,7 +468,7 @@ export default function BouncePage() {
                 </p>
               </li>
               <li>
-                <p style={{ fontFamily: 'var(--font-serif)', fontSize: 16, color: 'var(--color-warm-text)', marginBottom: 8, fontWeight: 500, lineHeight: 1.4 }}>
+                <p style={{ fontFamily: "'Neue Montreal', sans-serif", fontSize: 16, color: 'var(--color-warm-text)', marginBottom: 8, fontWeight: 500, lineHeight: 1.4 }}>
                   A solo project, but I was not alone
                 </p>
                 <p style={{ lineHeight: 1.75, fontSize: 18, letterSpacing: '0.02em' }}>
