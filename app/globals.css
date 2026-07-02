@@ -173,10 +173,6 @@
   padding-bottom: 147px;
 }
 
-/* Fingerprint loader: each ridge draws in via dashoffset → 0 */
-@keyframes fp-draw {
-  to { stroke-dashoffset: 0; }
-}
 
 /* Map paths: hidden until .map-path--animate is added */
 .map-path {
@@ -270,11 +266,11 @@
 
 /* Dangler loop — the oval ring above the card */
 .id-dangler-wrap {
-  width: 72px;
-  height: 191px;
+  width: 101px;
+  height: 169px;
   position: relative;
-  margin-top: -30px;  /* clip top 30px of ring above viewport (hero-page overflow:hidden) */
-  margin-bottom: -13px;
+  margin-top: -30px;
+  margin-bottom: -8px;
   z-index: 12;
 }
 
@@ -312,13 +308,13 @@
 }
 
 /* Transparent clickable overlay covering the "my resume" button in the SVG.
-   SVG coords: x=321,y=556 w=347,h=34 in a 706×628 viewBox. */
+   Card is 706×480. Button is in the right panel, lower portion. */
 .id-svg-resume-link {
   position: absolute;
-  left: 45.5%;
-  top: 88.5%;
-  width: 49.2%;
-  height: 6%;
+  left: 69%;
+  top: 82%;
+  width: 29%;
+  height: 8%;
   cursor: pointer;
   border-radius: 2px;
 }
@@ -572,13 +568,36 @@
   white-space: nowrap;
 }
 
+/* Mobile: hide spacer on desktop */
+.mobile-card-spacer { display: none; }
+
 /* Responsive scale on smaller viewports — re-center since left uses fixed calc */
 @media (max-width: 760px) {
+  .hero-page {
+    overflow: visible;
+  }
+  /* In-flow spacer = visual height of the full card assembly (dangler 131px + card 809px = 940px, scaled) */
+  .mobile-card-spacer {
+    display: block;
+    height: calc(940 * (100vw - 32px) / 343 + 60px);
+    pointer-events: none;
+  }
   .id-assembly {
     left: 50%;
     translate: -50% 0;
     transform-origin: center top;
-    scale: calc((100vw - 32px) / 706);
+    scale: calc((100vw - 32px) / 343);
+  }
+  .id-svg-card {
+    width: 343px;
+    height: 809px;
+    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.1), 0 2px 8px rgba(0, 0, 0, 0.06);
+  }
+  .id-svg-resume-link {
+    left: 8%;
+    top: 89%;
+    width: 84%;
+    height: 5%;
   }
 }
 
@@ -723,22 +742,46 @@
   }
 }
 
+
+
 /* Case study responsive layout */
 @layer components {
+  /* Default: 2-col grid for mid-range screens (769px–1023px) */
   .cs-body {
-    display: grid;
-    grid-template-columns: 180px 1fr;
-    gap: 80px;
+    display: block;
   }
 
-  /* Mobile: collapse grid, hide side nav */
-  @media (max-width: 768px) {
+  /* Large screens ≥1024px: body centered, sidebar fixed outside */
+  @media (min-width: 1024px) {
     .cs-body {
-      display: block;
+      max-width: 880px;
+      margin-left: auto;
+      margin-right: auto;
+      padding-left: 40px;
+      padding-right: 40px;
     }
 
     .cs-sidenav {
+      position: fixed;
+      left: 40px;
+      top: 96px;
+      width: 140px;
+      height: fit-content;
+      z-index: 50;
+    }
+  }
+
+  /* Mobile/tablet: hide side nav */
+  @media (max-width: 1023px) {
+    .cs-sidenav {
       display: none;
+    }
+  }
+
+  /* Mobile: keep body block */
+  @media (max-width: 768px) {
+    .cs-body {
+      display: block;
     }
 
     /* Hidden placeholder — user will design this */
@@ -970,32 +1013,44 @@
   to   { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes page-exit-up {
-  from { opacity: 1; transform: translateY(0); }
-  to   { opacity: 0; transform: translateY(-32px); }
+/* Full-height slide keyframes — seamless 1-page feel */
+@keyframes slide-out-up {
+  from { transform: translateY(0); }
+  to   { transform: translateY(-100vh); }
+}
+@keyframes slide-in-from-below {
+  from { transform: translateY(100vh); }
+  to   { transform: translateY(0); }
+}
+@keyframes slide-out-down {
+  from { transform: translateY(0); }
+  to   { transform: translateY(100vh); }
+}
+@keyframes slide-in-from-above {
+  from { transform: translateY(-100vh); }
+  to   { transform: translateY(0); }
 }
 
-/* View Transitions API — direction-aware */
+/* View Transitions API — full-height directional slide */
 [data-nav-dir="down"]::view-transition-old(root) {
-  animation: 400ms cubic-bezier(0.4, 0, 1, 1) both page-exit-up;
+  animation: 380ms cubic-bezier(0.4, 0, 0.2, 1) both slide-out-up;
 }
 [data-nav-dir="down"]::view-transition-new(root) {
-  animation: 500ms cubic-bezier(0.22, 1, 0.36, 1) both page-enter;
+  animation: 380ms cubic-bezier(0.4, 0, 0.2, 1) both slide-in-from-below;
 }
 [data-nav-dir="up"]::view-transition-old(root) {
-  animation: 400ms cubic-bezier(0.4, 0, 1, 1) both page-enter-reverse-out;
+  animation: 380ms cubic-bezier(0.4, 0, 0.2, 1) both slide-out-down;
 }
 [data-nav-dir="up"]::view-transition-new(root) {
-  animation: 500ms cubic-bezier(0.22, 1, 0.36, 1) both page-enter-reverse-in;
+  animation: 380ms cubic-bezier(0.4, 0, 0.2, 1) both slide-in-from-above;
 }
 
-@keyframes page-enter-reverse-out {
-  from { opacity: 1; transform: translateY(0); }
-  to   { opacity: 0; transform: translateY(32px); }
+/* CSS fallback classes for browsers without View Transitions API */
+.page-slide-out-up {
+  animation: 350ms cubic-bezier(0.4, 0, 0.2, 1) both slide-out-up !important;
 }
-@keyframes page-enter-reverse-in {
-  from { opacity: 0; transform: translateY(-32px); }
-  to   { opacity: 1; transform: translateY(0); }
+.page-slide-out-down {
+  animation: 350ms cubic-bezier(0.4, 0, 0.2, 1) both slide-out-down !important;
 }
 
 .work-grid {
@@ -1028,10 +1083,17 @@
   height: 147px;
   z-index: 50;
   overflow: hidden;
-  background: linear-gradient(to bottom, rgba(247, 247, 247, 0) 6%, rgb(222, 222, 223) 82%);
+  background-color: rgb(247, 247, 247);
+  background-image: url('/assets/nav-bg.png');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
   display: flex;
   align-items: center;
   padding: 0 80px;
+  animation: none;
+}
+
+.about-footer--animated {
   animation: footer-slide-up 0.55s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
@@ -1276,4 +1338,8 @@
   .mobile-pin-photo {
     flex-shrink: 0;
   }
+}
+
+.fp-counter {
+  font-family: var(--font-geist-mono), 'Geist Mono', monospace;
 }

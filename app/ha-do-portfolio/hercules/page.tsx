@@ -2,6 +2,9 @@
 
 import { useEffect, useState } from 'react'
 import CaseStudyNav from '@/components/CaseStudyNav'
+import { ZoomableImg } from '@/components/ZoomableImg'
+import { useSideNavReveal } from '@/hooks/useSideNavReveal'
+import { H2, BODY, FONT, CENTERED } from '@/lib/case-study-tokens'
 
 const NAV_ITEMS = [
   { id: 'overview',        label: 'Overview' },
@@ -16,29 +19,10 @@ const NAV_ITEMS = [
   { id: 'retrospective',   label: 'Retrospective' },
 ]
 
-const CENTERED: React.CSSProperties = {
-  maxWidth: 1400,
-  marginLeft: 'auto',
-  marginRight: 'auto',
-  paddingLeft: 40,
-  paddingRight: 40,
-}
-
-const SERIF = "'Neue Montreal', sans-serif"
-const SANS  = "'Neue Montreal', sans-serif"
-
-const h2Style: React.CSSProperties = {
-  fontFamily: SERIF,
-  fontSize: 'clamp(28px, 3.5vw, 40px)',
-  fontWeight: 500,
-  lineHeight: 1.2,
-  letterSpacing: '-0.02em',
-  color: 'var(--color-warm-text)',
-  marginBottom: 16,
-}
+const h2Style: React.CSSProperties = { ...H2, letterSpacing: '-0.02em', marginBottom: 16 }
 
 const labelStyle: React.CSSProperties = {
-  fontFamily: SANS,
+  fontFamily: FONT.sans,
   fontWeight: 500,
   fontSize: 12,
   letterSpacing: '0.12em',
@@ -47,21 +31,15 @@ const labelStyle: React.CSSProperties = {
   marginBottom: 12,
 }
 
-const bodyStyle: React.CSSProperties = {
-  fontSize: 18,
-  lineHeight: 1.75,
-  color: 'var(--color-warm-body)',
-  letterSpacing: '0.02em',
-  fontFamily: SANS,
-}
+const bodyStyle: React.CSSProperties = { ...BODY, color: 'var(--color-warm-body)' }
 
 // ── Reusable components ───────────────────────────────────────────────────────
 
 function VisualBlock({ label, caption, aspect = '16/9' }: { label: string; caption?: string; aspect?: string }) {
   return (
     <div style={{ marginTop: 32, marginBottom: 32 }}>
-      <div style={{ background: '#e2e5ea', borderRadius: 8, aspectRatio: aspect, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <span style={{ fontSize: 13, color: '#9ba3af', textAlign: 'center', padding: '0 24px', fontFamily: SANS }}>{label}</span>
+      <div style={{ background: '#e2e5ea', borderRadius: 2, aspectRatio: aspect, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <span style={{ fontSize: 13, color: '#9ba3af', textAlign: 'center', padding: '0 24px', fontFamily: FONT.sans}}>{label}</span>
       </div>
       {caption && (
         <p style={{ ...bodyStyle, color: 'var(--color-warm-muted)', marginTop: 10 }}>
@@ -74,13 +52,13 @@ function VisualBlock({ label, caption, aspect = '16/9' }: { label: string; capti
 
 function StatCard({ title, items }: { title: string; items: string[] }) {
   return (
-    <div style={{ background: '#fff', borderRadius: 8, padding: '28px 32px', borderTop: '3px solid #5A77DF' }}>
-      <p style={{ fontFamily: SANS, fontWeight: 700, fontSize: 18, letterSpacing: '0.02em', color: 'var(--color-warm-text)', marginBottom: 20, lineHeight: 1.75 }}>
+    <div style={{ background: '#fff', borderRadius: 2, padding: '28px 32px', borderTop: '3px solid #5A77DF' }}>
+      <p style={{ fontFamily: FONT.sans, fontWeight: 700, fontSize: 18, letterSpacing: '0.02em', color: 'var(--color-warm-text)', marginBottom: 20, lineHeight: 1.75 }}>
         {title}
       </p>
       <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 12 }}>
         {items.map((item, i) => (
-          <li key={i} style={{ display: 'flex', gap: 12, alignItems: 'flex-start', fontSize: 18, lineHeight: 1.75, color: 'var(--color-warm-body)', letterSpacing: '0.02em', fontFamily: SANS }}>
+          <li key={i} style={{ display: 'flex', gap: 12, alignItems: 'flex-start', fontSize: 18, lineHeight: 1.75, color: 'var(--color-warm-body)', letterSpacing: '0.02em', fontFamily: FONT.sans}}>
             <div style={{ width: 6, height: 6, borderRadius: '50%', background: '#5A77DF', flexShrink: 0, marginTop: 8 }} />
             {item}
           </li>
@@ -96,7 +74,7 @@ function PullQuote({ children }: { children: React.ReactNode }) {
       borderLeft: '3px solid #5A77DF',
       paddingLeft: 28,
       margin: '48px 0',
-      fontFamily: SERIF,
+      fontFamily: FONT.sans,
       fontSize: 'clamp(20px, 2.5vw, 26px)',
       fontStyle: 'italic',
       lineHeight: 1.4,
@@ -118,7 +96,7 @@ function BrowserFrame({ label }: { label: string }) {
         <div style={{ flex: 1, background: '#e0e0e0', borderRadius: 4, height: 20, marginLeft: 8 }} />
       </div>
       <div style={{ background: '#e2e5ea', aspectRatio: '16/9', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <span style={{ fontSize: 13, color: '#9ba3af', fontFamily: SANS }}>{label}</span>
+        <span style={{ fontSize: 13, color: '#9ba3af', fontFamily: FONT.sans}}>{label}</span>
       </div>
     </div>
   )
@@ -128,13 +106,13 @@ function CalloutCard({ title, children }: { title: string; children: React.React
   return (
     <div style={{
       background: '#fff',
-      borderRadius: 8,
+      borderRadius: 2,
       padding: '28px 32px',
       border: '1px solid var(--color-warm-border)',
       borderLeft: '3px solid #5A77DF',
       margin: '32px 0',
     }}>
-      <p style={{ fontFamily: SANS, fontWeight: 600, fontSize: 18, color: 'var(--color-warm-text)', marginBottom: 16, letterSpacing: '0.02em' }}>
+      <p style={{ fontFamily: FONT.sans, fontWeight: 600, fontSize: 18, color: 'var(--color-warm-text)', marginBottom: 16, letterSpacing: '0.02em' }}>
         {title}
       </p>
       {children}
@@ -144,9 +122,9 @@ function CalloutCard({ title, children }: { title: string; children: React.React
 
 function ChallengeCard({ title, body }: { title: string; body: string }) {
   return (
-    <div style={{ background: '#fff', borderRadius: 8, padding: '28px 28px 32px', display: 'flex', flexDirection: 'column', gap: 12, border: '1px solid var(--color-warm-border)' }}>
-      <p style={{ fontFamily: SANS, fontWeight: 600, fontSize: 18, color: 'var(--color-warm-text)', letterSpacing: '0.02em' }}>{title}</p>
-      <p style={{ fontSize: 18, lineHeight: 1.75, color: 'var(--color-warm-muted)', fontFamily: SANS, letterSpacing: '0.02em' }}>{body}</p>
+    <div style={{ background: '#fff', borderRadius: 2, padding: '28px 28px 32px', display: 'flex', flexDirection: 'column', gap: 12, border: '1px solid var(--color-warm-border)' }}>
+      <p style={{ fontFamily: FONT.sans, fontWeight: 600, fontSize: 18, color: 'var(--color-warm-text)', letterSpacing: '0.02em' }}>{title}</p>
+      <p style={{ fontSize: 18, lineHeight: 1.75, color: 'var(--color-warm-muted)', fontFamily: FONT.sans, letterSpacing: '0.02em' }}>{body}</p>
     </div>
   )
 }
@@ -155,11 +133,11 @@ function FeedbackQuote({ quote }: { quote: string }) {
   return (
     <div style={{
       background: '#fff',
-      borderRadius: 8,
+      borderRadius: 2,
       padding: '28px 32px',
       border: '1px solid var(--color-warm-border)',
     }}>
-      <p style={{ fontFamily: SERIF, fontStyle: 'italic', fontSize: 18, lineHeight: 1.6, color: 'var(--color-warm-text)' }}>
+      <p style={{ fontFamily: FONT.sans, fontStyle: 'italic', fontSize: 18, lineHeight: 1.6, color: 'var(--color-warm-text)' }}>
         &ldquo;{quote}&rdquo;
       </p>
     </div>
@@ -172,7 +150,11 @@ function SideNavItem({ item, active }: { item: typeof NAV_ITEMS[0]; active: stri
 
   const handleClick = (e: React.MouseEvent) => {
     e.preventDefault()
-    document.getElementById(item.id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    const el = document.getElementById(item.id)
+    if (el) {
+      const top = el.getBoundingClientRect().top + window.scrollY - 120
+      window.scrollTo({ top, behavior: 'smooth' })
+    }
   }
 
   return (
@@ -188,7 +170,7 @@ function SideNavItem({ item, active }: { item: typeof NAV_ITEMS[0]; active: stri
           fontSize: 12,
           letterSpacing: '0.12em',
           textTransform: 'uppercase',
-          fontFamily: SANS,
+          fontFamily: FONT.sans,
           background: 'none',
           border: 'none',
           cursor: 'pointer',
@@ -212,6 +194,7 @@ function SideNavItem({ item, active }: { item: typeof NAV_ITEMS[0]; active: stri
 
 export default function HerculesPage() {
   const [activeSection, setActiveSection] = useState('overview')
+  const sideNavVisible = useSideNavReveal('cs-hero', true)
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -231,9 +214,9 @@ export default function HerculesPage() {
       <CaseStudyNav nextHref="/ha-do-portfolio/matcha-bot" />
 
       {/* ── HERO ── */}
-      <header style={{ ...CENTERED, paddingTop: 80, paddingBottom: 0 }}>
+      <header id="cs-hero" style={{ ...CENTERED, paddingTop: 80, paddingBottom: 0 }}>
 
-        <div style={{ borderRadius: 8, overflow: 'hidden', marginBottom: 40 }}>
+        <div style={{ borderRadius: 2, overflow: 'hidden', marginBottom: 40 }}>
           <img
             src="/assets/hercules-hero.png"
             alt="Hercules UI Kit"
@@ -241,7 +224,7 @@ export default function HerculesPage() {
           />
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 80, paddingBottom: 56, borderBottom: '1px solid var(--color-warm-border)' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 80, paddingBottom: 56}}>
           <div>
             <h1 style={{ fontFamily: "'The Seasons', Georgia, serif", fontWeight: 400, fontSize: 128, letterSpacing: '-0.03em', lineHeight: 'normal', color: 'var(--color-warm-text)', marginBottom: 16 }}>
               Hercules
@@ -269,19 +252,19 @@ export default function HerculesPage() {
       {/* ── BODY ── */}
       <div className="cs-mobile-nav" aria-hidden="true" />
 
-      <div className="cs-body" style={{ ...CENTERED, marginTop: 80 }}>
+      {/* Sidebar — fixed, aligned with "back to work" */}
+      <nav className="cs-sidenav" aria-label="Case study sections" style={{ opacity: sideNavVisible ? 1 : 0, transition: 'opacity 0.4s ease', pointerEvents: sideNavVisible ? 'auto' : 'none' }}>
+        <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 20 }}>
+          {NAV_ITEMS.map(item => (
+            <SideNavItem key={item.id} item={item} active={activeSection} />
+          ))}
+        </ul>
+      </nav>
 
-        {/* Sticky nav */}
-        <nav className="cs-sidenav" aria-label="Case study sections">
-          <ul style={{ position: 'sticky', top: 96, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 20 }}>
-            {NAV_ITEMS.map(item => (
-              <SideNavItem key={item.id} item={item} active={activeSection} />
-            ))}
-          </ul>
-        </nav>
+      <div className="cs-body" style={{ marginTop: 80 }}>
 
         {/* Content */}
-        <div style={{ paddingBottom: 160, minWidth: 0 }}>
+        <div style={{ paddingBottom: 160 }}>
 
           {/* ── OVERVIEW ── */}
           <section id="overview" style={{ marginBottom: 128 }}>
@@ -294,10 +277,10 @@ export default function HerculesPage() {
             </p>
 
             <div style={{ marginTop: 32, marginBottom: 32 }}>
-              <img
+              <ZoomableImg
                 src="/assets/hercules/hercules-merger.png"
                 alt="Fitt Insider: EGYM Merges with Mindbody, ClassPass Parent in $7.5B Deal"
-                style={{ width: '100%', borderRadius: 8, display: 'block' }}
+                style={{ width: '100%', borderRadius: 2, display: 'block' }}
               />
               <p style={{ ...bodyStyle, color: 'var(--color-warm-muted)', marginTop: 10 }}>
                 EGYM merges with Mindbody, ClassPass&apos;s parent company, in a $7.5B deal. January 2026.
@@ -313,10 +296,10 @@ export default function HerculesPage() {
               paddingLeft: 28,
               margin: '48px 0',
             }}>
-              <p style={{ fontFamily: SERIF, fontSize: 'clamp(20px, 2.5vw, 26px)', fontStyle: 'italic', lineHeight: 1.4, letterSpacing: '-0.01em', color: 'var(--color-warm-text)', marginBottom: 12 }}>
+              <p style={{ fontFamily: FONT.sans, fontSize: 'clamp(20px, 2.5vw, 26px)', fontStyle: 'italic', lineHeight: 1.4, letterSpacing: '-0.01em', color: 'var(--color-warm-text)', marginBottom: 12 }}>
                 &ldquo;Design systems are culture change disguised as a UI kit.&rdquo;
               </p>
-              <p style={{ fontFamily: SANS, fontSize: 18, color: 'var(--color-warm-muted)', letterSpacing: '0.02em' }}>Loren LoPrete</p>
+              <p style={{ fontFamily: FONT.sans, fontSize: 18, color: 'var(--color-warm-muted)', letterSpacing: '0.02em' }}>Loren LoPrete</p>
             </blockquote>
 
             {/* Problem */}
@@ -352,7 +335,7 @@ export default function HerculesPage() {
                 The third is the most practical. Strength. A design system is what lets a product team move faster, build more consistently, and ship work they can stand behind.
               </p>
 
-              <div style={{ borderRadius: 8, overflow: 'hidden', marginBottom: 40 }}>
+              <div style={{ borderRadius: 2, overflow: 'hidden', marginBottom: 40 }}>
                 <img
                   src="/assets/hercules-hero.png"
                   alt="Hercules UI Kit cover"
@@ -407,9 +390,9 @@ export default function HerculesPage() {
                   },
                 ].map(({ num, title, body }) => (
                   <div key={num} style={{ borderTop: '1px solid var(--color-warm-border)', paddingTop: 20 }}>
-                    <p style={{ fontFamily: SANS, fontSize: 11, fontWeight: 600, letterSpacing: '0.1em', color: '#5A77DF', marginBottom: 8 }}>{num}</p>
-                    <p style={{ fontFamily: SANS, fontWeight: 600, fontSize: 18, color: 'var(--color-warm-text)', marginBottom: 10 }}>{title}</p>
-                    <p style={{ fontSize: 18, lineHeight: 1.75, color: 'var(--color-warm-muted)', fontFamily: SANS }}>{body}</p>
+                    <p style={{ fontFamily: FONT.sans, fontSize: 11, fontWeight: 600, letterSpacing: '0.1em', color: '#5A77DF', marginBottom: 8 }}>{num}</p>
+                    <p style={{ fontFamily: FONT.sans, fontWeight: 600, fontSize: 18, color: 'var(--color-warm-text)', marginBottom: 10 }}>{title}</p>
+                    <p style={{ fontSize: 18, lineHeight: 1.75, color: 'var(--color-warm-muted)', fontFamily: FONT.sans}}>{body}</p>
                   </div>
                 ))}
               </div>
@@ -434,16 +417,16 @@ export default function HerculesPage() {
               muted
               loop
               playsInline
-              style={{ width: '100%', borderRadius: 8, display: 'block', marginBottom: 8 }}
+              style={{ width: '100%', borderRadius: 2, display: 'block', marginBottom: 8 }}
             />
             <p style={{ ...bodyStyle, color: 'var(--color-warm-muted)', marginTop: 8, marginBottom: 32 }}>
               ClassPass mobile UI inventory: 10 component categories mapped in Figma
             </p>
 
-            <img
+            <ZoomableImg
               src="/assets/hercules-deconstruction.png"
               alt="ClassPass deconstruction board"
-              style={{ width: '100%', borderRadius: 8, display: 'block' }}
+              style={{ width: '100%', borderRadius: 2, display: 'block' }}
             />
             <p style={{ ...bodyStyle, color: 'var(--color-warm-muted)', marginTop: 10, marginBottom: 56 }}>
               The full audit board: navigation, color, typography, media, buttons, carousels, blocks, interactive components, illustrations, and forms
@@ -491,7 +474,7 @@ export default function HerculesPage() {
                 { src: '/assets/hercules/spacing-variables.png', alt: 'Primitive spacing variables — scale 25 to 200', label: 'Spacing Variables' },
               ].map(({ src, alt, label }) => (
                 <div key={label}>
-                  <img src={src} alt={alt} style={{ width: '100%', borderRadius: 8, display: 'block', border: '1px solid var(--color-warm-border)' }} />
+                  <ZoomableImg src={src} alt={alt} style={{ width: '100%', borderRadius: 2, display: 'block', border: '1px solid var(--color-warm-border)' }} />
                   <p style={{ ...bodyStyle, color: 'var(--color-warm-muted)', fontSize: 13, marginTop: 8, textAlign: 'center' }}>{label}</p>
                 </div>
               ))}
@@ -521,10 +504,10 @@ export default function HerculesPage() {
               </p>
             </CalloutCard>
             <div style={{ marginTop: 24, marginBottom: 40 }}>
-              <img
+              <ZoomableImg
                 src="/assets/hercules/hercules-type-scale.png"
                 alt="Hercules typography system — heading, label, and paragraph scale in Figma"
-                style={{ width: '100%', borderRadius: 8, display: 'block' }}
+                style={{ width: '100%', borderRadius: 2, display: 'block' }}
               />
             </div>
 
@@ -537,10 +520,10 @@ export default function HerculesPage() {
               </p>
             </CalloutCard>
             <div style={{ marginTop: 24, marginBottom: 40 }}>
-              <img
+              <ZoomableImg
                 src="/assets/hercules/hercules-navigation.png"
                 alt="Hercules navigation and tabs component — all interactive states"
-                style={{ width: '100%', borderRadius: 8, display: 'block' }}
+                style={{ width: '100%', borderRadius: 2, display: 'block' }}
               />
             </div>
 
@@ -553,15 +536,15 @@ export default function HerculesPage() {
               </p>
             </CalloutCard>
             <div style={{ marginTop: 24, marginBottom: 40 }}>
-              <img
+              <ZoomableImg
                 src="/assets/hercules/hercules-carousel.png"
                 alt="Hercules carousel and filter pattern components in Figma"
-                style={{ width: '100%', borderRadius: 8, display: 'block' }}
+                style={{ width: '100%', borderRadius: 2, display: 'block' }}
               />
             </div>
 
             <div style={{ borderTop: '1px solid var(--color-warm-border)', paddingTop: 48 }}>
-              <h3 style={{ fontFamily: SERIF, fontWeight: 500, fontSize: 22, letterSpacing: '-0.01em', color: 'var(--color-warm-text)', marginBottom: 16, lineHeight: 1.3 }}>
+              <h3 style={{ fontFamily: FONT.sans, fontWeight: 500, fontSize: 22, letterSpacing: '-0.01em', color: 'var(--color-warm-text)', marginBottom: 16, lineHeight: 1.3 }}>
                 Component or pattern?
               </h3>
               <p style={{ ...bodyStyle, marginBottom: 24 }}>
@@ -631,10 +614,10 @@ export default function HerculesPage() {
             </p>
 
             <div style={{ marginTop: 32, marginBottom: 32 }}>
-              <img
+              <ZoomableImg
                 src="/assets/hercules/hercules-testing.jpeg"
                 alt="Ha facilitating a usability test session with the Hercules UI kit"
-                style={{ width: '100%', borderRadius: 8, display: 'block' }}
+                style={{ width: '100%', borderRadius: 2, display: 'block' }}
               />
               <p style={{ ...bodyStyle, color: 'var(--color-warm-muted)', marginTop: 10 }}>
                 Testing the Hercules UI kit with designers from our network
@@ -645,7 +628,7 @@ export default function HerculesPage() {
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
               <div style={{ borderTop: '1px solid var(--color-warm-border)', paddingTop: 24 }}>
-                <p style={{ fontFamily: SANS, fontWeight: 600, fontSize: 18, color: 'var(--color-warm-text)', marginBottom: 10 }}>
+                <p style={{ fontFamily: FONT.sans, fontWeight: 600, fontSize: 18, color: 'var(--color-warm-text)', marginBottom: 10 }}>
                   Restyled component labels for clarity
                 </p>
                 <p style={{ ...bodyStyle }}>
@@ -654,7 +637,7 @@ export default function HerculesPage() {
               </div>
 
               <div style={{ borderTop: '1px solid var(--color-warm-border)', paddingTop: 24 }}>
-                <p style={{ fontFamily: SANS, fontWeight: 600, fontSize: 18, color: 'var(--color-warm-text)', marginBottom: 10 }}>
+                <p style={{ fontFamily: FONT.sans, fontWeight: 600, fontSize: 18, color: 'var(--color-warm-text)', marginBottom: 10 }}>
                   Standardized margins out of components
                 </p>
                 <p style={{ ...bodyStyle }}>
@@ -702,10 +685,10 @@ export default function HerculesPage() {
             </div>
 
             <div style={{ marginTop: 40 }}>
-              <img
+              <ZoomableImg
                 src="/assets/hercules/hercules-zeroheight-grid.png"
                 alt="Hercules Zeroheight documentation — grid and layout guidelines"
-                style={{ width: '100%', borderRadius: 8, display: 'block' }}
+                style={{ width: '100%', borderRadius: 2, display: 'block' }}
               />
               <p style={{ ...bodyStyle, color: 'var(--color-warm-muted)', marginTop: 10 }}>
                 Grid and layout documentation in Zeroheight
@@ -738,7 +721,7 @@ export default function HerculesPage() {
                   background: 'var(--color-warm-text)',
                   color: '#F7F7F7',
                   borderRadius: 6,
-                  fontFamily: SANS,
+                  fontFamily: FONT.sans,
                   fontSize: 13,
                   fontWeight: 500,
                   letterSpacing: '0.02em',
@@ -768,7 +751,7 @@ export default function HerculesPage() {
               <FeedbackQuote quote="The visual design of the deck is amazing!" />
             </div>
 
-            <p style={{ fontSize: 18, lineHeight: 1.75, color: 'var(--color-warm-muted)', fontFamily: SANS, marginTop: 24 }}>
+            <p style={{ fontSize: 18, lineHeight: 1.75, color: 'var(--color-warm-muted)', fontFamily: FONT.sans, marginTop: 24 }}>
               It is worth noting that this presentation was delivered as a course final. Classmates took on the role of ClassPass stakeholders and gave critiques on both the product and the presentation, offering perspectives on clarity, usability, and adoption.
             </p>
           </section>
@@ -784,9 +767,9 @@ export default function HerculesPage() {
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: 32 }}>
               <div style={{ borderTop: '1px solid var(--color-warm-border)', paddingTop: 24, display: 'grid', gridTemplateColumns: '80px 1fr', gap: 24 }}>
-                <p style={{ fontFamily: SANS, fontSize: 11, fontWeight: 600, letterSpacing: '0.1em', color: '#5A77DF', paddingTop: 4 }}>01</p>
+                <p style={{ fontFamily: FONT.sans, fontSize: 11, fontWeight: 600, letterSpacing: '0.1em', color: '#5A77DF', paddingTop: 4 }}>01</p>
                 <div>
-                  <p style={{ fontFamily: SANS, fontWeight: 600, fontSize: 18, color: 'var(--color-warm-text)', marginBottom: 12 }}>
+                  <p style={{ fontFamily: FONT.sans, fontWeight: 600, fontSize: 18, color: 'var(--color-warm-text)', marginBottom: 12 }}>
                     Expand to the full mobile app
                   </p>
                   <p style={{ ...bodyStyle }}>
@@ -796,9 +779,9 @@ export default function HerculesPage() {
               </div>
 
               <div style={{ borderTop: '1px solid var(--color-warm-border)', paddingTop: 24, display: 'grid', gridTemplateColumns: '80px 1fr', gap: 24 }}>
-                <p style={{ fontFamily: SANS, fontSize: 11, fontWeight: 600, letterSpacing: '0.1em', color: '#5A77DF', paddingTop: 4 }}>02</p>
+                <p style={{ fontFamily: FONT.sans, fontSize: 11, fontWeight: 600, letterSpacing: '0.1em', color: '#5A77DF', paddingTop: 4 }}>02</p>
                 <div>
-                  <p style={{ fontFamily: SANS, fontWeight: 600, fontSize: 18, color: 'var(--color-warm-text)', marginBottom: 12 }}>
+                  <p style={{ fontFamily: FONT.sans, fontWeight: 600, fontSize: 18, color: 'var(--color-warm-text)', marginBottom: 12 }}>
                     Consolidate with the ClassPass website
                   </p>
                   <p style={{ ...bodyStyle }}>
@@ -823,7 +806,7 @@ export default function HerculesPage() {
             <div style={{ display: 'flex', flexDirection: 'column', gap: 56 }}>
 
               <div>
-                <h3 style={{ fontFamily: SERIF, fontWeight: 500, fontSize: 22, letterSpacing: '-0.01em', color: 'var(--color-warm-text)', marginBottom: 12, lineHeight: 1.3 }}>
+                <h3 style={{ fontFamily: FONT.sans, fontWeight: 700, fontSize: 22, letterSpacing: '0.02em', color: 'var(--color-warm-text)', marginBottom: 12, lineHeight: 1.3 }}>
                   A design system is never done. You have to govern it like it is not.
                 </h3>
                 <p style={{ ...bodyStyle }}>
@@ -832,7 +815,7 @@ export default function HerculesPage() {
               </div>
 
               <div>
-                <h3 style={{ fontFamily: SERIF, fontWeight: 500, fontSize: 22, letterSpacing: '-0.01em', color: 'var(--color-warm-text)', marginBottom: 12, lineHeight: 1.3 }}>
+                <h3 style={{ fontFamily: FONT.sans, fontWeight: 700, fontSize: 22, letterSpacing: '0.02em', color: 'var(--color-warm-text)', marginBottom: 12, lineHeight: 1.3 }}>
                   We could have gone further up the stack.
                 </h3>
                 <p style={{ ...bodyStyle }}>
@@ -841,7 +824,7 @@ export default function HerculesPage() {
               </div>
 
               <div>
-                <h3 style={{ fontFamily: SERIF, fontWeight: 500, fontSize: 22, letterSpacing: '-0.01em', color: 'var(--color-warm-text)', marginBottom: 12, lineHeight: 1.3 }}>
+                <h3 style={{ fontFamily: FONT.sans, fontWeight: 700, fontSize: 22, letterSpacing: '0.02em', color: 'var(--color-warm-text)', marginBottom: 12, lineHeight: 1.3 }}>
                   Bad naming hurts from the other side of the handoff.
                 </h3>
                 <p style={{ ...bodyStyle }}>
@@ -854,10 +837,10 @@ export default function HerculesPage() {
 
           {/* ── TEAM ── */}
           <section style={{ marginBottom: 160 }}>
-            <img
+            <ZoomableImg
               src="/assets/hercules/hercules-team.JPG"
               alt="Ha Do, Anvita Shah, Simran Kaur, Matthew Thien after the Hercules final presentation"
-              style={{ width: '100%', borderRadius: 8, display: 'block', marginBottom: 24 }}
+              style={{ width: '100%', borderRadius: 2, display: 'block', marginBottom: 24 }}
             />
             <p style={{ ...bodyStyle, marginBottom: 12 }}>
               Working with Anvita, Simran, and Matthew for a full semester was both productive and genuinely fun. Everyone brought the same level of care to the work, ideas were exchanged freely, and we kept each other accountable at every stage. The strong team dynamic made the collaboration easy and the system stronger.

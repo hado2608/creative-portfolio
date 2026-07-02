@@ -2,6 +2,9 @@
 
 import { useEffect, useState } from 'react'
 import CaseStudyNav from '@/components/CaseStudyNav'
+import { Lightbox } from '@/components/Lightbox'
+import { useSideNavReveal } from '@/hooks/useSideNavReveal'
+import { H2, H3, BODY, CAPTION, SECTION_LABEL, GAP, FONT, CENTERED } from '@/lib/case-study-tokens'
 
 const NAV_ITEMS = [
   { id: 'overview',             label: 'Overview' },
@@ -10,17 +13,10 @@ const NAV_ITEMS = [
   { id: 'final-designs',        label: 'Final Designs' },
 ]
 
-const CENTERED: React.CSSProperties = {
-  maxWidth: 1400,
-  marginLeft: 'auto',
-  marginRight: 'auto',
-  paddingLeft: 40,
-  paddingRight: 40,
-}
-
 // ── Sub-components ────────────────────────────────────────────────────────────
 
 function Media({ src, alt }: { src: string; alt?: string }) {
+  const [lightboxOpen, setLightboxOpen] = useState(false)
   const isVideo = src.endsWith('.mp4') || src.includes('.mp4')
   if (isVideo) {
     return (
@@ -29,18 +25,22 @@ function Media({ src, alt }: { src: string; alt?: string }) {
         muted
         loop
         playsInline
-        style={{ width: '100%', borderRadius: 8, display: 'block' }}
+        style={{ width: '100%', borderRadius: 2, display: 'block' }}
       >
         <source src={src} type="video/mp4" />
       </video>
     )
   }
   return (
-    <img
-      src={src}
-      alt={alt ?? ''}
-      style={{ width: '100%', borderRadius: 8, display: 'block' }}
-    />
+    <>
+      <img
+        src={src}
+        alt={alt ?? ''}
+        onClick={() => setLightboxOpen(true)}
+        style={{ width: '100%', borderRadius: 2, display: 'block', cursor: 'zoom-in' }}
+      />
+      {lightboxOpen && <Lightbox src={src} alt={alt} onClose={() => setLightboxOpen(false)} />}
+    </>
   )
 }
 
@@ -64,45 +64,20 @@ function PullQuote({ children }: { children: React.ReactNode }) {
 
 function Caption({ text }: { text: string }) {
   return (
-    <p style={{ fontSize: 13, color: 'var(--color-warm-muted)', marginBottom: 32, lineHeight: 1.5 }}>
-      {text}
-    </p>
+    <p style={CAPTION}>{text}</p>
   )
 }
 
 function SectionLabel({ text }: { text: string }) {
   return (
-    <p
-      style={{
-        marginBottom: 16,
-        letterSpacing: '0.1em',
-        fontSize: 11,
-        textTransform: 'uppercase',
-        fontFamily: "'Neue Montreal', sans-serif",
-        fontWeight: 500,
-        color: 'var(--color-warm-muted)',
-      }}
-    >
-      {text}
-    </p>
+    <p style={SECTION_LABEL}>{text}</p>
   )
 }
 
 function SubSection({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <div style={{ marginTop: 56 }}>
-      <h3
-        style={{
-          fontFamily: "'Neue Montreal', sans-serif",
-          fontWeight: 500,
-          fontSize: 20,
-          color: 'var(--color-warm-text)',
-          marginBottom: 16,
-          lineHeight: 1.4,
-        }}
-      >
-        {title}
-      </h3>
+    <div style={{ marginTop: GAP.subsection }}>
+      <h3 style={H3}>{title}</h3>
       {children}
     </div>
   )
@@ -114,7 +89,11 @@ function SideNavItem({ item, active, accentColor }: { item: typeof NAV_ITEMS[0];
 
   const handleClick = (e: React.MouseEvent) => {
     e.preventDefault()
-    document.getElementById(item.id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    const el = document.getElementById(item.id)
+    if (el) {
+      const top = el.getBoundingClientRect().top + window.scrollY - 120
+      window.scrollTo({ top, behavior: 'smooth' })
+    }
   }
 
   return (
@@ -164,6 +143,7 @@ function SideNavItem({ item, active, accentColor }: { item: typeof NAV_ITEMS[0];
 
 export default function ToyotaPage() {
   const [activeSection, setActiveSection] = useState('overview')
+  const sideNavVisible = useSideNavReveal('cs-hero', true)
 
   useEffect(() => {
     const onScroll = () => {
@@ -187,10 +167,10 @@ export default function ToyotaPage() {
       <CaseStudyNav nextHref="/ha-do-portfolio/cityharvest" />
 
       {/* ── HERO ── */}
-      <header style={{ ...CENTERED, paddingTop: 80 }}>
+      <header id="cs-hero" style={{ ...CENTERED, paddingTop: 80 }}>
 
         {/* Hero image */}
-        <div style={{ borderRadius: 8, overflow: 'hidden', marginBottom: 40 }}>
+        <div style={{ borderRadius: 2, overflow: 'hidden', marginBottom: 40 }}>
           <img
             src="https://framerusercontent.com/images/Hc2itY26MgQiFrWL6SO74FNN7g.png"
             alt="Serene — AR app for pedestrians with auditory sensitivity"
@@ -205,7 +185,6 @@ export default function ToyotaPage() {
             gridTemplateColumns: '1fr 1fr',
             gap: 80,
             paddingBottom: 56,
-            borderBottom: '1px solid var(--color-warm-border)',
           }}
         >
           {/* Left: title + description */}
@@ -223,7 +202,7 @@ export default function ToyotaPage() {
             >
               Serene
             </h1>
-            <p style={{ color: 'var(--color-warm-body)', fontSize: 18, lineHeight: 1.75, letterSpacing: '0.02em' }}>
+            <p style={{ ...BODY, color: 'var(--color-warm-body)' }}>
               AR navigation app helping pedestrians with auditory sensitivity move safely through NYC — designed for Toyota&apos;s Woven City initiative.
             </p>
           </div>
@@ -231,16 +210,16 @@ export default function ToyotaPage() {
           {/* Right: stacked metadata */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: 28, justifyContent: 'flex-end' }}>
             <div>
-              <p style={{ fontFamily: "'Neue Montreal', sans-serif", fontWeight: 700, fontSize: 18, letterSpacing: '0.02em', lineHeight: 1.75, color: 'var(--color-warm-text)', marginBottom: 2 }}>Timeline</p>
-              <p style={{ fontFamily: "'Neue Montreal', sans-serif", fontSize: 18, letterSpacing: '0.02em', lineHeight: 1.75, color: 'var(--color-warm-body)' }}>4 months (Feb – May 2025)</p>
+              <p style={{ ...BODY, fontWeight: 700, color: 'var(--color-warm-text)', marginBottom: 2 }}>Timeline</p>
+              <p style={{ ...BODY, color: 'var(--color-warm-body)' }}>4 months (Feb – May 2025)</p>
             </div>
             <div>
-              <p style={{ fontFamily: "'Neue Montreal', sans-serif", fontWeight: 700, fontSize: 18, letterSpacing: '0.02em', lineHeight: 1.75, color: 'var(--color-warm-text)', marginBottom: 2 }}>Role</p>
-              <p style={{ fontFamily: "'Neue Montreal', sans-serif", fontSize: 18, letterSpacing: '0.02em', lineHeight: 1.75, color: 'var(--color-warm-body)' }}>Solo Product Designer</p>
+              <p style={{ ...BODY, fontWeight: 700, color: 'var(--color-warm-text)', marginBottom: 2 }}>Role</p>
+              <p style={{ ...BODY, color: 'var(--color-warm-body)' }}>Solo Product Designer</p>
             </div>
             <div>
-              <p style={{ fontFamily: "'Neue Montreal', sans-serif", fontWeight: 700, fontSize: 18, letterSpacing: '0.02em', lineHeight: 1.75, color: 'var(--color-warm-text)', marginBottom: 2 }}>Outcome</p>
-              <p style={{ fontFamily: "'Neue Montreal', sans-serif", fontSize: 18, letterSpacing: '0.02em', lineHeight: 1.75, color: 'var(--color-warm-body)' }}>
+              <p style={{ ...BODY, fontWeight: 700, color: 'var(--color-warm-text)', marginBottom: 2 }}>Outcome</p>
+              <p style={{ ...BODY, color: 'var(--color-warm-body)' }}>
                 Detailed research report, hi-fi prototypes delivered to the Woven City team at Toyota
               </p>
             </div>
@@ -251,45 +230,36 @@ export default function ToyotaPage() {
       {/* ── BODY ── */}
       <div className="cs-mobile-nav" aria-hidden="true" />
 
-      <div className="cs-body" style={{ ...CENTERED, marginTop: 80 }}>
+      {/* Sidebar — fixed, aligned with "back to work" */}
+      <nav className="cs-sidenav" aria-label="Case study sections" style={{ opacity: sideNavVisible ? 1 : 0, transition: 'opacity 0.4s ease', pointerEvents: sideNavVisible ? 'auto' : 'none' }}>
+        <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 20 }}>
+          {NAV_ITEMS.map(item => (
+            <SideNavItem key={item.id} item={item} active={activeSection} accentColor="#F87F7F" />
+          ))}
+        </ul>
+      </nav>
 
-        {/* Sticky nav */}
-        <nav className="cs-sidenav" aria-label="Case study sections">
-          <ul style={{ position: 'sticky', top: 96, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 20 }}>
-            {NAV_ITEMS.map(item => (
-              <SideNavItem key={item.id} item={item} active={activeSection} accentColor="#F87F7F" />
-            ))}
-          </ul>
-        </nav>
+      <div className="cs-body" style={{ marginTop: 80 }}>
 
         {/* Content */}
-        <div style={{ paddingBottom: 160, minWidth: 0 }}>
+        <div style={{ paddingBottom: 160 }}>
 
           {/* ── OVERVIEW ── */}
           <section id="overview" style={{ marginBottom: 128 }}>
             <SectionLabel text="Overview" />
-            <h2
-              style={{
-                fontFamily: "'Neue Montreal', sans-serif",
-                fontWeight: 500,
-                fontSize: 'clamp(28px, 3.5vw, 40px)',
-                lineHeight: 1.2,
-                color: 'var(--color-warm-text)',
-                marginBottom: 24,
-              }}
-            >
+            <h2 style={H2}>
               About Toyota Woven City
             </h2>
-            <p style={{ lineHeight: 1.75, fontSize: 18, letterSpacing: '0.02em' }}>
+            <p style={BODY}>
               Woven City is a project currently being built by Toyota at Mt. Fuji, aiming to create a mobility-friendly community. I joined as a co-creator to contribute to the on-going research for urban pedestrians.
             </p>
 
-            <div style={{ marginTop: 32, marginBottom: 32 }}>
+            <div style={{ marginTop: 24, marginBottom: 32 }}>
               <Media src="https://framerusercontent.com/assets/C4uH7Ws0wqEmhYHCaEvhOl4teY.mp4" />
             </div>
 
             <SubSection title="Why pedestrians with auditory sensitivity? — A silent struggle in a chaotic city">
-              <p style={{ lineHeight: 1.75, fontSize: 18, letterSpacing: '0.02em' }}>
+              <p style={BODY}>
                 To live in a big city like New York is to live in an invisible yet visible soundscape. While noise sensitivity is a public health issue, it is not often discussed as one of the main public concerns.
               </p>
 
@@ -312,7 +282,7 @@ export default function ToyotaPage() {
                 />
               </div>
 
-              <p style={{ lineHeight: 1.75, fontSize: 18, letterSpacing: '0.02em' }}>
+              <p style={BODY}>
                 These factors can lead to sensory overload, disorientation, or even anxiety, affecting their ability to make safe decisions on the streets and making everyday travel stressful or unsafe. This is a more common issue than perceived.
               </p>
 
@@ -334,9 +304,15 @@ export default function ToyotaPage() {
                   gridTemplateColumns: '1fr 1fr',
                   gap: 16,
                   marginTop: 16,
+                  alignItems: 'stretch',
                 }}
               >
-                <Media src="https://framerusercontent.com/assets/qu6WjL2yWdi2W91LhhJQlReHLrM.mp4" />
+                <video
+                  autoPlay muted loop playsInline
+                  style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', borderRadius: 2 }}
+                >
+                  <source src="https://framerusercontent.com/assets/qu6WjL2yWdi2W91LhhJQlReHLrM.mp4" type="video/mp4" />
+                </video>
                 <Media src="https://framerusercontent.com/assets/ZaxZfU6p1B6vgjCnUyQzLqIRaHw.mp4" />
               </div>
             </SubSection>
@@ -345,21 +321,12 @@ export default function ToyotaPage() {
           {/* ── ETHNOGRAPHY RESEARCH ── */}
           <section id="ethnography-research" style={{ marginBottom: 128 }}>
             <SectionLabel text="Ethnography Research" />
-            <h2
-              style={{
-                fontFamily: "'Neue Montreal', sans-serif",
-                fontWeight: 500,
-                fontSize: 'clamp(28px, 3.5vw, 40px)',
-                lineHeight: 1.2,
-                color: 'var(--color-warm-text)',
-                marginBottom: 24,
-              }}
-            >
+            <h2 style={H2}>
               Ethnography Research
             </h2>
 
             <SubSection title="Getting to know my audience in real life">
-              <p style={{ lineHeight: 1.75, fontSize: 18, letterSpacing: '0.02em' }}>
+              <p style={BODY}>
                 Approaching this large problem, I wanted to find a specific angle and common issues that pedestrians with auditory sensitivity face.
               </p>
 
@@ -369,7 +336,7 @@ export default function ToyotaPage() {
                   style={{
                     borderCollapse: 'collapse',
                     width: '100%',
-                    fontFamily: "'Neue Montreal', sans-serif",
+                    fontFamily: FONT.sans,
                   }}
                 >
                   <thead>
@@ -544,21 +511,12 @@ export default function ToyotaPage() {
           {/* ── DESIGN ITERATIONS ── */}
           <section id="design-iterations" style={{ marginBottom: 128 }}>
             <SectionLabel text="Design Iterations" />
-            <h2
-              style={{
-                fontFamily: "'Neue Montreal', sans-serif",
-                fontWeight: 500,
-                fontSize: 'clamp(28px, 3.5vw, 40px)',
-                lineHeight: 1.2,
-                color: 'var(--color-warm-text)',
-                marginBottom: 24,
-              }}
-            >
+            <h2 style={H2}>
               Design Iterations
             </h2>
 
             <SubSection title="1. Decibels information on dynamic island">
-              <p style={{ lineHeight: 1.75, fontSize: 18, letterSpacing: '0.02em' }}>
+              <p style={BODY}>
                 Even though my final version has more information, testers still wanted the full context to skim through instead of decibels information being abstracted.
               </p>
 
@@ -602,7 +560,7 @@ export default function ToyotaPage() {
             </SubSection>
 
             <SubSection title="2. Prioritize location in header area">
-              <p style={{ lineHeight: 1.75, fontSize: 18, letterSpacing: '0.02em' }}>
+              <p style={BODY}>
                 After 2 rounds of testing, I reduced the logo to make space for both the location and the AR view, as users were getting distracted by its glass treatment.
               </p>
 
@@ -642,16 +600,7 @@ export default function ToyotaPage() {
           {/* ── FINAL DESIGNS ── */}
           <section id="final-designs" style={{ marginBottom: 128 }}>
             <SectionLabel text="Final Designs" />
-            <h2
-              style={{
-                fontFamily: "'Neue Montreal', sans-serif",
-                fontWeight: 500,
-                fontSize: 'clamp(28px, 3.5vw, 40px)',
-                lineHeight: 1.2,
-                color: 'var(--color-warm-text)',
-                marginBottom: 24,
-              }}
-            >
+            <h2 style={H2}>
               Final Designs
             </h2>
 

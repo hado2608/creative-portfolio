@@ -7,11 +7,17 @@ import HomeBackground from '@/components/home/HomeBackground'
 import IDCard from '@/components/home/IDCard'
 import MapHotspots from '@/components/home/MapHotspots'
 
+// Resets to false on every hard reload (module re-evaluated).
+// Stays true across SPA navigations (module stays in memory).
+let loaderShown = false
+
 export default function Home() {
+  const [ready, setReady] = useState(false)
   const [mapVisible, setMapVisible] = useState(false)
 
   useEffect(() => {
-    if (sessionStorage.getItem('loaderDone') === 'true') setMapVisible(true)
+    if (loaderShown) setMapVisible(true)
+    setReady(true)
   }, [])
 
   const router = useRouter()
@@ -26,14 +32,19 @@ export default function Home() {
       if ('startViewTransition' in document) {
         (document as any).startViewTransition(nav)
       } else {
-        nav()
+        const el = (document as Document).querySelector('.hero-page') as HTMLElement | null
+        if (el) { el.classList.add('page-slide-out-up'); setTimeout(nav, 340) }
+        else nav()
       }
     }
 
-    const onWheel = (e: WheelEvent) => { if (e.deltaY > 30) go() }
+    const isMobile = () => window.innerWidth <= 760
+    const atBottom = () => window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 60
+
+    const onWheel = (e: WheelEvent) => { if (e.deltaY > 30 && (!isMobile() || atBottom())) go() }
     const touchStart = { y: 0 }
     const onTouchStart = (e: TouchEvent) => { touchStart.y = e.touches[0].clientY }
-    const onTouchEnd = (e: TouchEvent) => { if (touchStart.y - e.changedTouches[0].clientY > 40) go() }
+    const onTouchEnd = (e: TouchEvent) => { if (touchStart.y - e.changedTouches[0].clientY > 40 && (!isMobile() || atBottom())) go() }
 
     window.addEventListener('wheel', onWheel, { passive: true })
     window.addEventListener('touchstart', onTouchStart, { passive: true })
@@ -50,19 +61,22 @@ export default function Home() {
       {/* Static background — grid + country silhouette shapes */}
       <HomeBackground />
 
-      {/* Fingerprint loading overlay — unmounts once onComplete fires */}
-      {!mapVisible && (
+      {/* Nothing renders until after hydration — prevents SSR/client mismatch */}
+      {ready && !mapVisible && (
         <FingerprintLoader onComplete={() => {
-          sessionStorage.setItem('loaderDone', 'true')
+          loaderShown = true
           setMapVisible(true)
         }} />
       )}
 
       {/* ID card — mounts after loader, drop-in animation plays on mount */}
-      {mapVisible && <IDCard />}
+      {ready && mapVisible && <IDCard />}
 
       {/* Phase 3: map hotspot tooltips */}
       <MapHotspots visible={mapVisible} />
+
+      {/* Mobile only: in-flow spacer that makes the page tall enough to scroll through the full card */}
+      <div className="mobile-card-spacer" aria-hidden />
     </div>
   )
 }

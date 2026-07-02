@@ -83,7 +83,7 @@ export default function IDCard() {
     <div className="id-assembly">
       {/* Dangler loop — hangs from top of viewport */}
       <div className="id-dangler-wrap">
-        <img src="/assets/dangler.svg" alt="" className="id-dangler-img" aria-hidden />
+        <img src="/assets/loop.svg" alt="" className="id-dangler-img" aria-hidden />
 
       </div>
 
@@ -100,12 +100,15 @@ export default function IDCard() {
           {/* Gloss highlight follows cursor */}
           <div className="id-card-gloss" ref={glossRef} aria-hidden />
 
-          <img
-            src="/svg/card-body.svg"
-            alt="Ha Do design license card"
-            className="id-svg-img"
-            draggable={false}
-          />
+          <picture>
+            <source media="(max-width: 760px)" srcSet="/svg/card-body-mobile.svg" />
+            <img
+              src="/svg/card-body.svg"
+              alt="Ha Do design license card"
+              className="id-svg-img"
+              draggable={false}
+            />
+          </picture>
 
           {/* Transparent clickable overlay over the "my resume" button in the SVG */}
           <a

@@ -119,18 +119,23 @@ export default function WorkPage() {
       if ('startViewTransition' in document) {
         (document as any).startViewTransition(nav)
       } else {
-        nav()
+        const el = scrollRef.current
+        if (el) { el.classList.add('page-slide-out-down'); setTimeout(nav, 340) }
+        else nav()
       }
     }
 
     const el = scrollRef.current
     const onWheel = (e: WheelEvent) => {
-      if (e.deltaY < -30 && (el?.scrollTop ?? 0) === 0) go()
+      if (e.deltaY < -30 && (el?.scrollTop ?? 0) <= 5) go()
     }
-    const touchStart = { y: 0 }
-    const onTouchStart = (e: TouchEvent) => { touchStart.y = e.touches[0].clientY }
+    const touch = { y: 0, atTop: false }
+    const onTouchStart = (e: TouchEvent) => {
+      touch.y = e.touches[0].clientY
+      touch.atTop = (el?.scrollTop ?? 0) <= 5
+    }
     const onTouchEnd = (e: TouchEvent) => {
-      if (e.changedTouches[0].clientY - touchStart.y > 40 && (el?.scrollTop ?? 0) === 0) go()
+      if (e.changedTouches[0].clientY - touch.y > 40 && touch.atTop) go()
     }
 
     window.addEventListener('wheel', onWheel, { passive: true })

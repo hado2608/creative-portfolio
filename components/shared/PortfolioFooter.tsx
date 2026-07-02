@@ -45,7 +45,7 @@ export default function PortfolioFooter() {
   if (pathname.startsWith('/ha-do-portfolio/')) return null
 
   return (
-    <footer key={pathname} className="about-footer">
+    <footer key={pathname} className={`about-footer${pathname === '/' ? ' about-footer--animated' : ''}`}>
       <div className="about-footer-left">
         <Link href="/">
           <img src="/assets/signature-figma.svg" alt="Ha Do" className="about-signature" />

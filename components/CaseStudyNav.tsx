@@ -76,12 +76,12 @@ export default function CaseStudyNav({ nextHref }: { nextHref: string }) {
         zIndex: 0,
       }} />
 
-      <Link href="/work" style={PILL}>
+      <Link href="/work" style={{ ...PILL, position: 'relative', zIndex: 1 }}>
         <HomeIcon />
         back to work
       </Link>
 
-      <Link href={nextHref} style={PILL}>
+      <Link href={nextHref} style={{ ...PILL, position: 'relative', zIndex: 1 }}>
         <CornerDownRightIcon />
         next case study
       </Link>

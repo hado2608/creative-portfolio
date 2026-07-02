@@ -19,8 +19,11 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Ha Do portfolio 💛",
+  title: "Ha Do / Product Design Portfolio",
   description: "UI/UX Designer",
+  icons: {
+    icon: '/icon.png',
+  },
 };
 
 export default function RootLayout({
