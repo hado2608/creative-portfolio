@@ -24,7 +24,10 @@ function NavItem({
   )
 }
 
-const RESUME_URL = 'https://drive.google.com/file/d/1OajC3F4kzyqCz-QaGbuAEUiWJGHFOwtU/view'
+const RESUME_URL = 'https://drive.google.com/file/d/14k5bgO3Yaa7wlHyNqWlnKgE8TqduFiyH/view?usp=sharing'
+
+// Animate footer only on first hard load — stays static during SPA nav
+let footerAnimated = false
 
 function activeLabel(pathname: string) {
   if (pathname === '/work') return 'work'
@@ -35,6 +38,14 @@ function activeLabel(pathname: string) {
 export default function PortfolioFooter() {
   const pathname = usePathname()
   const [navOpen, setNavOpen] = useState(false)
+  const [animClass, setAnimClass] = useState('')
+
+  useEffect(() => {
+    if (pathname === '/' && !footerAnimated) {
+      footerAnimated = true
+      setAnimClass(' about-footer--animated')
+    }
+  }, [])
 
   // Close nav on route change
   useEffect(() => { setNavOpen(false) }, [pathname])
@@ -63,7 +74,9 @@ export default function PortfolioFooter() {
         </div>
       )}
 
-      <footer key={pathname} className={`about-footer${pathname === '/' ? ' about-footer--animated' : ''}`}>
+      <footer className={`about-footer${animClass}`}>
+        {/* Noise texture overlay — matches Figma footer frame */}
+        <img src="/assets/nav-bg.png" aria-hidden alt="" className="about-footer-noise" />
 
         {/* ── Desktop layout ─────────────────────────────── */}
         <div className="about-footer-left">

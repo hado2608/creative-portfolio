@@ -112,7 +112,7 @@ export default function IDCard() {
 
           {/* Transparent clickable overlay over the "my resume" button in the SVG */}
           <a
-            href="https://drive.google.com/file/d/1OajC3F4kzyqCz-QaGbuAEUiWJGHFOwtU/view"
+            href="https://drive.google.com/file/d/14k5bgO3Yaa7wlHyNqWlnKgE8TqduFiyH/view?usp=sharing"
             target="_blank"
             rel="noopener noreferrer"
             className="id-svg-resume-link"

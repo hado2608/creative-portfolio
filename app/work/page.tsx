@@ -144,7 +144,8 @@ export default function WorkPage() {
       if (navigating.current) return
       navigating.current = true
       document.documentElement.dataset.navDir = 'up'
-      const nav = () => router.push('/')
+      document.documentElement.dataset.navType = 'scroll'
+      const nav = () => { window.scrollTo(0, 0); router.push('/') }
       if ('startViewTransition' in document) {
         (document as any).startViewTransition(nav)
       } else {
@@ -154,18 +155,41 @@ export default function WorkPage() {
       }
     }
 
-    const isMobile = () => window.innerWidth <= 760
+    const goDown = () => {
+      if (navigating.current) return
+      navigating.current = true
+      document.documentElement.dataset.navDir = 'down'
+      document.documentElement.dataset.navType = 'scroll'
+      const nav = () => { window.scrollTo(0, 0); router.push('/about') }
+      if ('startViewTransition' in document) {
+        (document as any).startViewTransition(nav)
+      } else {
+        const el = scrollRef.current
+        if (el) { el.classList.add('page-slide-out-up'); setTimeout(nav, 340) }
+        else nav()
+      }
+    }
+
+    const atBottom = () => window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 60
+    const mountedAt = Date.now()
+    const settled = () => Date.now() - mountedAt > 500
 
     const onWheel = (e: WheelEvent) => {
-      if (!isMobile() && e.deltaY < -30 && window.scrollY <= 5) go()
+      if (!settled()) return
+      if (e.deltaY < -30 && window.scrollY <= 5) go()
+      if (e.deltaY > 30 && atBottom()) goDown()
     }
-    const touch = { y: 0, atTop: false }
+    const touch = { y: 0, atTop: false, atBottom: false }
     const onTouchStart = (e: TouchEvent) => {
       touch.y = e.touches[0].clientY
       touch.atTop = window.scrollY <= 5
+      touch.atBottom = atBottom()
     }
     const onTouchEnd = (e: TouchEvent) => {
-      if (!isMobile() && e.changedTouches[0].clientY - touch.y > 40 && touch.atTop) go()
+      if (!settled()) return
+      const dy = e.changedTouches[0].clientY - touch.y
+      if (dy > 40 && touch.atTop) go()
+      if (dy < -40 && touch.atBottom) goDown()
     }
 
     window.addEventListener('wheel', onWheel, { passive: true })

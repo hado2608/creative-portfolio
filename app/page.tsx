@@ -15,7 +15,11 @@ export default function Home() {
   const [mapVisible, setMapVisible] = useState(false)
 
   useEffect(() => {
-    if (loaderShown) setMapVisible(true)
+    if (loaderShown) {
+      setMapVisible(true)
+    } else {
+      loaderShown = true  // mark before loader plays so SPA return never re-shows it
+    }
     setReady(true)
   }, [])
 
@@ -27,7 +31,8 @@ export default function Home() {
       if (navigating.current) return
       navigating.current = true
       document.documentElement.dataset.navDir = 'down'
-      const nav = () => router.push('/work')
+      document.documentElement.dataset.navType = 'scroll'
+      const nav = () => { window.scrollTo(0, 0); router.push('/work') }
       if ('startViewTransition' in document) {
         (document as any).startViewTransition(nav)
       } else {
@@ -38,11 +43,12 @@ export default function Home() {
     }
 
     const isMobile = () => window.innerWidth <= 760
+    const atBottom = () => window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 60
 
-    const onWheel = (e: WheelEvent) => { if (!isMobile() && e.deltaY > 30) go() }
+    const onWheel = (e: WheelEvent) => { if (e.deltaY > 30 && (!isMobile() || atBottom())) go() }
     const touchStart = { y: 0 }
     const onTouchStart = (e: TouchEvent) => { touchStart.y = e.touches[0].clientY }
-    const onTouchEnd = (e: TouchEvent) => { if (!isMobile() && touchStart.y - e.changedTouches[0].clientY > 40) go() }
+    const onTouchEnd = (e: TouchEvent) => { if (touchStart.y - e.changedTouches[0].clientY > 40 && (!isMobile() || atBottom())) go() }
 
     window.addEventListener('wheel', onWheel, { passive: true })
     window.addEventListener('touchstart', onTouchStart, { passive: true })
@@ -62,7 +68,6 @@ export default function Home() {
       {/* Nothing renders until after hydration — prevents SSR/client mismatch */}
       {ready && !mapVisible && (
         <FingerprintLoader onComplete={() => {
-          loaderShown = true
           setMapVisible(true)
         }} />
       )}
