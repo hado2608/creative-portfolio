@@ -4,6 +4,42 @@
   cursor: none !important;
 }
 
+/* ── Butterfly cursor ────────────────────────────────────────────────────── */
+.cursor-wing {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  user-select: none;
+  -webkit-user-drag: none;
+  transform-origin: 50% 50%;
+}
+
+/* Idle: clip single PNG into halves — 3px overlap removes seam */
+.cursor-wing-left  { clip-path: polygon(0 0, calc(50% + 3px) 0, calc(50% + 3px) 100%, 0 100%); }
+.cursor-wing-right { clip-path: polygon(calc(50% - 3px) 0, 100% 0, 100% 100%, calc(50% - 3px) 100%); }
+
+@keyframes wing-slap-left {
+  0%, 100% { transform: perspective(120px) rotateY(0deg); }
+  45%       { transform: perspective(120px) rotateY(-30deg); }
+}
+
+@keyframes wing-slap-right {
+  0%, 100% { transform: perspective(120px) rotateY(0deg); }
+  45%       { transform: perspective(120px) rotateY(30deg); }
+}
+
+.cursor--hover .cursor-wing-left  {
+  animation: wing-slap-left  0.35s ease-in-out infinite;
+  filter: drop-shadow(2px 3px 6px rgba(0,0,0,0.30));
+}
+.cursor--hover .cursor-wing-right {
+  animation: wing-slap-right 0.35s ease-in-out infinite;
+  filter: drop-shadow(-2px 3px 6px rgba(0,0,0,0.30));
+}
+
 @font-face {
   font-family: 'Neue Montreal';
   src: url('/fonts/Neue Montreal/NeueMontreal-Light.otf') format('opentype');
@@ -237,9 +273,15 @@
 
 /* Idle sway after settling — keychain-like pendulum */
 @keyframes card-idle-sway {
-  0%, 100% { transform: rotate(0deg); }
-  25%       { transform: rotate(2deg); }
-  75%       { transform: rotate(-2deg); }
+  0%    { transform: rotate(0deg); }
+  12.5% { transform: rotate(1.4deg); }
+  25%   { transform: rotate(2deg); }
+  37.5% { transform: rotate(1.4deg); }
+  50%   { transform: rotate(0deg); }
+  62.5% { transform: rotate(-1.4deg); }
+  75%   { transform: rotate(-2deg); }
+  87.5% { transform: rotate(-1.4deg); }
+  100%  { transform: rotate(0deg); }
 }
 
 /* Assembly wrapper: the pivot point for both drop + idle sway */
@@ -255,7 +297,7 @@
   transform-origin: center top;
   animation:
     card-drop-in 1.1s cubic-bezier(0.22, 1, 0.36, 1) both,
-    card-idle-sway 2.5s ease-in-out 1.2s infinite;
+    card-idle-sway 3s linear 1.2s infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -571,15 +613,15 @@
 /* Mobile: hide spacer on desktop */
 .mobile-card-spacer { display: none; }
 
-/* Responsive scale on smaller viewports — re-center since left uses fixed calc */
+/* Responsive scale on smaller viewports */
 @media (max-width: 760px) {
   .hero-page {
     overflow: visible;
   }
-  /* In-flow spacer = visual height of the full card assembly (dangler 131px + card 809px = 940px, scaled) */
+  /* In-flow spacer = visual height of the full card assembly (dangler 131px + card 877px = 1008px, scaled) */
   .mobile-card-spacer {
     display: block;
-    height: calc(940 * (100vw - 32px) / 343 + 60px);
+    height: calc(1008 * (100vw - 32px) / 343 + 60px);
     pointer-events: none;
   }
   .id-assembly {
@@ -590,15 +632,11 @@
   }
   .id-svg-card {
     width: 343px;
-    height: 809px;
+    height: 877px;
     box-shadow: 0 12px 48px rgba(0, 0, 0, 0.1), 0 2px 8px rgba(0, 0, 0, 0.06);
   }
-  .id-svg-resume-link {
-    left: 8%;
-    top: 89%;
-    width: 84%;
-    height: 5%;
-  }
+  .id-svg-img { display: block; }
+  .id-svg-resume-link { display: none; }
 }
 
 /* ── Map hotspot tooltips ──────────────────────────────────────────────────── */
@@ -999,8 +1037,8 @@
 /* ── Work page ───────────────────────────────────────────────────────────── */
 
 .work-page {
-  height: calc(100vh - 147px);
-  overflow-y: auto;
+  min-height: calc(100vh - 147px);
+  padding-bottom: 147px;
   background: #f7f7f7;
   animation: page-enter 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
   outline: none;
@@ -1054,10 +1092,37 @@
 }
 
 .work-grid {
-  display: grid;
-  grid-template-columns: 521fr 359fr 359fr;
-  gap: 20px;
-  padding: 60px 80px 60px;
+  display: flex;
+  gap: 17px;
+  padding: 60px 80px 80px;
+  align-items: flex-start;
+}
+
+/* Left panel: flows top-to-bottom independently */
+.work-col-left {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 17px;
+}
+
+/* Right panel: [GameSense + Toyota row] then [Music Map] */
+.work-col-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 17px;
+}
+
+/* Top row inside right panel */
+.work-col-right-top {
+  display: flex;
+  gap: 17px;
+}
+
+.work-col-right-top > * {
+  flex: 1;
+  min-width: 0;
 }
 
 .work-page-desc {
@@ -1114,13 +1179,10 @@
   object-fit: contain;
 }
 
-.about-location {
+.about-copyright {
   position: absolute;
-  left: 70px;
-  top: 44px;
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
+  left: 24px;
+  top: 54px;
   color: #858e8e;
   font-family: 'Neue Montreal', sans-serif;
   font-size: 16px;
@@ -1187,6 +1249,152 @@
 
 .about-contact-row span {
   opacity: 0.4;
+}
+
+/* ── Mobile footer + nav pill ───────────────────────────────────────────── */
+
+/* Hide mobile elements on desktop */
+.mobile-footer-inner { display: none; }
+
+/* Mobile breakpoint */
+@media (max-width: 760px) {
+  /* Hide butterfly cursor, restore default pointer */
+  body { cursor: auto !important; }
+  .cursor-wing { display: none !important; }
+
+  .about-footer {
+    height: 80px;
+    padding: 0 24px;
+  }
+
+  /* Hide desktop-only sections */
+  .about-footer-left,
+  .about-nav-box,
+  .about-footer-right { display: none; }
+
+  /* Show mobile row */
+  .mobile-footer-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  /* Signature block */
+  .mobile-footer-sig {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-decoration: none;
+    gap: 2px;
+  }
+
+  .mobile-sig-img {
+    width: 70px;
+    height: 34px;
+    object-fit: contain;
+    object-position: left center;
+  }
+
+  .mobile-sig-label {
+    font-family: 'Neue Montreal', sans-serif;
+    font-size: 10px;
+    font-weight: 400;
+    color: #858e8e;
+    letter-spacing: 0.2px;
+    white-space: nowrap;
+  }
+
+  /* [ chào! ] toggle button — border only, no fill */
+  .mobile-chao-btn {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    background: transparent;
+    border: 1px solid #d2d8dd;
+    border-radius: 32px;
+    padding: 8px 16px;
+    width: 90px;
+    justify-content: center;
+    cursor: pointer;
+    font-family: 'Neue Montreal', sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    color: #535659;
+    white-space: nowrap;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .mobile-chao-bracket {
+    font-weight: 400;
+  }
+
+  .mobile-chao-text {
+    font-style: italic;
+    font-weight: 700;
+  }
+
+  /* Social icons */
+  .mobile-social-icons {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .mobile-social-icons a {
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    margin: -8px;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .mobile-social-icons img {
+    display: block;
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
+  }
+
+  /* Nav pill — floats above footer with visible gap */
+  .mobile-nav-pill {
+    position: fixed;
+    bottom: 84px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 52;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: #f7f7f7;
+    border: 0.5px solid #d2d8dd;
+    border-radius: 32px;
+    padding: 16px 32px;
+    white-space: nowrap;
+  }
+
+  .mobile-nav-link {
+    font-family: 'Neue Montreal', sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    font-style: normal;
+    color: #535659;
+    text-decoration: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .mobile-nav-link--active {
+    font-weight: 700;
+    font-style: italic;
+  }
+
+  /* Transparent overlay to close nav on outside tap */
+  .mobile-nav-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 51;
+    background: transparent;
+  }
 }
 
 /* Nav bracket system — DOM brackets, opacity controls visibility, width is always stable */

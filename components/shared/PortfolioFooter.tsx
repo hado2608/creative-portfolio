@@ -24,62 +24,108 @@ function NavItem({
   )
 }
 
+const RESUME_URL = 'https://drive.google.com/file/d/1OajC3F4kzyqCz-QaGbuAEUiWJGHFOwtU/view'
+
+function activeLabel(pathname: string) {
+  if (pathname === '/work') return 'work'
+  if (pathname === '/about') return 'about'
+  return 'chào!'
+}
+
 export default function PortfolioFooter() {
   const pathname = usePathname()
-  const [time, setTime] = useState('')
+  const [navOpen, setNavOpen] = useState(false)
 
-  useEffect(() => {
-    const fmt = () =>
-      new Intl.DateTimeFormat('en-US', {
-        timeZone: 'America/New_York',
-        hour: 'numeric',
-        minute: '2-digit',
-        hour12: true,
-      }).format(new Date()).toLowerCase()
-    setTime(fmt())
-    const id = setInterval(() => setTime(fmt()), 1000)
-    return () => clearInterval(id)
-  }, [])
+  // Close nav on route change
+  useEffect(() => { setNavOpen(false) }, [pathname])
 
   // Hide on case study pages — they use CaseStudyNav instead
   if (pathname.startsWith('/ha-do-portfolio/')) return null
 
   return (
-    <footer key={pathname} className={`about-footer${pathname === '/' ? ' about-footer--animated' : ''}`}>
-      <div className="about-footer-left">
-        <Link href="/">
-          <img src="/assets/signature-figma.svg" alt="Ha Do" className="about-signature" />
-        </Link>
-        <div className="about-location">
-          <span>brooklyn, ny</span>
-          <span>{time}</span>
-        </div>
-      </div>
+    <>
+      {/* Transparent overlay — closes mobile nav on outside tap */}
+      {navOpen && (
+        <div
+          className="mobile-nav-overlay"
+          onClick={() => setNavOpen(false)}
+          aria-hidden
+        />
+      )}
 
-      <nav className="about-nav-box">
-        <NavItem href="/" active={pathname === '/'}>chào!</NavItem>
-        <div className="nav-pair">
+      {/* Mobile nav pill — appears above footer when open */}
+      {navOpen && (
+        <div className="mobile-nav-pill">
+          <Link href="/" className={`mobile-nav-link${pathname === '/' ? ' mobile-nav-link--active' : ''}`} onClick={() => setNavOpen(false)}>chào!</Link>
+          <Link href="/work" className={`mobile-nav-link${pathname === '/work' ? ' mobile-nav-link--active' : ''}`} onClick={() => setNavOpen(false)}>work</Link>
+          <Link href="/about" className={`mobile-nav-link${pathname === '/about' ? ' mobile-nav-link--active' : ''}`} onClick={() => setNavOpen(false)}>about</Link>
+          <a href={RESUME_URL} className="mobile-nav-link" target="_blank" rel="noopener noreferrer" onClick={() => setNavOpen(false)}>resume</a>
+        </div>
+      )}
+
+      <footer key={pathname} className={`about-footer${pathname === '/' ? ' about-footer--animated' : ''}`}>
+
+        {/* ── Desktop layout ─────────────────────────────── */}
+        <div className="about-footer-left">
+          <Link href="/">
+            <img src="/assets/signature-figma.svg" alt="Ha Do" className="about-signature" />
+          </Link>
+          <span className="about-copyright">@2026 Ha Do</span>
+        </div>
+
+        <nav className="about-nav-box">
+          <NavItem href="/" active={pathname === '/'}>chào!</NavItem>
           <NavItem href="/work" active={pathname === '/work'}>work</NavItem>
-          <span className="nav-pair-sep">/</span>
-          <NavItem href="/vibe" active={pathname === '/vibe'}>vibe</NavItem>
-        </div>
-        <NavItem href="/about" active={pathname === '/about'}>about</NavItem>
-      </nav>
+          <NavItem href="/about" active={pathname === '/about'}>about</NavItem>
+        </nav>
 
-      <div className="about-footer-right">
-        <div className="about-contact-row">
-          <a href="mailto:hanguyendo01@gmail.com">hanguyendo01@gmail.com</a>
-          <span>/</span>
-          <a href="https://drive.google.com/file/d/1OajC3F4kzyqCz-QaGbuAEUiWJGHFOwtU/view" target="_blank" rel="noopener noreferrer">resume</a>
+        <div className="about-footer-right">
+          <div className="about-contact-row">
+            <a href="mailto:hanguyendo01@gmail.com">hanguyendo01@gmail.com</a>
+            <span>/</span>
+            <a href={RESUME_URL} target="_blank" rel="noopener noreferrer">resume</a>
+          </div>
+          <div className="about-contact-row">
+            <a href="https://www.linkedin.com/in/hadodesign/" target="_blank" rel="noopener noreferrer">linkedin</a>
+            <span>/</span>
+            <a href="https://x.com/hado_tn" target="_blank" rel="noopener noreferrer">X</a>
+            <span>/</span>
+            <a href="https://instagram.com/hado.fig" target="_blank" rel="noopener noreferrer">instagram</a>
+          </div>
         </div>
-        <div className="about-contact-row">
-          <a href="https://www.linkedin.com/in/hadodesign/" target="_blank" rel="noopener noreferrer">linkedin</a>
-          <span>/</span>
-          <a href="https://x.com/hado_tn" target="_blank" rel="noopener noreferrer">X</a>
-          <span>/</span>
-          <a href="https://instagram.com/hado.fig" target="_blank" rel="noopener noreferrer">instagram</a>
+
+        {/* ── Mobile layout ──────────────────────────────── */}
+        <div className="mobile-footer-inner">
+          <Link href="/" className="mobile-footer-sig">
+            <img src="/assets/signature-figma.svg" alt="Ha Do" className="mobile-sig-img" width={70} height={34} />
+            <span className="mobile-sig-label">@2026 Ha Do</span>
+          </Link>
+
+          <button
+            className={`mobile-chao-btn${navOpen ? ' mobile-chao-btn--open' : ''}`}
+            onClick={() => setNavOpen(v => !v)}
+            aria-expanded={navOpen}
+            aria-label="Toggle navigation"
+          >
+            <span className="mobile-chao-bracket">[</span>
+            <em className="mobile-chao-text">{activeLabel(pathname)}</em>
+            <span className="mobile-chao-bracket">]</span>
+          </button>
+
+          <div className="mobile-social-icons">
+            <a href="mailto:hanguyendo01@gmail.com" aria-label="Email">
+              <img src="/assets/mail-icon-mobile.svg" alt="" width={16} height={16} />
+            </a>
+            <a href="https://www.linkedin.com/in/hadodesign/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+              <img src="/assets/linkedin-icon.svg" alt="" width={16} height={16} />
+            </a>
+            <a href="https://x.com/hado_tn" target="_blank" rel="noopener noreferrer" aria-label="X">
+              <img src="/assets/x-icon.svg" alt="" width={16} height={16} />
+            </a>
+          </div>
         </div>
-      </div>
-    </footer>
+
+      </footer>
+    </>
   )
 }

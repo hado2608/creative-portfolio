@@ -1,57 +1,57 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { motion } from 'framer-motion'
 import { Thumbnail } from '@/components/work/WorkCard'
+import HoverLabel from '@/components/work/HoverLabel'
 import { projects } from '@/data/projects'
 import type { Project } from '@/data/projects'
-
-// ── Work page card — description first, label below ───────────────────────────
 
 interface WorkEntry {
   projectId: number
   desc: React.ReactNode
   label: string
-  col: number
-  colSpan?: number
+  thumbnailAspect?: string
 }
 
-const WORK_ENTRIES: WorkEntry[] = [
+const LEFT_COL: WorkEntry[] = [
   {
     projectId: 1,
+    thumbnailAspect: '7/5',
     desc: <>Envisioned a new interaction model for <strong>real-time music production collaboration</strong>.</>,
     label: 'Bounce / Fall 2025',
-    col: 1,
-  },
-  {
-    projectId: 2,
-    desc: <>Shipped swiping interaction for <strong>AI-powered game discovery</strong>. Currently in beta.</>,
-    label: 'Conduit Gaming / Fall 2025',
-    col: 2,
-  },
-  {
-    projectId: 3,
-    desc: <><strong>Improving NYC pedestrian experience</strong> for people with auditory sensitivity.</>,
-    label: 'Toyota @ Pratt / Fall 2025',
-    col: 3,
   },
   {
     projectId: 4,
     desc: <>Shipped a redesign of the <strong>City Harvest Portal</strong> on SharePoint, impacting <strong>200+ employees daily</strong>.</>,
     label: 'City Harvest / Summer 2025',
-    col: 1,
-  },
-  {
-    projectId: 6,
-    desc: <>Designed and built a <strong>scrollytelling website</strong> researching how music genres traveled through time and space.</>,
-    label: 'Data viz / Fall 2024',
-    col: 2,
-    colSpan: 2,
   },
 ]
 
+const RIGHT_TOP: WorkEntry[] = [
+  {
+    projectId: 2,
+    thumbnailAspect: '9/14',
+    desc: <>Shipped swiping interaction for <strong>AI-powered game discovery</strong>. Currently in beta.</>,
+    label: 'Conduit Gaming / Fall 2025',
+  },
+  {
+    projectId: 3,
+    thumbnailAspect: '9/14',
+    desc: <><strong>Improving NYC pedestrian experience</strong> for people with auditory sensitivity.</>,
+    label: 'Toyota @ Pratt / Fall 2025',
+  },
+]
+
+const RIGHT_BOTTOM: WorkEntry = {
+  projectId: 6,
+  desc: <>Designed and built a <strong>scrollytelling website</strong> researching how music genres traveled through time and space.</>,
+  label: 'Data viz / Fall 2024',
+}
+
+// Plain card — just thumbnail, no text
 function WorkPageCard({ entry, project, index }: { entry: WorkEntry; project: Project; index: number }) {
   const card = (
     <motion.div
@@ -59,29 +59,9 @@ function WorkPageCard({ entry, project, index }: { entry: WorkEntry; project: Pr
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-40px' }}
       transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1], delay: index * 0.08 }}
-      style={{
-        cursor: project.href ? 'pointer' : 'default',
-        display: 'flex',
-        flexDirection: 'column',
-        gap: 12,
-      }}
+      style={{ cursor: project.href ? 'pointer' : 'default' }}
     >
-      <Thumbnail project={project} />
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-        <p className="work-page-desc" style={{ margin: 0 }}>
-          {entry.desc}
-        </p>
-        <p style={{
-          color: 'rgba(107,107,107,0.7)',
-          fontFamily: "'Neue Montreal', sans-serif",
-          fontSize: 16,
-          fontWeight: 400,
-          lineHeight: 1.4,
-          margin: 0,
-        }}>
-          {entry.label}
-        </p>
-      </div>
+      <Thumbnail project={project} aspectRatio={entry.thumbnailAspect} />
     </motion.div>
   )
 
@@ -100,6 +80,55 @@ function WorkPageCard({ entry, project, index }: { entry: WorkEntry; project: Pr
     )
   }
   return card
+}
+
+// Music Map card — hover label follows cursor
+function MusicMapCard({ entry, project }: { entry: WorkEntry; project: Project }) {
+  const wrapRef = useRef<HTMLDivElement>(null)
+  const [hovering, setHovering] = useState(false)
+  const [mounted, setMounted] = useState(false)
+  useEffect(() => { setMounted(true) }, [])
+
+  const card = (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-40px' }}
+      transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1], delay: 0.32 }}
+      style={{ cursor: 'pointer' }}
+    >
+      <Thumbnail project={project} aspectRatio={entry.thumbnailAspect} />
+    </motion.div>
+  )
+
+  return (
+    <div
+      ref={wrapRef}
+      data-cursor-hover
+      onMouseEnter={() => setHovering(true)}
+      onMouseLeave={() => setHovering(false)}
+      style={{ display: 'block' }}
+    >
+      {project.external ? (
+        <a href={project.href} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none' }}>
+          {card}
+        </a>
+      ) : (
+        <Link href={project.href!} style={{ textDecoration: 'none' }}>
+          {card}
+        </Link>
+      )}
+      {mounted && (
+        <HoverLabel
+          title="How Music Wandered?"
+          desc={entry.desc}
+          label={entry.label}
+          anchorRef={wrapRef}
+          visible={hovering}
+        />
+      )}
+    </div>
+  )
 }
 
 // ── Page ──────────────────────────────────────────────────────────────────────
@@ -125,17 +154,18 @@ export default function WorkPage() {
       }
     }
 
-    const el = scrollRef.current
+    const isMobile = () => window.innerWidth <= 760
+
     const onWheel = (e: WheelEvent) => {
-      if (e.deltaY < -30 && (el?.scrollTop ?? 0) <= 5) go()
+      if (!isMobile() && e.deltaY < -30 && window.scrollY <= 5) go()
     }
     const touch = { y: 0, atTop: false }
     const onTouchStart = (e: TouchEvent) => {
       touch.y = e.touches[0].clientY
-      touch.atTop = (el?.scrollTop ?? 0) <= 5
+      touch.atTop = window.scrollY <= 5
     }
     const onTouchEnd = (e: TouchEvent) => {
-      if (e.changedTouches[0].clientY - touch.y > 40 && touch.atTop) go()
+      if (!isMobile() && e.changedTouches[0].clientY - touch.y > 40 && touch.atTop) go()
     }
 
     window.addEventListener('wheel', onWheel, { passive: true })
@@ -148,25 +178,31 @@ export default function WorkPage() {
     }
   }, [router])
 
+  const musicMap = projectsById[RIGHT_BOTTOM.projectId]
+
   return (
     <div className="work-page" ref={scrollRef}>
       <main className="work-grid">
-        {WORK_ENTRIES.map((entry, i) => {
-          const project = projectsById[entry.projectId]
-          if (!project) return null
-          return (
-            <div
-              key={entry.projectId}
-              style={{
-                gridColumn: entry.colSpan
-                  ? `${entry.col} / span ${entry.colSpan}`
-                  : String(entry.col),
-              }}
-            >
-              <WorkPageCard entry={entry} project={project} index={i} />
-            </div>
-          )
-        })}
+
+        <div className="work-col-left">
+          {LEFT_COL.map((entry, i) => {
+            const project = projectsById[entry.projectId]
+            if (!project) return null
+            return <WorkPageCard key={entry.projectId} entry={entry} project={project} index={i} />
+          })}
+        </div>
+
+        <div className="work-col-right">
+          <div className="work-col-right-top">
+            {RIGHT_TOP.map((entry, i) => {
+              const project = projectsById[entry.projectId]
+              if (!project) return null
+              return <WorkPageCard key={entry.projectId} entry={entry} project={project} index={i + 2} />
+            })}
+          </div>
+          {musicMap && <MusicMapCard entry={RIGHT_BOTTOM} project={musicMap} />}
+        </div>
+
       </main>
     </div>
   )

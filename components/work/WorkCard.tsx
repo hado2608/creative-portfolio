@@ -19,21 +19,26 @@ function CardTitle({ title }: { title: string }) {
   )
 }
 
-export function Thumbnail({ project }: { project: Project }) {
+export function Thumbnail({ project, aspectRatio }: { project: Project; aspectRatio?: string }) {
+  const forced = !!aspectRatio
   return (
-    <div style={{ borderRadius: 4, overflow: 'hidden', position: 'relative' }}>
-      {/* Image sets the natural aspect ratio of the slot */}
+    <div style={{
+      borderRadius: 4, overflow: 'hidden', position: 'relative',
+      ...(forced ? { aspectRatio, width: '100%' } : {}),
+    }}>
       <img
         src={project.thumbnail}
         alt={project.title}
-        style={{ display: 'block', width: '100%', height: 'auto', visibility: project.video ? 'hidden' : 'visible' }}
+        style={{
+          display: 'block', width: '100%',
+          height: forced ? '100%' : 'auto',
+          objectFit: forced ? 'cover' : 'fill',
+          visibility: project.video ? 'hidden' : 'visible',
+        }}
       />
       {project.video && (
         <video
-          autoPlay
-          muted
-          loop
-          playsInline
+          autoPlay muted loop playsInline
           src={project.video}
           style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
         />

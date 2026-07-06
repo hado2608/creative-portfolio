@@ -83,10 +83,10 @@ export default function FingerprintLoader({ onComplete }: { onComplete: () => vo
       }}>
         {/* Sway layer — starts after stamp settles */}
         <motion.div
-          animate={phase !== 'stamp' ? { x: [-5, 5], y: [-3, 3] } : { x: 0, y: 0 }}
+          animate={phase !== 'stamp' ? { x: [-3, 3], y: [-2, 2] } : { x: 0, y: 0 }}
           transition={phase !== 'stamp' ? {
-            x: { repeat: Infinity, repeatType: 'mirror', duration: 2, ease: 'easeInOut' },
-            y: { repeat: Infinity, repeatType: 'mirror', duration: 2, ease: 'easeInOut', delay: 0.5 },
+            x: { repeat: Infinity, repeatType: 'mirror', duration: 2.4, ease: [0.37, 0, 0.63, 1] },
+            y: { repeat: Infinity, repeatType: 'mirror', duration: 1.8, ease: [0.37, 0, 0.63, 1] },
           } : { duration: 0 }}
         >
           <motion.img

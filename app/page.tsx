@@ -7,8 +7,7 @@ import HomeBackground from '@/components/home/HomeBackground'
 import IDCard from '@/components/home/IDCard'
 import MapHotspots from '@/components/home/MapHotspots'
 
-// Resets to false on every hard reload (module re-evaluated).
-// Stays true across SPA navigations (module stays in memory).
+// Resets on hard reload (module re-evaluates). Persists across SPA nav (module stays cached).
 let loaderShown = false
 
 export default function Home() {
@@ -39,12 +38,11 @@ export default function Home() {
     }
 
     const isMobile = () => window.innerWidth <= 760
-    const atBottom = () => window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 60
 
-    const onWheel = (e: WheelEvent) => { if (e.deltaY > 30 && (!isMobile() || atBottom())) go() }
+    const onWheel = (e: WheelEvent) => { if (!isMobile() && e.deltaY > 30) go() }
     const touchStart = { y: 0 }
     const onTouchStart = (e: TouchEvent) => { touchStart.y = e.touches[0].clientY }
-    const onTouchEnd = (e: TouchEvent) => { if (touchStart.y - e.changedTouches[0].clientY > 40 && (!isMobile() || atBottom())) go() }
+    const onTouchEnd = (e: TouchEvent) => { if (!isMobile() && touchStart.y - e.changedTouches[0].clientY > 40) go() }
 
     window.addEventListener('wheel', onWheel, { passive: true })
     window.addEventListener('touchstart', onTouchStart, { passive: true })

@@ -118,6 +118,8 @@ export default function IDCard() {
             className="id-svg-resume-link"
             aria-label="View my resume"
           />
+
+
         </div>
       </div>
     </div>

@@ -11,17 +11,20 @@ const BROOKLYN_D =
   'M156.62 1.42435C160.822 2.4234 169.739 4.98146 173.259 7.17293C176.776 9.3644 174.031 12.3132 177.736 14.5691C181.438 16.821 191.199 17.0104 195.482 20.6964C199.765 24.3784 202.083 33.104 203.439 36.6651C204.795 40.2263 202.397 39.7952 203.625 42.0632C204.852 44.3272 209.938 48.5692 210.806 50.2611C211.67 51.9531 206.232 50.1765 208.816 52.223C211.4 54.2694 223.393 59.8125 226.308 62.5398C229.222 65.267 224.124 66.3628 226.304 68.5905C228.484 70.8223 237.655 74.2505 239.395 75.9263C241.131 77.6021 235.855 77.4208 236.731 78.6495C237.607 79.8782 243.307 81.4936 244.643 83.2943C245.983 85.0991 243.392 86.8393 244.768 89.4659C246.145 92.0924 248.103 98.7111 252.911 99.0536C257.723 99.4 267.137 94.9486 273.628 91.5284C280.115 88.1083 287.329 80.978 291.838 78.5367C296.351 76.0955 298.382 73.336 300.691 76.877C303 80.418 303.803 95.1661 305.705 99.7787C307.602 104.391 310.46 101.471 312.087 104.544C313.718 107.614 314.117 116.046 315.482 118.209C316.842 120.376 318.901 115.405 320.262 117.54C321.622 119.675 323.636 127.692 323.64 131.019C323.644 134.347 322.458 135.894 320.294 137.505C318.126 139.12 310.468 137.948 310.658 140.696C310.848 143.447 319.696 149.792 321.432 154.001C323.164 158.215 322.781 163.642 321.065 165.962C319.349 168.278 314.069 166.816 311.134 167.912C308.199 169.011 306.431 173.382 303.456 172.548C300.481 171.715 293.925 162.55 293.287 162.904C292.649 163.259 299.722 172.029 299.637 174.671C299.552 177.314 295.314 178.813 292.779 178.756C290.243 178.7 288.544 177.677 284.426 174.337C280.313 170.993 271.791 161.571 268.093 158.699C264.4 155.826 259.192 153.679 262.248 157.111C265.304 160.54 285.395 173.39 286.421 179.292C287.45 185.194 272.82 188.988 268.416 192.521C264.012 196.054 263.108 198.939 260.003 200.482C256.903 202.02 256.725 204.164 249.798 201.767C242.875 199.374 223.966 188.416 218.46 186.104C212.95 183.792 212.805 185.633 216.744 187.893C220.688 190.149 237.308 196.945 242.112 199.648C246.916 202.355 243.763 203.318 245.56 204.123C247.36 204.925 251.498 202.419 252.899 204.47C254.295 206.52 252.031 213.618 253.96 216.43C255.894 219.238 263.584 219.226 264.488 221.329C265.393 223.432 262.296 227.263 259.394 229.047C256.491 230.832 249.221 232.854 247.073 232.032C244.926 231.211 248.987 227.545 246.512 224.116C244.038 220.688 234.971 213.336 232.23 211.459C229.485 209.586 228.286 210.859 230.058 212.869C231.83 214.875 240.554 220.398 242.867 223.516C245.18 226.634 246.129 230.304 243.937 231.581C241.741 232.854 231.628 230.683 229.699 231.17C227.765 231.658 233.441 233.922 232.343 234.506C231.245 235.086 225.541 235.452 223.107 234.663C220.676 233.873 218.359 232.024 217.758 229.76C217.156 227.496 220.305 221.345 219.498 221.079C218.694 220.813 212.155 225.385 212.926 228.161C213.697 230.937 218.145 236.56 224.132 237.737C230.123 238.913 242.524 235.626 248.85 235.227C255.179 234.824 257.811 235.884 262.095 235.332C266.382 234.78 270.818 227.098 274.568 231.92C278.315 236.746 282.489 258.326 284.588 264.284C286.687 270.238 287.599 265.722 287.163 267.664C286.731 269.606 287.422 273.586 281.984 275.934C276.55 278.283 260.133 283.935 254.546 281.759C248.959 279.584 253.205 265.682 248.466 262.894C243.727 260.107 229.876 267.015 226.114 265.045C222.352 263.071 226.829 254.624 225.9 251.063C224.968 247.498 223.325 245.761 220.539 243.662C217.75 241.568 212.667 238.816 209.179 238.49C205.692 238.168 197.545 238.301 199.604 241.709C201.667 245.121 218.278 253.528 220.592 257.552C222.909 261.573 215.493 263.208 212.542 264.457C209.591 265.702 207.756 265.609 204.462 264.457C201.168 263.309 199.162 260.573 197.729 258.41C196.296 256.25 195.898 254.861 195.252 253.464C194.606 252.062 189.855 248.944 189.851 250.547C189.851 252.15 193.056 260.155 195.236 263.084C197.412 266.016 201.434 267.769 202.922 268.139C204.41 268.506 208.55 268.351 212.542 269.16C216.535 269.97 211.218 271.632 211.195 272.998C211.172 274.363 210.349 273.997 209.055 273.497C207.762 273.002 205 270.363 203.434 270.012C201.868 269.662 198.421 271.406 193.468 271.394C188.515 271.378 181.256 269.992 174.68 269.924C168.104 269.859 154.347 270.242 154.008 270.995C153.673 271.749 166.611 273.948 172.658 274.448C178.701 274.943 187.029 272.442 190.279 273.98C193.529 275.519 195.018 281.981 192.148 283.681C189.278 285.377 183.38 283.504 173.058 284.176C162.739 284.849 144.872 286.279 130.231 287.717C115.593 289.16 95.2795 291.919 85.2197 292.817C75.1558 293.72 73.1132 293.812 69.8635 293.116C66.6138 292.419 68.608 289.981 65.7176 288.632C62.8273 287.286 55.0079 286.497 52.5131 285.022C50.0183 283.548 49.0252 281.832 50.749 279.785C52.4768 277.739 55.9162 273.002 62.8636 272.736C69.811 272.47 88.2756 277.924 92.4457 278.186C96.6117 278.444 88.2352 275.966 87.8679 274.299C87.5005 272.631 91.3517 268.502 90.2375 268.176C89.1274 267.849 84.0692 271.898 81.203 272.345C78.3369 272.788 77.754 271.507 76.5308 270.504C75.3077 269.497 72.1241 267.853 73.86 266.322C75.5958 264.792 82.9308 262.427 83.4556 261.661C83.9844 260.896 79.7578 263.95 77.0208 261.73C74.2879 259.51 70.3237 251.655 67.0498 248.339C63.7719 245.02 62.3428 243.973 57.3654 241.825C52.388 239.678 43.2001 236.879 37.1811 235.461C31.1581 234.043 25.6196 234.985 21.2315 233.317C16.8434 231.654 13.7916 228.431 10.8487 225.466C7.90181 222.505 5.26574 219.874 3.5743 215.544C1.87882 211.217 0.930162 203.874 0.691988 199.499C0.453814 195.128 -0.127493 195.079 2.13315 189.303C4.39378 183.53 10.5419 168.85 14.2558 164.862C17.9738 160.874 21.5625 166.328 24.4327 165.378C27.3029 164.423 30.484 161.071 31.477 159.146C32.4661 157.224 29.4505 154.876 30.3911 153.828C31.3277 152.781 33.3663 155.234 37.1085 152.861C40.8466 150.489 50.4382 142.69 52.8199 139.596C55.2016 136.498 48.3107 135.434 51.407 134.282C54.4992 133.134 68.5636 134.238 71.3814 132.691C74.2031 131.144 70.8525 126.616 68.3295 124.997C65.8105 123.373 61.1399 125.633 56.2633 122.962C51.3828 120.287 41.7912 112.17 39.0663 108.959C36.3415 105.753 37.9037 105.729 39.91 103.706C41.9204 101.684 47.245 98.7192 51.1163 96.8299C54.9917 94.9405 57.874 98.3607 63.1502 92.3744C68.4264 86.3881 74.845 66.4957 82.7693 60.9123C90.6937 55.3249 105.331 58.1569 110.7 58.8578C116.065 59.5587 113.34 64.4775 114.963 65.118C116.59 65.7545 120.066 63.8853 120.457 62.6929C120.849 61.5005 116.283 58.4751 117.305 57.9715C118.33 57.468 125.237 60.6102 126.601 59.6796C127.962 58.745 124.632 56.1829 125.483 52.372C126.335 48.5611 129.169 41.4066 131.708 36.8061C134.243 32.2016 139.532 29.3011 140.706 24.7611C141.881 20.217 137.537 13.4895 138.76 9.55777C139.984 5.63004 145.07 2.54022 148.049 1.18264C151.024 -0.174943 152.417 0.425294 156.62 1.42435Z'
 
 const LEFT_X = 91, LEFT_Y = 203, LEFT_W = 318, LEFT_H = 465
-const LEFT_PIN_CX = LEFT_X + LEFT_W / 2   // 250
-const LEFT_PIN_CY = LEFT_Y + LEFT_H / 2   // 435
-const LEFT_ROT = -16.34
+const LEFT_PIN_CX = LEFT_X + LEFT_W / 2
+const LEFT_PIN_CY = LEFT_Y + LEFT_H / 2
+const LEFT_ROT = -8
 
 const RIGHT_X = 1082, RIGHT_Y = 347, RIGHT_W = 242, RIGHT_H = 219
-const RIGHT_PIN_CX = RIGHT_X + RIGHT_W / 2  // 1203
-const RIGHT_PIN_CY = RIGHT_Y + RIGHT_H / 2  // 457
+const RIGHT_PIN_CX = RIGHT_X + RIGHT_W / 2
+const RIGHT_PIN_CY = RIGHT_Y + RIGHT_H / 2
+
+// Pin positions: centered on map, tip 4px above visual top of each shape in SVG coords
+const VN_LABEL = { x: 145, y: 181 }
+const BK_LABEL = { x: 1191, y: 318 }
 
 const VIEWBOX_W = 1440, VIEWBOX_H = 900
 
-// Convert SVG viewBox coords → screen px, accounting for xMidYMid slice scaling
 function svgToScreen(svgX: number, svgY: number, vw: number, vh: number) {
   const scale = Math.max(vw / VIEWBOX_W, vh / VIEWBOX_H)
   const offsetX = (vw - VIEWBOX_W * scale) / 2
@@ -29,23 +32,65 @@ function svgToScreen(svgX: number, svgY: number, vw: number, vh: number) {
   return { x: svgX * scale + offsetX, y: svgY * scale + offsetY }
 }
 
-function Pin({ cx, cy, active }: { cx: number; cy: number; active: boolean }) {
+// Exact Figma pin icon SVG
+function PinIcon() {
   return (
-    <>
-      <circle cx={cx} cy={cy} r={3} fill="#4A7AB5" opacity={0.3} style={{ pointerEvents: 'none' }} />
-      {active && (
-        <>
-          <circle cx={cx} cy={cy} r={12} fill="none" stroke="#4A7AB5" strokeWidth={1.5} opacity={0.35} style={{ pointerEvents: 'none' }} />
-          <circle cx={cx} cy={cy} r={5} fill="#4A7AB5" style={{ pointerEvents: 'none' }} />
-        </>
-      )}
-    </>
+    <svg width="24" height="29" viewBox="0 0 24 28.9844" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ flexShrink: 0 }}>
+      <path d="M21 10C21 17 12 23 12 23C12 23 3 17 3 10C3 7.61305 3.94821 5.32387 5.63604 3.63604C7.32387 1.94821 9.61305 1 12 1C14.3869 1 16.6761 1.94821 18.364 3.63604C20.0518 5.32387 21 7.61305 21 10Z" stroke="#2E4B68" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+      <path d="M12 13C13.6569 13 15 11.6569 15 10C15 8.34315 13.6569 7 12 7C10.3431 7 9 8.34315 9 10C9 11.6569 10.3431 13 12 13Z" stroke="#2E4B68" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+      <ellipse cx="12" cy="26.9922" rx="5.24609" ry="1.99219" fill="#BDC6CF"/>
+    </svg>
   )
+}
+
+function MapPin({ city, time }: { city: string; time: string }) {
+  return (
+    <div style={{
+      display: 'flex',
+      alignItems: 'center',
+      gap: 4,
+      pointerEvents: 'none',
+    }}>
+      <PinIcon />
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+        <span style={{
+          fontFamily: "'Neue Montreal', sans-serif",
+          fontSize: 16,
+          fontWeight: 400,
+          color: '#2e4b68',
+          whiteSpace: 'nowrap',
+          lineHeight: 1,
+        }}>
+          {city}
+        </span>
+        <span style={{
+          fontFamily: "'Neue Montreal', sans-serif",
+          fontSize: 16,
+          fontWeight: 400,
+          color: '#bdc6cf',
+          whiteSpace: 'nowrap',
+          lineHeight: 1,
+        }}>
+          {time}
+        </span>
+      </div>
+    </div>
+  )
+}
+
+function fmt(tz: string) {
+  return new Intl.DateTimeFormat('en-US', {
+    timeZone: tz,
+    hour: 'numeric',
+    minute: '2-digit',
+    hour12: true,
+  }).format(new Date()).toLowerCase()
 }
 
 export default function MapHotspots({ visible }: { visible: boolean }) {
   const [hovered, setHovered] = useState<'brooklyn' | 'vietnam' | null>(null)
   const [viewport, setViewport] = useState({ w: 0, h: 0 })
+  const [times, setTimes] = useState({ vn: '', ny: '' })
 
   useEffect(() => {
     const update = () => setViewport({ w: window.innerWidth, h: window.innerHeight })
@@ -54,25 +99,29 @@ export default function MapHotspots({ visible }: { visible: boolean }) {
     return () => window.removeEventListener('resize', update)
   }, [])
 
+  useEffect(() => {
+    const tick = () => setTimes({ vn: fmt('Asia/Ho_Chi_Minh'), ny: fmt('America/New_York') })
+    tick()
+    const id = setInterval(tick, 1000)
+    return () => clearInterval(id)
+  }, [])
+
   if (!visible) return null
 
   const svgProps = {
     viewBox: '0 0 1440 900',
     preserveAspectRatio: 'xMidYMid slice' as const,
     style: { width: '100%', height: '100%', position: 'absolute' as const, inset: 0 },
-    fill: 'none',
+    fill: 'none' as const,
   }
 
   const { w, h } = viewport
-  const brooklynScreen = w ? svgToScreen(RIGHT_PIN_CX, RIGHT_PIN_CY, w, h) : null
-  const vietnamScreen  = w ? svgToScreen(LEFT_PIN_CX,  LEFT_PIN_CY,  w, h) : null
-
-  const vietnamFill   = hovered === 'vietnam'  ? '#E6E9ED' : '#F0F2F4'
-  const brooklynFill  = hovered === 'brooklyn' ? '#E6E9ED' : '#F7F7F7'
+  const vnScreen = w ? svgToScreen(VN_LABEL.x, VN_LABEL.y, w, h) : null
+  const bkScreen = w ? svgToScreen(BK_LABEL.x, BK_LABEL.y, w, h) : null
 
   return (
     <>
-      {/* ── Layer 1: map shapes — below ID card ── */}
+      {/* Layer 1: map shapes — below ID card */}
       <div style={{ position: 'fixed', inset: 0, pointerEvents: 'none', zIndex: 5 }}>
         <svg {...svgProps}>
           {/* Vietnam */}
@@ -83,21 +132,22 @@ export default function MapHotspots({ visible }: { visible: boolean }) {
             style={{ pointerEvents: 'all', cursor: 'default' }}
           >
             <g transform={`translate(${LEFT_X}, ${LEFT_Y}) scale(${LEFT_W / 376}, ${LEFT_H / 551})`}>
+              {/* Transparent hitbox — fill="none" paths don't capture pointer events */}
+              <path fillRule="evenodd" clipRule="evenodd" d={VIETNAM_D} fill="transparent" stroke="none" />
               <path
-                fillRule="evenodd"
-                clipRule="evenodd"
+                fillRule="evenodd" clipRule="evenodd"
                 d={VIETNAM_D}
-                fill={vietnamFill}
-                style={{ transition: 'fill 0.25s ease' }}
+                fill={hovered === 'vietnam' ? '#E6E9ED' : 'none'}
+                style={{ transition: 'fill 0.25s ease', pointerEvents: 'none' }}
               />
               <path
-                fillRule="evenodd"
-                clipRule="evenodd"
+                fillRule="evenodd" clipRule="evenodd"
                 d={VIETNAM_D}
                 fill="none"
                 stroke="#BDC6CF"
                 strokeDasharray="16 16"
                 vectorEffect="non-scaling-stroke"
+                style={{ pointerEvents: 'none' }}
               />
             </g>
           </g>
@@ -109,10 +159,12 @@ export default function MapHotspots({ visible }: { visible: boolean }) {
             style={{ pointerEvents: 'all', cursor: 'default' }}
           >
             <g transform={`translate(${RIGHT_X}, ${RIGHT_Y}) scale(${RIGHT_W / 325}, ${RIGHT_H / 295})`}>
+              {/* Transparent hitbox */}
+              <path d={BROOKLYN_D} fill="transparent" stroke="none" />
               <path
                 d={BROOKLYN_D}
-                fill={brooklynFill}
-                style={{ transition: 'fill 0.25s ease' }}
+                fill={hovered === 'brooklyn' ? '#E6E9ED' : 'none'}
+                style={{ transition: 'fill 0.25s ease', pointerEvents: 'none' }}
               />
               <path
                 d={BROOKLYN_D}
@@ -120,42 +172,34 @@ export default function MapHotspots({ visible }: { visible: boolean }) {
                 stroke="#BDC6CF"
                 strokeDasharray="16 16"
                 vectorEffect="non-scaling-stroke"
+                style={{ pointerEvents: 'none' }}
               />
             </g>
           </g>
         </svg>
       </div>
 
-      {/* ── Layer 2: pins — above ID card ── */}
-      <div style={{ position: 'fixed', inset: 0, pointerEvents: 'none', zIndex: 15 }}>
-        <svg {...svgProps}>
-          <Pin cx={LEFT_PIN_CX}  cy={LEFT_PIN_CY}  active={hovered === 'vietnam'} />
-          <Pin cx={RIGHT_PIN_CX} cy={RIGHT_PIN_CY} active={hovered === 'brooklyn'} />
-        </svg>
-      </div>
-
-      {/* ── Layer 3: HTML tooltips — fixed 16px, immune to SVG scaling ── */}
-      {hovered === 'vietnam' && vietnamScreen && (
+      {/* Layer 2: HTML pins — above ID card, hover only */}
+      {hovered === 'vietnam' && vnScreen && (
         <div style={{
           position: 'fixed',
-          left: vietnamScreen.x + 14,
-          top: vietnamScreen.y - 20,
+          left: vnScreen.x,
+          top: vnScreen.y - 16,
           zIndex: 15,
           pointerEvents: 'none',
         }}>
-          <div className="map-tooltip">Buôn Ma Thuột, Việt Nam</div>
+          <MapPin city="Buôn Ma Thuột, Việt Nam" time={times.vn} />
         </div>
       )}
-      {hovered === 'brooklyn' && brooklynScreen && (
+      {hovered === 'brooklyn' && bkScreen && (
         <div style={{
           position: 'fixed',
-          left: brooklynScreen.x - 14,
-          top: brooklynScreen.y - 20,
-          transform: 'translateX(-100%)',
+          left: bkScreen.x,
+          top: bkScreen.y - 16,
           zIndex: 15,
           pointerEvents: 'none',
         }}>
-          <div className="map-tooltip">Brooklyn, NY</div>
+          <MapPin city="Brooklyn, NY" time={times.ny} />
         </div>
       )}
     </>

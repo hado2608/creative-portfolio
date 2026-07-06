@@ -18,7 +18,9 @@ export function Lightbox({ src, alt, onClose }: { src: string; alt?: string; onC
       onClick={onClose}
       style={{
         position: 'fixed', inset: 0, zIndex: 9999,
-        background: 'rgba(0,0,0,0.88)',
+        background: 'rgba(247,247,247,0.5)',
+        backdropFilter: 'blur(5px)',
+        WebkitBackdropFilter: 'blur(5px)',
         display: 'flex', alignItems: 'center', justifyContent: 'center',
         padding: 40, cursor: 'zoom-out',
       }}
@@ -39,7 +41,7 @@ export function Lightbox({ src, alt, onClose }: { src: string; alt?: string; onC
         style={{
           position: 'absolute', top: 20, right: 24,
           background: 'none', border: 'none',
-          color: 'rgba(255,255,255,0.7)', fontSize: 36,
+          color: 'rgba(80,80,80,0.7)', fontSize: 36,
           cursor: 'pointer', lineHeight: 1, padding: 4,
         }}
       >
