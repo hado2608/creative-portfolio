@@ -70,11 +70,27 @@ export default function Home() {
       {/* Static background — grid + country silhouette shapes */}
       <HomeBackground />
 
+      {/* Intro copy — top left */}
+      <div className="hero-intro">
+        <p>
+          Hey, I&rsquo;m Ha! I&rsquo;m currently a product designer at Conduit Gaming.
+          I love bold yet simple ideas that make people flourish.
+        </p>
+        <p className="hero-intro-hint">Scroll down or use your arrow keys to navigate!</p>
+      </div>
+
       {/* Nothing renders until after hydration — prevents SSR/client mismatch */}
       {ready && !mapVisible && (
         <FingerprintLoader onComplete={() => {
           setMapVisible(true)
         }} />
+      )}
+
+      {/* Carabiner hook — peeks in from the left viewport edge, behind the card */}
+      {ready && mapVisible && (
+        <div className="hero-hook" aria-hidden>
+          <img src="/assets/hook.svg" alt="" className="hero-hook-img" />
+        </div>
       )}
 
       {/* ID card — mounts after loader, drop-in animation plays on mount */}

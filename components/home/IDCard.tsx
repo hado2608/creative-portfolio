@@ -81,12 +81,6 @@ export default function IDCard() {
 
   return (
     <div className="id-assembly">
-      {/* Dangler loop — hangs from top of viewport */}
-      <div className="id-dangler-wrap">
-        <img src="/assets/hook.svg" alt="" className="id-dangler-img" aria-hidden />
-
-      </div>
-
       {/* Perspective wrapper */}
       <div className="id-card-scene">
         {/* Card — tilt target, card body only */}

@@ -203,7 +203,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  /* Nudge center down slightly so the dangler above the card is visible */
   padding-top: 60px;
   /* Reserve space above the fixed footer */
   padding-bottom: 147px;
@@ -284,14 +283,15 @@
   100%  { transform: rotate(0deg); }
 }
 
-/* Assembly wrapper: the pivot point for both drop + idle sway */
+/* Assembly wrapper: the pivot point for both drop + idle sway.
+   Card sits left-of-center per Figma 1722:29990 (card center = 50% - 281px). */
 .id-assembly {
   display: flex;
   flex-direction: column;
   align-items: center;
   position: absolute;
-  top: 0;
-  left: calc(50% - 353px);
+  top: calc(50% - 187px);
+  left: max(16px, calc(50% - 634px));
   width: 706px;
   z-index: 10;
   transform-origin: center top;
@@ -306,20 +306,47 @@
   }
 }
 
-/* Dangler loop — the oval ring above the card */
-.id-dangler-wrap {
-  width: 101px;
-  height: 169px;
-  position: relative;
-  margin-top: -30px;
-  margin-bottom: -8px;
-  z-index: 12;
+/* Carabiner hook — enters diagonally from the left viewport edge and slips
+   behind the card (Figma 1697:26170: box -67,385 222.9×167.25, img rotated -68.31°) */
+.hero-hook {
+  position: absolute;
+  left: -67px;
+  top: calc(50% - 66px);
+  width: 223px;
+  height: 167px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 4;
+  pointer-events: none;
 }
 
-.id-dangler-img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
+.hero-hook-img {
+  width: 100px;
+  height: 199px;
+  flex: none;
+  transform: rotate(-68.31deg);
+}
+
+/* Intro copy — top left (Figma 1722:30087) */
+.hero-intro {
+  position: absolute;
+  left: max(24px, calc(50% - 677px));
+  top: 63px;
+  width: 557px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  font-family: 'Neue Montreal', sans-serif;
+  font-size: 24px;
+  letter-spacing: 0.48px;
+  line-height: normal;
+  color: #c5c8ca;
+  z-index: 6;
+}
+
+.hero-intro-hint {
+  color: #939393;
 }
 
 
@@ -619,15 +646,20 @@
     overflow: visible;
     padding-bottom: 16px;
   }
-  /* In-flow spacer = visual height of the full card assembly (dangler 131px + card 877px = 1008px, scaled).
+  /* In-flow spacer = visual height of the card (877px, scaled).
      Card is position:absolute top:0 so it starts at y=0; in-flow content starts at padding-top (60px).
      Spacer height = scaled card height - 60px so the spacer bottom aligns with the card bottom. */
   .mobile-card-spacer {
     display: block;
-    height: calc(1008 * (100vw - 32px) / 343 - 60px);
+    height: calc(877 * (100vw - 32px) / 343 - 60px);
     pointer-events: none;
   }
+  .hero-hook,
+  .hero-intro {
+    display: none;
+  }
   .id-assembly {
+    top: 0;
     left: 50%;
     translate: -50% 0;
     transform-origin: center top;
