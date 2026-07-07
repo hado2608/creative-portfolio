@@ -37,6 +37,7 @@ function activeLabel(pathname: string) {
 
 export default function PortfolioFooter() {
   const pathname = usePathname()
+  const isHome = pathname === '/'
   const [navOpen, setNavOpen] = useState(false)
   const [animClass, setAnimClass] = useState('')
 
@@ -75,13 +76,13 @@ export default function PortfolioFooter() {
       )}
 
       <footer className={`about-footer${animClass}`}>
-        {/* Noise texture overlay — matches Figma footer frame */}
-        <img src="/assets/nav-bg.png" aria-hidden alt="" className="about-footer-noise" />
+        {/* Noise texture overlay — dark on home, light everywhere else */}
+        <img src={isHome ? '/assets/nav-bg-dark.png' : '/assets/nav-bg.png'} aria-hidden alt="" className="about-footer-noise" />
 
         {/* ── Desktop layout ─────────────────────────────── */}
         <div className="about-footer-left">
           <Link href="/">
-            <img src="/assets/signature-figma.svg" alt="Ha Do" className="about-signature" />
+            <img src={isHome ? '/assets/signature-dark.png' : '/assets/signature-figma.svg'} alt="Ha Do" className="about-signature" />
           </Link>
           <span className="about-copyright">@2026 Ha Do</span>
         </div>
@@ -89,6 +90,7 @@ export default function PortfolioFooter() {
         <nav className="about-nav-box">
           <NavItem href="/" active={pathname === '/'}>chào!</NavItem>
           <NavItem href="/work" active={pathname === '/work'}>work</NavItem>
+          {/* <NavItem href="/vibe" active={pathname === '/vibe'}>vibe</NavItem> */}
           <NavItem href="/about" active={pathname === '/about'}>about</NavItem>
         </nav>
 
@@ -110,7 +112,7 @@ export default function PortfolioFooter() {
         {/* ── Mobile layout ──────────────────────────────── */}
         <div className="mobile-footer-inner">
           <Link href="/" className="mobile-footer-sig">
-            <img src="/assets/signature-figma.svg" alt="Ha Do" className="mobile-sig-img" width={70} height={34} />
+            <img src={isHome ? '/assets/signature-dark.png' : '/assets/signature-figma.svg'} alt="Ha Do" className="mobile-sig-img" width={70} height={34} />
             <span className="mobile-sig-label">@2026 Ha Do</span>
           </Link>
 

@@ -83,7 +83,7 @@ export default function IDCard() {
     <div className="id-assembly">
       {/* Dangler loop — hangs from top of viewport */}
       <div className="id-dangler-wrap">
-        <img src="/assets/loop.svg" alt="" className="id-dangler-img" aria-hidden />
+        <img src="/assets/hook.svg" alt="" className="id-dangler-img" aria-hidden />
 
       </div>
 

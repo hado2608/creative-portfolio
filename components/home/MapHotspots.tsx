@@ -32,13 +32,13 @@ function svgToScreen(svgX: number, svgY: number, vw: number, vh: number) {
   return { x: svgX * scale + offsetX, y: svgY * scale + offsetY }
 }
 
-// Exact Figma pin icon SVG
+// Exact Figma pin icon SVG — dark mode colors (home page is always dark)
 function PinIcon() {
   return (
     <svg width="24" height="29" viewBox="0 0 24 28.9844" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ flexShrink: 0 }}>
-      <path d="M21 10C21 17 12 23 12 23C12 23 3 17 3 10C3 7.61305 3.94821 5.32387 5.63604 3.63604C7.32387 1.94821 9.61305 1 12 1C14.3869 1 16.6761 1.94821 18.364 3.63604C20.0518 5.32387 21 7.61305 21 10Z" stroke="#2E4B68" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-      <path d="M12 13C13.6569 13 15 11.6569 15 10C15 8.34315 13.6569 7 12 7C10.3431 7 9 8.34315 9 10C9 11.6569 10.3431 13 12 13Z" stroke="#2E4B68" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-      <ellipse cx="12" cy="26.9922" rx="5.24609" ry="1.99219" fill="#BDC6CF"/>
+      <path d="M21 10C21 17 12 23 12 23C12 23 3 17 3 10C3 7.61305 3.94821 5.32387 5.63604 3.63604C7.32387 1.94821 9.61305 1 12 1C14.3869 1 16.6761 1.94821 18.364 3.63604C20.0518 5.32387 21 7.61305 21 10Z" stroke="#8ca7c2" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+      <path d="M12 13C13.6569 13 15 11.6569 15 10C15 8.34315 13.6569 7 12 7C10.3431 7 9 8.34315 9 10C9 11.6569 10.3431 13 12 13Z" stroke="#8ca7c2" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+      <ellipse cx="12" cy="26.9922" rx="5.24609" ry="1.99219" fill="rgba(140,167,194,0.3)"/>
     </svg>
   )
 }
@@ -57,7 +57,7 @@ function MapPin({ city, time }: { city: string; time: string }) {
           fontFamily: "'Neue Montreal', sans-serif",
           fontSize: 16,
           fontWeight: 400,
-          color: '#2e4b68',
+          color: '#e6e9ed',
           whiteSpace: 'nowrap',
           lineHeight: 1,
         }}>
@@ -67,7 +67,7 @@ function MapPin({ city, time }: { city: string; time: string }) {
           fontFamily: "'Neue Montreal', sans-serif",
           fontSize: 16,
           fontWeight: 400,
-          color: '#bdc6cf',
+          color: '#899aaa',
           whiteSpace: 'nowrap',
           lineHeight: 1,
         }}>
@@ -135,13 +135,13 @@ export default function MapHotspots({ visible }: { visible: boolean }) {
               <path d={BROOKLYN_D} fill="transparent" stroke="none" />
               <path
                 d={BROOKLYN_D}
-                fill={hovered === 'brooklyn' ? '#E6E9ED' : 'none'}
+                fill={hovered === 'brooklyn' ? 'rgba(255,255,255,0.08)' : 'none'}
                 style={{ transition: 'fill 0.25s ease', pointerEvents: 'none' }}
               />
               <path
                 d={BROOKLYN_D}
                 fill="none"
-                stroke="#BDC6CF"
+                stroke="rgba(255,255,255,0.5)"
                 strokeDasharray="16 16"
                 vectorEffect="non-scaling-stroke"
                 style={{ pointerEvents: 'none' }}
@@ -160,14 +160,14 @@ export default function MapHotspots({ visible }: { visible: boolean }) {
               <path
                 fillRule="evenodd" clipRule="evenodd"
                 d={VIETNAM_D}
-                fill={hovered === 'vietnam' ? '#E6E9ED' : 'none'}
+                fill={hovered === 'vietnam' ? 'rgba(255,255,255,0.08)' : 'none'}
                 style={{ transition: 'fill 0.25s ease', pointerEvents: 'none' }}
               />
               <path
                 fillRule="evenodd" clipRule="evenodd"
                 d={VIETNAM_D}
                 fill="none"
-                stroke="#BDC6CF"
+                stroke="rgba(255,255,255,0.5)"
                 strokeDasharray="16 16"
                 vectorEffect="non-scaling-stroke"
                 style={{ pointerEvents: 'none' }}

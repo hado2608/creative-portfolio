@@ -1661,3 +1661,96 @@
 .fp-counter {
   font-family: var(--font-geist-mono), 'Geist Mono', monospace;
 }
+
+/* ── Dark mode — home page only (data-theme="dark" set on <html>) ─────────── */
+
+[data-theme="dark"] .hero-page {
+  background: #1d2529;
+}
+
+[data-theme="dark"] .home-bg-grid {
+  background-image:
+    repeating-linear-gradient(0deg, rgba(255,255,255,0.05) 0px, rgba(255,255,255,0.05) 1px, transparent 1px, transparent 40px),
+    repeating-linear-gradient(90deg, rgba(255,255,255,0.05) 0px, rgba(255,255,255,0.05) 1px, transparent 1px, transparent 40px);
+}
+
+/* Footer background */
+[data-theme="dark"] .about-footer {
+  background-color: #1d2529;
+}
+
+/* Dark noise image covers the full footer — no multiply blend needed */
+[data-theme="dark"] .about-footer-noise {
+  mix-blend-mode: normal;
+  opacity: 1;
+}
+
+/* Signature copyright */
+[data-theme="dark"] .about-copyright {
+  color: #8ca7c2;
+}
+
+/* Desktop nav pill */
+[data-theme="dark"] .about-nav-box {
+  border-color: #2e343b;
+}
+
+[data-theme="dark"] .nav-bracket {
+  color: rgba(140, 167, 194, 0.5);
+}
+
+[data-theme="dark"] .nav-label {
+  color: #8ca7c2;
+}
+
+[data-theme="dark"] .nav-item:hover .nav-label {
+  color: rgba(140, 167, 194, 0.5);
+}
+
+[data-theme="dark"] .nav-item.active .nav-bracket {
+  color: #8ca7c2;
+}
+
+[data-theme="dark"] .nav-item.active .nav-label {
+  color: #9cb7d2;
+}
+
+[data-theme="dark"] .nav-pair-sep {
+  color: #8ca7c2;
+}
+
+/* Desktop contact links */
+[data-theme="dark"] .about-contact-row,
+[data-theme="dark"] .about-contact-row a {
+  color: #8ca7c2;
+}
+
+[data-theme="dark"] .about-contact-row span {
+  opacity: 0.5;
+}
+
+/* Mobile footer */
+[data-theme="dark"] .mobile-sig-label {
+  color: #8ca7c2;
+}
+
+[data-theme="dark"] .mobile-chao-btn {
+  border-color: #2e343b;
+  color: #8ca7c2;
+}
+
+/* Mobile nav pill (the popup) */
+[data-theme="dark"] .mobile-nav-pill {
+  background: #1d2529;
+  border-color: #2e343b;
+}
+
+[data-theme="dark"] .mobile-nav-link {
+  color: #8ca7c2;
+}
+
+/* Mobile social icons — invert black SVGs to white-ish on dark bg */
+[data-theme="dark"] .mobile-social-icons img {
+  filter: invert(1);
+  opacity: 0.65;
+}

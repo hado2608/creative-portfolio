@@ -15,6 +15,11 @@ export default function Home() {
   const [mapVisible, setMapVisible] = useState(false)
 
   useEffect(() => {
+    document.documentElement.dataset.theme = 'dark'
+    return () => { delete document.documentElement.dataset.theme }
+  }, [])
+
+  useEffect(() => {
     if (loaderShown) {
       setMapVisible(true)
     } else {
