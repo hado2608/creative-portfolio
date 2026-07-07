@@ -18,11 +18,20 @@ export default function CustomCursor() {
 
     let x = -100, y = -100
     let rafId: number
+    let idleTimer: ReturnType<typeof setTimeout>
+
+    const hide = () => { el.style.opacity = '0' }
+    const show = () => { el.style.opacity = '1' }
 
     const onMove = (e: MouseEvent) => {
       x = e.clientX
       y = e.clientY
+      show()
+      clearTimeout(idleTimer)
+      idleTimer = setTimeout(hide, 1000)
     }
+
+    const onLeave = () => { hide() }
 
     const tick = () => {
       el.style.transform = `translate(${x}px, ${y}px)`
@@ -39,12 +48,15 @@ export default function CustomCursor() {
 
     window.addEventListener('mousemove', onMove)
     document.addEventListener('mouseover', onOver)
+    document.addEventListener('mouseleave', onLeave)
     rafId = requestAnimationFrame(tick)
 
     return () => {
       window.removeEventListener('mousemove', onMove)
       document.removeEventListener('mouseover', onOver)
+      document.removeEventListener('mouseleave', onLeave)
       cancelAnimationFrame(rafId)
+      clearTimeout(idleTimer)
     }
   }, [])
 

@@ -204,10 +204,20 @@ export default function WorkPage() {
 
   const musicMap = projectsById[RIGHT_BOTTOM.projectId]
 
+  // Mobile: single column in case-study chain order
+  const MOBILE_ORDER = [
+    LEFT_COL[0],   // bounce (1)
+    RIGHT_TOP[0],  // gamesense (2)
+    RIGHT_TOP[1],  // toyota (3)
+    LEFT_COL[1],   // cityharvest (4)
+    RIGHT_BOTTOM,  // music-map (6)
+  ]
+
   return (
     <div className="work-page" ref={scrollRef}>
-      <main className="work-grid">
 
+      {/* Desktop grid */}
+      <main className="work-grid">
         <div className="work-col-left">
           {LEFT_COL.map((entry, i) => {
             const project = projectsById[entry.projectId]
@@ -215,7 +225,6 @@ export default function WorkPage() {
             return <WorkPageCard key={entry.projectId} entry={entry} project={project} index={i} />
           })}
         </div>
-
         <div className="work-col-right">
           <div className="work-col-right-top">
             {RIGHT_TOP.map((entry, i) => {
@@ -226,8 +235,17 @@ export default function WorkPage() {
           </div>
           {musicMap && <MusicMapCard entry={RIGHT_BOTTOM} project={musicMap} />}
         </div>
-
       </main>
+
+      {/* Mobile single column */}
+      <div className="work-mobile-list">
+        {MOBILE_ORDER.map((entry, i) => {
+          const project = projectsById[entry.projectId]
+          if (!project) return null
+          return <WorkPageCard key={entry.projectId} entry={entry} project={project} index={i} />
+        })}
+      </div>
+
     </div>
   )
 }

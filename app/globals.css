@@ -617,11 +617,14 @@
 @media (max-width: 760px) {
   .hero-page {
     overflow: visible;
+    padding-bottom: 16px;
   }
-  /* In-flow spacer = visual height of the full card assembly (dangler 131px + card 877px = 1008px, scaled) */
+  /* In-flow spacer = visual height of the full card assembly (dangler 131px + card 877px = 1008px, scaled).
+     Card is position:absolute top:0 so it starts at y=0; in-flow content starts at padding-top (60px).
+     Spacer height = scaled card height - 60px so the spacer bottom aligns with the card bottom. */
   .mobile-card-spacer {
     display: block;
-    height: calc(1008 * (100vw - 32px) / 343 + 60px);
+    height: calc(1008 * (100vw - 32px) / 343 - 60px);
     pointer-events: none;
   }
   .id-assembly {
@@ -814,6 +817,12 @@
     .cs-sidenav {
       display: none;
     }
+
+    /* Tablet: add horizontal padding (not present in large-screen block) */
+    .cs-body {
+      padding-left: 40px;
+      padding-right: 40px;
+    }
   }
 
   /* Mobile: keep body block */
@@ -835,6 +844,46 @@
       -webkit-backdrop-filter: blur(12px);
       border-top: 1px solid rgba(71, 62, 61, 0.1);
       padding: 16px 24px;
+    }
+  }
+
+  /* Mobile: 24px gutters, prevent overflow */
+  @media (max-width: 760px) {
+    .cs-body {
+      padding-left: 24px;
+      padding-right: 24px;
+      overflow-x: clip;
+    }
+
+    /* Hero section — override CENTERED inline padding */
+    #cs-hero {
+      padding-left: 24px !important;
+      padding-right: 24px !important;
+      padding-top: 60px !important;
+    }
+
+    /* Hero image: reduce bottom margin */
+    #cs-hero > div:first-child {
+      margin-bottom: 24px !important;
+    }
+
+    /* Hero 2-col grid → single column */
+    #cs-hero > div:last-child {
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 32px !important;
+    }
+
+    /* Hero title — scale down from 128px */
+    #cs-hero h1 {
+      font-size: clamp(48px, 13vw, 72px) !important;
+    }
+
+    /* All case study images stay within bounds */
+    .cs-body img,
+    .cs-body video {
+      max-width: 100% !important;
+      height: auto !important;
     }
   }
 }
@@ -1114,6 +1163,20 @@
   gap: 17px;
   padding: 60px 80px 80px;
   align-items: flex-start;
+}
+
+.work-mobile-list {
+  display: none;
+}
+
+@media (max-width: 760px) {
+  .work-grid { display: none; }
+  .work-mobile-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 24px 20px 40px;
+  }
 }
 
 /* Left panel: flows top-to-bottom independently */
@@ -1435,6 +1498,12 @@
   /* Hide butterfly cursor, restore default pointer */
   body { cursor: auto !important; }
   .cursor-wing { display: none !important; }
+
+  /* Case study nav: tighter horizontal padding on mobile */
+  nav[aria-label="Case study navigation"] {
+    padding-left: 24px !important;
+    padding-right: 24px !important;
+  }
 }
 
 /* Nav bracket system — DOM brackets, opacity controls visibility, width is always stable */
