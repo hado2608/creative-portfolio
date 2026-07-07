@@ -284,14 +284,16 @@
 }
 
 /* Assembly wrapper: the pivot point for both drop + idle sway.
-   Card sits left-of-center per Figma 1722:29990 (card center = 50% - 281px). */
+   Card is anchored a fixed distance from the LEFT edge (Figma 1722:29990: x=115)
+   so the left-edge hook always stays tucked behind it at any viewport width.
+   On narrow desktops it shifts left to keep a 16px right margin. */
 .id-assembly {
   display: flex;
   flex-direction: column;
   align-items: center;
   position: absolute;
   top: calc(50% - 187px);
-  left: max(16px, calc(50% - 634px));
+  left: min(115px, calc(100vw - 722px));
   width: 706px;
   z-index: 10;
   transform-origin: center top;
@@ -331,7 +333,7 @@
 /* Intro copy — top left (Figma 1722:30087) */
 .hero-intro {
   position: absolute;
-  left: max(24px, calc(50% - 677px));
+  left: 41px;
   top: 63px;
   width: 557px;
   display: flex;
