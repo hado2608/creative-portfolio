@@ -17,23 +17,6 @@ export default function IDCard() {
     reducedMotion.current = window.matchMedia('(prefers-reduced-motion: reduce)').matches
   }, [])
 
-  // Idle sway — subtle 3D breathe when not hovering
-  useEffect(() => {
-    if (reducedMotion.current) return
-    let frame: number
-    let start: number | null = null
-    const tick = (t: number) => {
-      if (start === null) start = t
-      if (!hoveringRef.current) {
-        const s = (t - start) / 1000
-        setTarget(Math.sin(s * 1.1) * 1.8, Math.sin(s * 0.8 + 0.9) * 0.9)
-      }
-      frame = requestAnimationFrame(tick)
-    }
-    frame = requestAnimationFrame(tick)
-    return () => cancelAnimationFrame(frame)
-  }, [setTarget])
-
   const handleMouseMove = useCallback(
     (e: React.MouseEvent<HTMLDivElement>) => {
       if (reducedMotion.current || !cardRef.current) return

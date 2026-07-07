@@ -258,32 +258,24 @@
 
 /* ── ID Card — Figma design ──────────────────────────────────────────────── */
 
-/* Entry: whole assembly drops from off-screen top with a pendulum settle */
-@keyframes card-drop-in {
-  0%   { transform: translateY(-300px) rotate(-3deg); opacity: 0; }
-  45%  { transform: translateY(0)      rotate(2.2deg); opacity: 1; }
-  60%  { transform: translateY(-18px)  rotate(-1.2deg); }
-  72%  { transform: translateY(8px)    rotate(0.7deg); }
-  82%  { transform: translateY(-5px)   rotate(-0.3deg); }
-  90%  { transform: translateY(2px)    rotate(0.1deg); }
-  95%  { transform: translateY(-1px)   rotate(-0.05deg); }
-  100% { transform: translateY(0)      rotate(0deg); }
+/* Entry: artifacts (card, hook, map) dissolve in once the user scrolls */
+@keyframes artifact-dissolve {
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
 
-/* Idle sway after settling — keychain-like pendulum */
-@keyframes card-idle-sway {
-  0%    { transform: rotate(0deg); }
-  12.5% { transform: rotate(1.4deg); }
-  25%   { transform: rotate(2deg); }
-  37.5% { transform: rotate(1.4deg); }
-  50%   { transform: rotate(0deg); }
-  62.5% { transform: rotate(-1.4deg); }
-  75%   { transform: rotate(-2deg); }
-  87.5% { transform: rotate(-1.4deg); }
-  100%  { transform: rotate(0deg); }
+/* Gentle vertical bob while hovering the card */
+@keyframes card-hover-bob {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-10px); }
 }
 
-/* Assembly wrapper: the pivot point for both drop + idle sway.
+/* Map shapes dissolve in alongside the card */
+.map-shapes-layer {
+  animation: artifact-dissolve 0.9s ease both;
+}
+
+/* Assembly wrapper.
    Card is anchored a fixed distance from the LEFT edge (Figma 1722:29990: x=115)
    so the left-edge hook always stays tucked behind it at any viewport width.
    On narrow desktops it shifts left to keep a 16px right margin. */
@@ -297,13 +289,13 @@
   width: 706px;
   z-index: 10;
   transform-origin: center top;
-  animation:
-    card-drop-in 1.1s cubic-bezier(0.22, 1, 0.36, 1) both,
-    card-idle-sway 3s linear 1.2s infinite;
+  animation: artifact-dissolve 0.9s ease both;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .id-assembly {
+  .id-assembly,
+  .hero-hook,
+  .id-card-scene:hover {
     animation: none;
   }
 }
@@ -321,6 +313,7 @@
   justify-content: center;
   z-index: 4;
   pointer-events: none;
+  animation: artifact-dissolve 0.9s ease both;
 }
 
 .hero-hook-img {
@@ -359,6 +352,11 @@
   z-index: 10;
 }
 
+/* Card bobs up and down only while hovered */
+.id-card-scene:hover {
+  animation: card-hover-bob 2.6s ease-in-out infinite;
+}
+
 /* SVG card — tilt target wrapping card-body.svg (706×480, card only) */
 .id-svg-card {
   width: 706px;
@@ -378,14 +376,14 @@
   -webkit-user-drag: none;
 }
 
-/* Transparent clickable overlay covering the "my resume" button in the SVG.
-   Card is 706×480. Button is in the right panel, lower portion. */
+/* Transparent clickable overlay covering the "view my resume" button in the SVG.
+   Card is 706×480. Button spans the right column, bottom row. */
 .id-svg-resume-link {
   position: absolute;
-  left: 69%;
-  top: 82%;
-  width: 29%;
-  height: 8%;
+  left: 43%;
+  top: 84%;
+  width: 51%;
+  height: 9%;
   cursor: pointer;
   border-radius: 2px;
 }
@@ -1403,12 +1401,15 @@
   .about-nav-box,
   .about-footer-right { display: none; }
 
-  /* Show mobile row */
+  /* Show mobile row — position:relative lifts it above the absolutely
+     positioned footer noise image (otherwise the opaque dark-mode noise
+     paints over the signature and nav button) */
   .mobile-footer-inner {
     display: flex;
     align-items: center;
     justify-content: space-between;
     width: 100%;
+    position: relative;
   }
 
   /* Signature block */

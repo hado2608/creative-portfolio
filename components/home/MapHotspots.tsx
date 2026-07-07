@@ -129,7 +129,7 @@ export default function MapHotspots({ visible }: { visible: boolean }) {
   return (
     <>
       {/* Layer 1: map shapes — below ID card */}
-      <div style={{ position: 'fixed', inset: 0, pointerEvents: 'none', zIndex: 5 }}>
+      <div className="map-shapes-layer" style={{ position: 'fixed', inset: 0, pointerEvents: 'none', zIndex: 5 }}>
         <svg {...svgProps}>
           {/* Brooklyn — inner-right position, tilted */}
           <g
@@ -185,8 +185,8 @@ export default function MapHotspots({ visible }: { visible: boolean }) {
         </svg>
       </div>
 
-      {/* "Places I call home!" — static label above the map shapes */}
-      {homeScreen && (
+      {/* "Places I call home!" — appears only while a map shape is hovered */}
+      {hovered && homeScreen && (
         <p style={{
           position: 'fixed',
           left: homeScreen.x,

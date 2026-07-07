@@ -82,7 +82,7 @@ export default function PortfolioFooter() {
         {/* ── Desktop layout ─────────────────────────────── */}
         <div className="about-footer-left">
           <Link href="/">
-            <img src={isHome ? '/assets/signature-dark.png' : '/assets/signature-figma.svg'} alt="Ha Do" className="about-signature" />
+            <img src={isHome ? '/assets/signature-dark.svg' : '/assets/signature-figma.svg'} alt="Ha Do" className="about-signature" />
           </Link>
           <span className="about-copyright">@2026 Ha Do</span>
         </div>
@@ -112,7 +112,7 @@ export default function PortfolioFooter() {
         {/* ── Mobile layout ──────────────────────────────── */}
         <div className="mobile-footer-inner">
           <Link href="/" className="mobile-footer-sig">
-            <img src={isHome ? '/assets/signature-dark.png' : '/assets/signature-figma.svg'} alt="Ha Do" className="mobile-sig-img" width={70} height={34} />
+            <img src={isHome ? '/assets/signature-dark.svg' : '/assets/signature-figma.svg'} alt="Ha Do" className="mobile-sig-img" width={70} height={34} />
             <span className="mobile-sig-label">@2026 Ha Do</span>
           </Link>
 
