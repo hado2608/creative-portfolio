@@ -1350,6 +1350,9 @@
 }
 
 .about-footer-right {
+  /* position:relative lifts the socials above the absolutely positioned footer
+     noise image (opaque in dark mode) — without it they get painted over */
+  position: relative;
   margin-left: auto;
   display: flex;
   flex-direction: column;
