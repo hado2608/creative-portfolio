@@ -129,14 +129,14 @@ export default function MapHotspots({ visible }: { visible: boolean }) {
   return (
     <>
       {/* Layer 1: map shapes — below ID card */}
-      <div className="map-shapes-layer" style={{ position: 'fixed', inset: 0, pointerEvents: 'none', zIndex: 5 }}>
+      <div className="map-shapes-layer" style={{ position: 'absolute', inset: 0, pointerEvents: 'none', zIndex: 5 }}>
         <svg {...svgProps}>
           {/* Brooklyn — inner-right position, tilted */}
           <g
             transform={`rotate(${BK_ROT} ${BK_PIN_CX} ${BK_PIN_CY})`}
             onMouseEnter={() => setHovered('brooklyn')}
             onMouseLeave={() => setHovered(null)}
-            style={{ pointerEvents: 'all', cursor: 'default' }}
+            className="map-hit"
           >
             <g transform={`translate(${BK_X}, ${BK_Y}) scale(${BK_W / 325}, ${BK_H / 295})`}>
               <path d={BROOKLYN_D} fill="transparent" stroke="none" />
@@ -161,7 +161,7 @@ export default function MapHotspots({ visible }: { visible: boolean }) {
             transform={`rotate(${VN_ROT} ${VN_PIN_CX} ${VN_PIN_CY})`}
             onMouseEnter={() => setHovered('vietnam')}
             onMouseLeave={() => setHovered(null)}
-            style={{ pointerEvents: 'all', cursor: 'default' }}
+            className="map-hit"
           >
             <g transform={`translate(${VN_X}, ${VN_Y}) scale(${VN_W / 376}, ${VN_H / 551})`}>
               <path fillRule="evenodd" clipRule="evenodd" d={VIETNAM_D} fill="transparent" stroke="none" />
@@ -188,7 +188,7 @@ export default function MapHotspots({ visible }: { visible: boolean }) {
       {/* "Places I call home!" — appears only while a map shape is hovered */}
       {hovered && homeScreen && (
         <p style={{
-          position: 'fixed',
+          position: 'absolute',
           left: homeScreen.x,
           top: homeScreen.y,
           margin: 0,
@@ -208,7 +208,7 @@ export default function MapHotspots({ visible }: { visible: boolean }) {
       {/* Layer 2: HTML pins — above ID card, hover only */}
       {hovered === 'vietnam' && vnScreen && (
         <div style={{
-          position: 'fixed',
+          position: 'absolute',
           left: vnScreen.x,
           top: vnScreen.y - 16,
           zIndex: 15,
@@ -219,7 +219,7 @@ export default function MapHotspots({ visible }: { visible: boolean }) {
       )}
       {hovered === 'brooklyn' && bkScreen && (
         <div style={{
-          position: 'fixed',
+          position: 'absolute',
           left: bkScreen.x,
           top: bkScreen.y - 16,
           zIndex: 15,

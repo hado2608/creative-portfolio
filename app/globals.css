@@ -195,9 +195,18 @@
 
 /* ── Hero page — Phase 1 ─────────────────────────────────────────────────── */
 
+/* Desktop scroll runway: the hero pins (sticky) inside this tall block while
+   the reveal is scrubbed by scroll, then releases into the bridge below.
+   On mobile the runway is inert (auto height) and the hero flows normally. */
+.hero-runway {
+  position: relative;
+}
+
 .hero-page {
   min-height: 100vh;
-  background: #f7f7f7;
+  /* Always dark — independent of data-theme so the footer's dark→light flip
+     while scrolling into the work section can't flash the hero */
+  background: #1d2529;
   position: relative;
   overflow: hidden;
   display: flex;
@@ -210,6 +219,21 @@
      Defaults to 1 so mobile (and any state where JS never scrubs) shows all. */
   --card-reveal: 1;
   --map-reveal: 1;
+  --intro-shift: 0;
+}
+
+@media (min-width: 761px) {
+  .hero-runway {
+    /* Runway length = how much scrolling the pinned reveal takes before the
+       hero releases toward the work section */
+    height: 240vh;
+  }
+  .hero-page {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    min-height: 0;
+  }
 }
 
 
@@ -255,8 +279,39 @@
   position: absolute;
   inset: 0;
   background-image:
-    repeating-linear-gradient(0deg, rgba(0,0,0,0.05) 0px, rgba(0,0,0,0.05) 1px, transparent 1px, transparent 40px),
-    repeating-linear-gradient(90deg, rgba(0,0,0,0.05) 0px, rgba(0,0,0,0.05) 1px, transparent 1px, transparent 40px);
+    repeating-linear-gradient(0deg, rgba(255,255,255,0.05) 0px, rgba(255,255,255,0.05) 1px, transparent 1px, transparent 40px),
+    repeating-linear-gradient(90deg, rgba(255,255,255,0.05) 0px, rgba(255,255,255,0.05) 1px, transparent 1px, transparent 40px);
+}
+
+/* ── Home → work seamless continuation ───────────────────────────────────── */
+
+/* Gradient bridge: hero's dark bleeds into the work section's light, with the
+   grid texture carrying through */
+.home-work-bridge {
+  height: 70vh;
+  background-image:
+    repeating-linear-gradient(0deg, rgba(255,255,255,0.05) 0px, rgba(255,255,255,0.05) 1px, transparent 1px, transparent 40px),
+    repeating-linear-gradient(90deg, rgba(255,255,255,0.05) 0px, rgba(255,255,255,0.05) 1px, transparent 1px, transparent 40px),
+    linear-gradient(180deg, #1d2529 0%, #f7f7f7 100%);
+}
+
+.home-work-section {
+  position: relative;
+  background: #f7f7f7;
+}
+
+/* About continues below the work grid on the same page; .about-page inside it
+   already carries the lined-paper background and footer clearance */
+.home-about-section {
+  position: relative;
+}
+
+@media (max-width: 760px) {
+  .home-work-bridge,
+  .home-work-section,
+  .home-about-section {
+    display: none;
+  }
 }
 
 
@@ -265,17 +320,17 @@
 /* Artifacts rise from below as the user scrolls — position and opacity are
    scrubbed by the --card-reveal / --map-reveal variables (scroll-linked) */
 
-/* Gentle vertical bob while hovering the card */
-@keyframes card-hover-bob {
-  0%, 100% { transform: translateY(0); }
-  50%      { transform: translateY(-10px); }
-}
-
 /* Map shapes trail behind the card as scroll progresses */
 .map-shapes-layer {
   opacity: var(--map-reveal, 1);
   translate: 0 calc((1 - var(--map-reveal, 1)) * 110px);
   transition: opacity 0.25s ease-out, translate 0.25s ease-out;
+}
+
+/* Shape hit-areas are only interactive once the map is actually revealed */
+.map-hit {
+  pointer-events: var(--map-pe, auto);
+  cursor: default;
 }
 
 /* Assembly wrapper.
@@ -305,9 +360,6 @@
     transition: none;
     translate: none;
     opacity: 1;
-  }
-  .id-card-scene:hover {
-    animation: none;
   }
 }
 
@@ -353,6 +405,9 @@
   line-height: normal;
   color: #c5c8ca;
   z-index: 6;
+  /* Gentle parallax drift as the card takes over — connects the two beats */
+  transform: translateY(calc(var(--intro-shift, 0) * -32px));
+  will-change: transform;
 }
 
 .hero-intro-hint {
@@ -365,11 +420,6 @@
   perspective: 900px;
   perspective-origin: 0% 50%;
   z-index: 10;
-}
-
-/* Card bobs up and down only while hovered */
-.id-card-scene:hover {
-  animation: card-hover-bob 2.6s ease-in-out infinite;
 }
 
 /* SVG card — tilt target wrapping card-body.svg (706×480, card only).
@@ -1286,6 +1336,8 @@
   padding: 0 80px;
   animation: none;
   view-transition-name: portfolio-footer;
+  /* Smooth the dark↔light flip while scrolling through the home bridge */
+  transition: background-color 0.45s ease;
 }
 
 .about-footer-noise {

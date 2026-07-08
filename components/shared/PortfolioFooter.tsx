@@ -37,9 +37,20 @@ function activeLabel(pathname: string) {
 
 export default function PortfolioFooter() {
   const pathname = usePathname()
-  const isHome = pathname === '/'
   const [navOpen, setNavOpen] = useState(false)
   const [animClass, setAnimClass] = useState('')
+
+  // Follow the live theme attribute (the home page toggles it while scrolling
+  // between the dark hero and the light work section) so the noise texture and
+  // signature swap along with the footer colors
+  const [isDark, setIsDark] = useState(false)
+  useEffect(() => {
+    const update = () => setIsDark(document.documentElement.dataset.theme === 'dark')
+    update()
+    const mo = new MutationObserver(update)
+    mo.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] })
+    return () => mo.disconnect()
+  }, [])
 
   useEffect(() => {
     if (pathname === '/' && !footerAnimated) {
@@ -77,12 +88,12 @@ export default function PortfolioFooter() {
 
       <footer className={`about-footer${animClass}`}>
         {/* Noise texture overlay — dark on home, light everywhere else */}
-        <img src={isHome ? '/assets/nav-bg-dark.png' : '/assets/nav-bg.png'} aria-hidden alt="" className="about-footer-noise" />
+        <img src={isDark ? '/assets/nav-bg-dark.png' : '/assets/nav-bg.png'} aria-hidden alt="" className="about-footer-noise" />
 
         {/* ── Desktop layout ─────────────────────────────── */}
         <div className="about-footer-left">
           <Link href="/">
-            <img src={isHome ? '/assets/signature-dark.svg' : '/assets/signature-figma.svg'} alt="Ha Do" className="about-signature" />
+            <img src={isDark ? '/assets/signature-dark.svg' : '/assets/signature-figma.svg'} alt="Ha Do" className="about-signature" />
           </Link>
           <span className="about-copyright">@2026 Ha Do</span>
         </div>
@@ -112,7 +123,7 @@ export default function PortfolioFooter() {
         {/* ── Mobile layout ──────────────────────────────── */}
         <div className="mobile-footer-inner">
           <Link href="/" className="mobile-footer-sig">
-            <img src={isHome ? '/assets/signature-dark.svg' : '/assets/signature-figma.svg'} alt="Ha Do" className="mobile-sig-img" width={70} height={34} />
+            <img src={isDark ? '/assets/signature-dark.svg' : '/assets/signature-figma.svg'} alt="Ha Do" className="mobile-sig-img" width={70} height={34} />
             <span className="mobile-sig-label">@2026 Ha Do</span>
           </Link>
 
