@@ -150,6 +150,15 @@ export default function Home() {
 
   return (
     <>
+      {/* Fingerprint loader — rendered OUTSIDE the sticky hero: sticky creates
+          a stacking context, which would let the fixed footer paint over the
+          loader. At root level its z-index wins and it covers everything. */}
+      {ready && !mapVisible && (
+        <FingerprintLoader onComplete={() => {
+          setMapVisible(true)
+        }} />
+      )}
+
       {/* Tall runway: the hero pins (sticky) while the artifacts scrub in */}
       <div className="hero-runway">
         <div className="hero-page">
@@ -164,13 +173,6 @@ export default function Home() {
             </p>
             <p className="hero-intro-hint">Scroll down or use your arrow keys to navigate!</p>
           </div>
-
-          {/* Nothing renders until after hydration — prevents SSR/client mismatch */}
-          {ready && !mapVisible && (
-            <FingerprintLoader onComplete={() => {
-              setMapVisible(true)
-            }} />
-          )}
 
           {/* Carabiner hook — enters from the left viewport edge, clips over the card */}
           {ready && mapVisible && stage >= 1 && (

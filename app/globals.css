@@ -226,7 +226,7 @@
   .hero-runway {
     /* Runway length = how much scrolling the pinned reveal takes before the
        hero releases toward the work section */
-    height: 280vh;
+    height: 240vh;
   }
   .hero-page {
     position: sticky;
