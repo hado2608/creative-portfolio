@@ -18,7 +18,6 @@ export default function Home() {
   const [stage, setStage] = useState(0)
   const stageRef = useRef(0)
   const progressRef = useRef(0)
-  const mapTimerRef = useRef<number | null>(null)
 
   const router = useRouter()
   const navigating = useRef(false)
@@ -67,23 +66,29 @@ export default function Home() {
     const isMobile = () => window.innerWidth <= 760
     const atBottom = () => window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 60
 
-    const revealCard = () => {
-      if (stageRef.current >= 1) return
-      bump(1)
-      // Map shapes follow a beat after the card
-      mapTimerRef.current = window.setTimeout(() => bump(2), 450)
+    // Scroll-linked reveal: map accumulated scroll to 0→1 values that CSS uses
+    // to slide the artifacts up from below (card first, maps trailing behind)
+    const REVEAL_DONE = 420
+    const applyReveal = (p: number) => {
+      const hero = document.querySelector('.hero-page') as HTMLElement | null
+      if (!hero) return
+      const card = Math.min(1, Math.max(0, (p - 10) / 250))
+      const map = Math.min(1, Math.max(0, (p - 130) / 290))
+      hero.style.setProperty('--card-reveal', card.toFixed(3))
+      hero.style.setProperty('--map-reveal', map.toFixed(3))
     }
 
-    // Desktop: fold downward scroll into a virtual progress value. The card
-    // reveals almost immediately, the maps a moment later, and once roughly a
-    // full viewport has been scrolled the next scroll advances to /work.
+    // Desktop: fold downward scroll into a virtual progress value that scrubs
+    // the reveal; once everything is up and roughly a full viewport has been
+    // scrolled, the next scroll advances to /work.
     const advanceDesktop = (delta: number) => {
       if (delta <= 0) return
-      const wasComplete = stageRef.current >= 2
+      const wasComplete = progressRef.current >= REVEAL_DONE
       progressRef.current += Math.min(delta, 100) // damp fast flicks
       const p = progressRef.current
-      if (p > 24) revealCard()
-      if (p > 280) bump(2) // fallback so maps don't lag on a fast scroll
+      applyReveal(p)
+      if (p > 10) bump(1)
+      if (p > 130) bump(2)
       const navAt = Math.max(window.innerHeight, 600)
       if (wasComplete && p >= navAt) go()
     }
@@ -120,7 +125,6 @@ export default function Home() {
       window.removeEventListener('touchstart', onTouchStart)
       window.removeEventListener('touchmove', onTouchMove)
       window.removeEventListener('touchend', onTouchEnd)
-      if (mapTimerRef.current) clearTimeout(mapTimerRef.current)
     }
   }, [router])
 

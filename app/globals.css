@@ -206,6 +206,10 @@
   padding-top: 60px;
   /* Reserve space above the fixed footer */
   padding-bottom: 147px;
+  /* Scroll-linked reveal progress (0→1), scrubbed by JS on desktop scroll.
+     Defaults to 1 so mobile (and any state where JS never scrubs) shows all. */
+  --card-reveal: 1;
+  --map-reveal: 1;
 }
 
 
@@ -258,11 +262,8 @@
 
 /* ── ID Card — Figma design ──────────────────────────────────────────────── */
 
-/* Entry: artifacts (card, hook, map) dissolve in once the user scrolls */
-@keyframes artifact-dissolve {
-  from { opacity: 0; }
-  to   { opacity: 1; }
-}
+/* Artifacts rise from below as the user scrolls — position and opacity are
+   scrubbed by the --card-reveal / --map-reveal variables (scroll-linked) */
 
 /* Gentle vertical bob while hovering the card */
 @keyframes card-hover-bob {
@@ -270,9 +271,11 @@
   50%      { transform: translateY(-10px); }
 }
 
-/* Map shapes dissolve in alongside the card */
+/* Map shapes trail behind the card as scroll progresses */
 .map-shapes-layer {
-  animation: artifact-dissolve 0.9s ease both;
+  opacity: var(--map-reveal, 1);
+  translate: 0 calc((1 - var(--map-reveal, 1)) * 110px);
+  transition: opacity 0.25s ease-out, translate 0.25s ease-out;
 }
 
 /* Assembly wrapper.
@@ -289,12 +292,19 @@
   width: 706px;
   z-index: 10;
   transform-origin: center top;
-  animation: artifact-dissolve 0.9s ease both;
+  opacity: var(--card-reveal);
+  translate: 0 calc((1 - var(--card-reveal)) * 140px);
+  transition: opacity 0.25s ease-out, translate 0.25s ease-out;
 }
 
 @media (prefers-reduced-motion: reduce) {
   .id-assembly,
   .hero-hook,
+  .map-shapes-layer {
+    transition: none;
+    translate: none;
+    opacity: 1;
+  }
   .id-card-scene:hover {
     animation: none;
   }
@@ -314,7 +324,10 @@
   justify-content: center;
   z-index: 12;
   pointer-events: none;
-  animation: artifact-dissolve 0.9s ease both;
+  /* Rises with the card so the clip never separates from it */
+  opacity: var(--card-reveal);
+  translate: 0 calc((1 - var(--card-reveal)) * 140px);
+  transition: opacity 0.25s ease-out, translate 0.25s ease-out;
 }
 
 .hero-hook-img {
