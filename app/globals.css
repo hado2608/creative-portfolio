@@ -345,10 +345,10 @@
 }
 
 
-/* Perspective wrapper for 3D tilt */
+/* Perspective wrapper for 3D tilt — perspective anchored at the hook side */
 .id-card-scene {
   perspective: 900px;
-  perspective-origin: 50% 0%;
+  perspective-origin: 0% 50%;
   z-index: 10;
 }
 
@@ -357,13 +357,14 @@
   animation: card-hover-bob 2.6s ease-in-out infinite;
 }
 
-/* SVG card — tilt target wrapping card-body.svg (706×480, card only) */
+/* SVG card — tilt target wrapping card-body.svg (706×480, card only).
+   Pivot at the left edge so the card stays stuck to the hook while tilting. */
 .id-svg-card {
   width: 706px;
   height: 480px;
   position: relative;
   will-change: transform;
-  transform-origin: center top;
+  transform-origin: left center;
   cursor: default;
   box-shadow: 0 12px 48px rgba(0, 0, 0, 0.1), 0 2px 8px rgba(0, 0, 0, 0.06);
 }
@@ -1165,12 +1166,15 @@
   animation: 380ms cubic-bezier(0.4, 0, 0.2, 1) both slide-in-from-above;
 }
 
-/* Scroll-triggered nav: gentle fade, no slide */
+/* Scroll-triggered nav: the old page sits on top and slowly dissolves,
+   revealing the next page beneath — eases the dark → light shift */
 [data-nav-type="scroll"]::view-transition-old(root) {
-  animation: 300ms ease both fade-out;
+  animation: 950ms cubic-bezier(0.4, 0, 0.2, 1) both fade-out;
+  z-index: 2;
 }
 [data-nav-type="scroll"]::view-transition-new(root) {
-  animation: 300ms ease both fade-in;
+  animation: none;
+  z-index: 1;
 }
 
 @keyframes fade-out {
@@ -1286,6 +1290,17 @@
 ::view-transition-new(portfolio-footer) {
   animation: none;
   mix-blend-mode: normal;
+}
+
+/* On scroll navigations the footer dissolves in sync with the page,
+   so its dark → light flip isn't an instant flash */
+[data-nav-type="scroll"]::view-transition-old(portfolio-footer) {
+  animation: 950ms cubic-bezier(0.4, 0, 0.2, 1) both fade-out;
+  z-index: 2;
+}
+[data-nav-type="scroll"]::view-transition-new(portfolio-footer) {
+  animation: none;
+  z-index: 1;
 }
 
 .about-footer--animated {

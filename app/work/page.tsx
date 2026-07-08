@@ -147,7 +147,9 @@ export default function WorkPage() {
 
     const atBottom = () => window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 60
     const mountedAt = Date.now()
-    const settled = () => Date.now() - mountedAt > 500
+    // Must outlast the 950ms dissolve transition so momentum scroll from the
+    // previous page can't chain-navigate straight through this one
+    const settled = () => Date.now() - mountedAt > 1200
 
     const onWheel = (e: WheelEvent) => {
       if (!settled()) return

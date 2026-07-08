@@ -23,7 +23,9 @@ export default function IDCard() {
       const rect = cardRef.current.getBoundingClientRect()
       const nx = (e.clientX - rect.left - rect.width / 2) / (rect.width / 2)
       const ny = (e.clientY - rect.top - rect.height / 2) / (rect.height / 2)
-      setTarget(nx * MAX_TILT, ny * MAX_TILT)
+      // Card is pinned to the hook at its left edge: never rotate the left side
+      // forward — only swing the right side (and tilt top/bottom freely)
+      setTarget(Math.max(0, nx) * MAX_TILT, ny * MAX_TILT)
       if (glossRef.current) {
         const px = ((e.clientX - rect.left) / rect.width) * 100
         const py = ((e.clientY - rect.top) / rect.height) * 100
