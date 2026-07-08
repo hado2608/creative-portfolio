@@ -315,12 +315,6 @@
 /* Artifacts rise from below as the user scrolls — position and opacity are
    scrubbed by the --card-reveal / --map-reveal variables (scroll-linked) */
 
-/* Gentle vertical bob while hovering the card */
-@keyframes card-hover-bob {
-  0%, 100% { transform: translateY(0); }
-  50%      { transform: translateY(-10px); }
-}
-
 /* Map shapes trail behind the card as scroll progresses */
 .map-shapes-layer {
   opacity: var(--map-reveal, 1);
@@ -361,9 +355,6 @@
     transition: none;
     translate: none;
     opacity: 1;
-  }
-  .id-card-scene:hover {
-    animation: none;
   }
 }
 
@@ -424,11 +415,6 @@
   perspective: 900px;
   perspective-origin: 0% 50%;
   z-index: 10;
-}
-
-/* Card bobs up and down only while hovered */
-.id-card-scene:hover {
-  animation: card-hover-bob 2.6s ease-in-out infinite;
 }
 
 /* SVG card — tilt target wrapping card-body.svg (706×480, card only).
