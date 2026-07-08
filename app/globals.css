@@ -300,18 +300,19 @@
   }
 }
 
-/* Carabiner hook — enters diagonally from the left viewport edge and slips
-   behind the card (Figma 1697:26170: box -67,385 222.9×167.25, img rotated -68.31°) */
+/* Carabiner hook — enters diagonally from the left viewport edge and clips
+   OVER the card's left side, so it must stack above the card (z 12 > 10)
+   (Figma 1697:26170: box -67,385 222.9×167.25, img rotated -68.31°) */
 .hero-hook {
   position: absolute;
-  left: -67px;
+  left: -42px;
   top: calc(50% - 66px);
   width: 223px;
   height: 167px;
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 4;
+  z-index: 12;
   pointer-events: none;
   animation: artifact-dissolve 0.9s ease both;
 }
