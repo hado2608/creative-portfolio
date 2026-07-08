@@ -3,7 +3,8 @@
 import { useCallback, useEffect, useRef } from 'react'
 import { useSpring2D } from '@/hooks/useSpring2D'
 
-const MAX_TILT = 7
+const MAX_TILT = 7        // top/bottom tilt
+const MAX_TILT_X = 2.5    // right-side swing — pivots at the far left edge, so keep it subtle
 
 export default function IDCard() {
   const cardRef = useRef<HTMLDivElement>(null)
@@ -17,30 +18,15 @@ export default function IDCard() {
     reducedMotion.current = window.matchMedia('(prefers-reduced-motion: reduce)').matches
   }, [])
 
-  // Idle sway — subtle 3D breathe when not hovering
-  useEffect(() => {
-    if (reducedMotion.current) return
-    let frame: number
-    let start: number | null = null
-    const tick = (t: number) => {
-      if (start === null) start = t
-      if (!hoveringRef.current) {
-        const s = (t - start) / 1000
-        setTarget(Math.sin(s * 1.1) * 1.8, Math.sin(s * 0.8 + 0.9) * 0.9)
-      }
-      frame = requestAnimationFrame(tick)
-    }
-    frame = requestAnimationFrame(tick)
-    return () => cancelAnimationFrame(frame)
-  }, [setTarget])
-
   const handleMouseMove = useCallback(
     (e: React.MouseEvent<HTMLDivElement>) => {
       if (reducedMotion.current || !cardRef.current) return
       const rect = cardRef.current.getBoundingClientRect()
       const nx = (e.clientX - rect.left - rect.width / 2) / (rect.width / 2)
       const ny = (e.clientY - rect.top - rect.height / 2) / (rect.height / 2)
-      setTarget(nx * MAX_TILT, ny * MAX_TILT)
+      // Card is pinned to the hook at its left edge: never rotate the left side
+      // forward — only swing the right side (and tilt top/bottom freely)
+      setTarget(Math.max(0, nx) * MAX_TILT_X, ny * MAX_TILT)
       if (glossRef.current) {
         const px = ((e.clientX - rect.left) / rect.width) * 100
         const py = ((e.clientY - rect.top) / rect.height) * 100
@@ -81,12 +67,6 @@ export default function IDCard() {
 
   return (
     <div className="id-assembly">
-      {/* Dangler loop — hangs from top of viewport */}
-      <div className="id-dangler-wrap">
-        <img src="/assets/hook.svg" alt="" className="id-dangler-img" aria-hidden />
-
-      </div>
-
       {/* Perspective wrapper */}
       <div className="id-card-scene">
         {/* Card — tilt target, card body only */}
