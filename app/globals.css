@@ -295,6 +295,7 @@
   opacity: var(--card-reveal);
   translate: 0 calc((1 - var(--card-reveal)) * 140px);
   transition: opacity 0.25s ease-out, translate 0.25s ease-out;
+  pointer-events: var(--card-pe, auto);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -315,7 +316,7 @@
    (Figma 1697:26170: box -67,385 222.9×167.25, img rotated -68.31°) */
 .hero-hook {
   position: absolute;
-  left: -42px;
+  left: -63px;
   top: calc(50% - 66px);
   width: 223px;
   height: 167px;

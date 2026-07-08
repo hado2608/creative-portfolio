@@ -76,21 +76,28 @@ export default function Home() {
       const map = Math.min(1, Math.max(0, (p - 130) / 290))
       hero.style.setProperty('--card-reveal', card.toFixed(3))
       hero.style.setProperty('--map-reveal', map.toFixed(3))
+      // Don't leave an invisible-but-hoverable card behind when scrubbed away
+      hero.style.setProperty('--card-pe', card > 0.5 ? 'auto' : 'none')
     }
 
-    // Desktop: fold downward scroll into a virtual progress value that scrubs
-    // the reveal; once everything is up and roughly a full viewport has been
-    // scrolled, the next scroll advances to /work.
+    // Desktop: fold scroll into a virtual progress value that scrubs the
+    // reveal — both directions, so scrolling up returns the artifacts to
+    // wherever the scroll position says they should be. Once everything is up
+    // and roughly a full viewport has been scrolled, the next scroll advances
+    // to /work.
     const advanceDesktop = (delta: number) => {
-      if (delta <= 0) return
+      if (delta === 0) return
       const wasComplete = progressRef.current >= REVEAL_DONE
-      progressRef.current += Math.min(delta, 100) // damp fast flicks
+      const step = Math.max(-100, Math.min(delta, 100)) // damp fast flicks
+      progressRef.current = Math.max(0, progressRef.current + step)
       const p = progressRef.current
       applyReveal(p)
-      if (p > 10) bump(1)
+      if (p > 2) bump(1)
       if (p > 130) bump(2)
-      const navAt = Math.max(window.innerHeight, 600)
-      if (wasComplete && p >= navAt) go()
+      if (delta > 0) {
+        const navAt = Math.max(window.innerHeight, 600)
+        if (wasComplete && p >= navAt) go()
+      }
     }
 
     const onWheel = (e: WheelEvent) => {
@@ -98,9 +105,12 @@ export default function Home() {
       advanceDesktop(e.deltaY)
     }
     const onKey = (e: KeyboardEvent) => {
-      if (e.key !== 'ArrowDown' && e.key !== 'PageDown') return
-      if (isMobile()) { if (atBottom()) go(); return }
-      advanceDesktop(e.key === 'PageDown' ? window.innerHeight : 130)
+      const down = e.key === 'ArrowDown' || e.key === 'PageDown'
+      const up = e.key === 'ArrowUp' || e.key === 'PageUp'
+      if (!down && !up) return
+      if (isMobile()) { if (down && atBottom()) go(); return }
+      const step = e.key === 'PageDown' || e.key === 'PageUp' ? window.innerHeight : 130
+      advanceDesktop(down ? step : -step)
     }
     const touch = { y: 0 }
     const onTouchStart = (e: TouchEvent) => { touch.y = e.touches[0].clientY }

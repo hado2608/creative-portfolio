@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { motion } from 'framer-motion'
+import { motion, useScroll, useTransform } from 'framer-motion'
 import { Thumbnail } from '@/components/work/WorkCard'
 import HoverLabel from '@/components/work/HoverLabel'
 import { projects } from '@/data/projects'
@@ -51,20 +51,25 @@ const RIGHT_BOTTOM: WorkEntry = {
   label: 'Data viz / Fall 2024',
 }
 
-// Thumbnail card — cursor-following hover label with the project blurb
-function WorkPageCard({ entry, project, index }: { entry: WorkEntry; project: Project; index: number }) {
+// Thumbnail card — cursor-following hover label with the project blurb.
+// Rise + fade are scrubbed by scroll position (scroll-linked, reversible),
+// matching the home page artifact reveal.
+function WorkPageCard({ entry, project }: { entry: WorkEntry; project: Project }) {
   const wrapRef = useRef<HTMLDivElement>(null)
   const [hovering, setHovering] = useState(false)
   const [mounted, setMounted] = useState(false)
   useEffect(() => { setMounted(true) }, [])
 
+  const { scrollYProgress } = useScroll({
+    target: wrapRef,
+    // 0 when the card's top touches the viewport bottom, 1 once it reaches 72% height
+    offset: ['start end', 'start 0.72'],
+  })
+  const y = useTransform(scrollYProgress, [0, 1], [64, 0])
+
   const card = (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-40px' }}
-      transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1], delay: index * 0.08 }}
-      style={{ cursor: project.href ? 'pointer' : 'default' }}
+      style={{ y, opacity: scrollYProgress, cursor: project.href ? 'pointer' : 'default' }}
     >
       <Thumbnail project={project} aspectRatio={entry.thumbnailAspect} />
     </motion.div>
@@ -199,7 +204,7 @@ export default function WorkPage() {
           {LEFT_COL.map((entry, i) => {
             const project = projectsById[entry.projectId]
             if (!project) return null
-            return <WorkPageCard key={entry.projectId} entry={entry} project={project} index={i} />
+            return <WorkPageCard key={entry.projectId} entry={entry} project={project} />
           })}
         </div>
         <div className="work-col-right">
@@ -207,10 +212,10 @@ export default function WorkPage() {
             {RIGHT_TOP.map((entry, i) => {
               const project = projectsById[entry.projectId]
               if (!project) return null
-              return <WorkPageCard key={entry.projectId} entry={entry} project={project} index={i + 2} />
+              return <WorkPageCard key={entry.projectId} entry={entry} project={project} />
             })}
           </div>
-          {musicMap && <WorkPageCard entry={RIGHT_BOTTOM} project={musicMap} index={4} />}
+          {musicMap && <WorkPageCard entry={RIGHT_BOTTOM} project={musicMap} />}
         </div>
       </main>
 
@@ -219,7 +224,7 @@ export default function WorkPage() {
         {MOBILE_ORDER.map((entry, i) => {
           const project = projectsById[entry.projectId]
           if (!project) return null
-          return <WorkPageCard key={entry.projectId} entry={entry} project={project} index={i} />
+          return <WorkPageCard key={entry.projectId} entry={entry} project={project} />
         })}
       </div>
 
