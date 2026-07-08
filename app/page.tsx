@@ -6,6 +6,7 @@ import FingerprintLoader from '@/components/home/FingerprintLoader'
 import HomeBackground from '@/components/home/HomeBackground'
 import IDCard from '@/components/home/IDCard'
 import MapHotspots from '@/components/home/MapHotspots'
+import WorkGridSection from '@/components/work/WorkGridSection'
 
 // Resets on hard reload (module re-evaluates). Persists across SPA nav (module stays cached).
 let loaderShown = false
@@ -14,7 +15,8 @@ export default function Home() {
   const [ready, setReady] = useState(false)
   const [mapVisible, setMapVisible] = useState(false)
   // Scroll-driven staged reveal: 0 = intro copy only, 1 = + ID card (and hook),
-  // 2 = + map shapes. Once a full viewport of scroll is accumulated, navigate.
+  // 2 = + map shapes. Once the reveal completes, native scrolling unlocks and
+  // the page continues seamlessly into the work grid below (no navigation).
   const [stage, setStage] = useState(0)
   const stageRef = useRef(0)
   const progressRef = useRef(0)
@@ -27,6 +29,22 @@ export default function Home() {
     return () => { delete document.documentElement.dataset.theme }
   }, [])
 
+  // Footer flips to its light styling once the scroll is past the gradient
+  // bridge into the work section (hero visuals are hardcoded dark, so only
+  // theme-dependent chrome like the footer changes)
+  useEffect(() => {
+    const onScroll = () => {
+      if (window.innerWidth <= 760) return
+      if (window.scrollY > window.innerHeight * 0.7) {
+        delete document.documentElement.dataset.theme
+      } else {
+        document.documentElement.dataset.theme = 'dark'
+      }
+    }
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
   useEffect(() => {
     if (loaderShown) {
       setMapVisible(true)
@@ -37,8 +55,12 @@ export default function Home() {
     if (window.innerWidth <= 760) {
       stageRef.current = 2
       setStage(2)
+    } else {
+      // Desktop: hold the page still while the artifacts reveal
+      document.documentElement.style.overflow = 'hidden'
     }
     setReady(true)
+    return () => { document.documentElement.style.overflow = '' }
   }, [])
 
   useEffect(() => {
@@ -48,6 +70,7 @@ export default function Home() {
       setStage(s)
     }
 
+    // Mobile only: swipe up at the bottom of the card navigates to /work
     const go = () => {
       if (navigating.current) return
       navigating.current = true
@@ -80,24 +103,19 @@ export default function Home() {
       hero.style.setProperty('--card-pe', card > 0.5 ? 'auto' : 'none')
     }
 
-    // Desktop: fold scroll into a virtual progress value that scrubs the
-    // reveal — both directions, so scrolling up returns the artifacts to
-    // wherever the scroll position says they should be. Once everything is up
-    // and roughly a full viewport has been scrolled, the next scroll advances
-    // to /work.
+    // Desktop: while the page is pinned at the top, fold scroll into a virtual
+    // progress value that scrubs the reveal (both directions). Once the reveal
+    // completes, unlock native scrolling so the page flows straight into the
+    // work section below — one continuous page, no navigation.
     const advanceDesktop = (delta: number) => {
-      if (delta === 0) return
-      const wasComplete = progressRef.current >= REVEAL_DONE
+      if (window.scrollY > 0 || delta === 0) return
       const step = Math.max(-100, Math.min(delta, 100)) // damp fast flicks
-      progressRef.current = Math.max(0, progressRef.current + step)
+      progressRef.current = Math.min(REVEAL_DONE, Math.max(0, progressRef.current + step))
       const p = progressRef.current
       applyReveal(p)
       if (p > 2) bump(1)
       if (p > 130) bump(2)
-      if (delta > 0) {
-        const navAt = Math.max(window.innerHeight, 600)
-        if (wasComplete && p >= navAt) go()
-      }
+      document.documentElement.style.overflow = p >= REVEAL_DONE ? '' : 'hidden'
     }
 
     const onWheel = (e: WheelEvent) => {
@@ -139,41 +157,50 @@ export default function Home() {
   }, [router])
 
   return (
-    <div className="hero-page">
-      {/* Static background — grid + country silhouette shapes */}
-      <HomeBackground />
+    <>
+      <div className="hero-page">
+        {/* Static background — grid + country silhouette shapes */}
+        <HomeBackground />
 
-      {/* Intro copy — top left */}
-      <div className="hero-intro">
-        <p>
-          Hey, I&rsquo;m Ha! I&rsquo;m currently a product designer at Conduit Gaming.
-          I love bold yet simple ideas that make people flourish.
-        </p>
-        <p className="hero-intro-hint">Scroll down or use your arrow keys to navigate!</p>
+        {/* Intro copy — top left */}
+        <div className="hero-intro">
+          <p>
+            Hey, I&rsquo;m Ha! I&rsquo;m currently a product designer at Conduit Gaming.
+            I love bold yet simple ideas that make people flourish.
+          </p>
+          <p className="hero-intro-hint">Scroll down or use your arrow keys to navigate!</p>
+        </div>
+
+        {/* Nothing renders until after hydration — prevents SSR/client mismatch */}
+        {ready && !mapVisible && (
+          <FingerprintLoader onComplete={() => {
+            setMapVisible(true)
+          }} />
+        )}
+
+        {/* Carabiner hook — enters from the left viewport edge, clips over the card */}
+        {ready && mapVisible && stage >= 1 && (
+          <div className="hero-hook" aria-hidden>
+            <img src="/assets/hook.svg" alt="" className="hero-hook-img" />
+          </div>
+        )}
+
+        {/* ID card — rises in first as the user scrolls */}
+        {ready && mapVisible && stage >= 1 && <IDCard />}
+
+        {/* Map shapes — rise in a beat after the card */}
+        <MapHotspots visible={mapVisible && stage >= 2} />
+
+        {/* Mobile only: in-flow spacer that makes the page tall enough to scroll through the full card */}
+        <div className="mobile-card-spacer" aria-hidden />
       </div>
 
-      {/* Nothing renders until after hydration — prevents SSR/client mismatch */}
-      {ready && !mapVisible && (
-        <FingerprintLoader onComplete={() => {
-          setMapVisible(true)
-        }} />
-      )}
-
-      {/* Carabiner hook — peeks in from the left viewport edge, behind the card */}
-      {ready && mapVisible && stage >= 1 && (
-        <div className="hero-hook" aria-hidden>
-          <img src="/assets/hook.svg" alt="" className="hero-hook-img" />
-        </div>
-      )}
-
-      {/* ID card — dissolves in first as the user scrolls */}
-      {ready && mapVisible && stage >= 1 && <IDCard />}
-
-      {/* Map shapes — dissolve in a beat after the card */}
-      <MapHotspots visible={mapVisible && stage >= 2} />
-
-      {/* Mobile only: in-flow spacer that makes the page tall enough to scroll through the full card */}
-      <div className="mobile-card-spacer" aria-hidden />
-    </div>
+      {/* Desktop: seamless continuation into the work grid — dark fades to
+          light across the bridge, then the case studies rise in as you scroll */}
+      <div className="home-work-bridge" aria-hidden />
+      <section className="home-work-section">
+        <WorkGridSection />
+      </section>
+    </>
   )
 }

@@ -197,7 +197,9 @@
 
 .hero-page {
   min-height: 100vh;
-  background: #f7f7f7;
+  /* Always dark — independent of data-theme so the footer's dark→light flip
+     while scrolling into the work section can't flash the hero */
+  background: #1d2529;
   position: relative;
   overflow: hidden;
   display: flex;
@@ -255,8 +257,34 @@
   position: absolute;
   inset: 0;
   background-image:
-    repeating-linear-gradient(0deg, rgba(0,0,0,0.05) 0px, rgba(0,0,0,0.05) 1px, transparent 1px, transparent 40px),
-    repeating-linear-gradient(90deg, rgba(0,0,0,0.05) 0px, rgba(0,0,0,0.05) 1px, transparent 1px, transparent 40px);
+    repeating-linear-gradient(0deg, rgba(255,255,255,0.05) 0px, rgba(255,255,255,0.05) 1px, transparent 1px, transparent 40px),
+    repeating-linear-gradient(90deg, rgba(255,255,255,0.05) 0px, rgba(255,255,255,0.05) 1px, transparent 1px, transparent 40px);
+}
+
+/* ── Home → work seamless continuation ───────────────────────────────────── */
+
+/* Gradient bridge: hero's dark bleeds into the work section's light, with the
+   grid texture carrying through */
+.home-work-bridge {
+  height: 70vh;
+  background-image:
+    repeating-linear-gradient(0deg, rgba(255,255,255,0.05) 0px, rgba(255,255,255,0.05) 1px, transparent 1px, transparent 40px),
+    repeating-linear-gradient(90deg, rgba(255,255,255,0.05) 0px, rgba(255,255,255,0.05) 1px, transparent 1px, transparent 40px),
+    linear-gradient(180deg, #1d2529 0%, #f7f7f7 100%);
+}
+
+.home-work-section {
+  position: relative;
+  background: #f7f7f7;
+  /* Clear the fixed footer at the bottom of the scroll */
+  padding-bottom: 147px;
+}
+
+@media (max-width: 760px) {
+  .home-work-bridge,
+  .home-work-section {
+    display: none;
+  }
 }
 
 
@@ -1286,6 +1314,8 @@
   padding: 0 80px;
   animation: none;
   view-transition-name: portfolio-footer;
+  /* Smooth the dark↔light flip while scrolling through the home bridge */
+  transition: background-color 0.45s ease;
 }
 
 .about-footer-noise {
