@@ -136,7 +136,7 @@ export default function MapHotspots({ visible }: { visible: boolean }) {
             transform={`rotate(${BK_ROT} ${BK_PIN_CX} ${BK_PIN_CY})`}
             onMouseEnter={() => setHovered('brooklyn')}
             onMouseLeave={() => setHovered(null)}
-            style={{ pointerEvents: 'all', cursor: 'default' }}
+            className="map-hit"
           >
             <g transform={`translate(${BK_X}, ${BK_Y}) scale(${BK_W / 325}, ${BK_H / 295})`}>
               <path d={BROOKLYN_D} fill="transparent" stroke="none" />
@@ -161,7 +161,7 @@ export default function MapHotspots({ visible }: { visible: boolean }) {
             transform={`rotate(${VN_ROT} ${VN_PIN_CX} ${VN_PIN_CY})`}
             onMouseEnter={() => setHovered('vietnam')}
             onMouseLeave={() => setHovered(null)}
-            style={{ pointerEvents: 'all', cursor: 'default' }}
+            className="map-hit"
           >
             <g transform={`translate(${VN_X}, ${VN_Y}) scale(${VN_W / 376}, ${VN_H / 551})`}>
               <path fillRule="evenodd" clipRule="evenodd" d={VIETNAM_D} fill="transparent" stroke="none" />

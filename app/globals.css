@@ -195,6 +195,13 @@
 
 /* ── Hero page — Phase 1 ─────────────────────────────────────────────────── */
 
+/* Desktop scroll runway: the hero pins (sticky) inside this tall block while
+   the reveal is scrubbed by scroll, then releases into the bridge below.
+   On mobile the runway is inert (auto height) and the hero flows normally. */
+.hero-runway {
+  position: relative;
+}
+
 .hero-page {
   min-height: 100vh;
   /* Always dark — independent of data-theme so the footer's dark→light flip
@@ -212,6 +219,21 @@
      Defaults to 1 so mobile (and any state where JS never scrubs) shows all. */
   --card-reveal: 1;
   --map-reveal: 1;
+  --intro-shift: 0;
+}
+
+@media (min-width: 761px) {
+  .hero-runway {
+    /* Runway length = how much scrolling the pinned reveal takes before the
+       hero releases toward the work section */
+    height: 210vh;
+  }
+  .hero-page {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    min-height: 0;
+  }
 }
 
 
@@ -306,6 +328,12 @@
   transition: opacity 0.25s ease-out, translate 0.25s ease-out;
 }
 
+/* Shape hit-areas are only interactive once the map is actually revealed */
+.map-hit {
+  pointer-events: var(--map-pe, auto);
+  cursor: default;
+}
+
 /* Assembly wrapper.
    Card is anchored a fixed distance from the LEFT edge (Figma 1722:29990: x=115)
    so the left-edge hook always stays tucked behind it at any viewport width.
@@ -381,6 +409,9 @@
   line-height: normal;
   color: #c5c8ca;
   z-index: 6;
+  /* Gentle parallax drift as the card takes over — connects the two beats */
+  transform: translateY(calc(var(--intro-shift, 0) * -32px));
+  will-change: transform;
 }
 
 .hero-intro-hint {
