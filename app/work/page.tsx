@@ -51,8 +51,13 @@ const RIGHT_BOTTOM: WorkEntry = {
   label: 'Data viz / Fall 2024',
 }
 
-// Plain card — just thumbnail, no text
+// Thumbnail card — cursor-following hover label with the project blurb
 function WorkPageCard({ entry, project, index }: { entry: WorkEntry; project: Project; index: number }) {
+  const wrapRef = useRef<HTMLDivElement>(null)
+  const [hovering, setHovering] = useState(false)
+  const [mounted, setMounted] = useState(false)
+  useEffect(() => { setMounted(true) }, [])
+
   const card = (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -65,41 +70,19 @@ function WorkPageCard({ entry, project, index }: { entry: WorkEntry; project: Pr
     </motion.div>
   )
 
-  if (project.href) {
-    if (project.external) {
-      return (
+  const linked = project.href
+    ? project.external
+      ? (
         <a href={project.href} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none' }}>
           {card}
         </a>
       )
-    }
-    return (
-      <Link href={project.href} style={{ textDecoration: 'none' }}>
-        {card}
-      </Link>
-    )
-  }
-  return card
-}
-
-// Music Map card — hover label follows cursor
-function MusicMapCard({ entry, project }: { entry: WorkEntry; project: Project }) {
-  const wrapRef = useRef<HTMLDivElement>(null)
-  const [hovering, setHovering] = useState(false)
-  const [mounted, setMounted] = useState(false)
-  useEffect(() => { setMounted(true) }, [])
-
-  const card = (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-40px' }}
-      transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1], delay: 0.32 }}
-      style={{ cursor: 'pointer' }}
-    >
-      <Thumbnail project={project} aspectRatio={entry.thumbnailAspect} />
-    </motion.div>
-  )
+      : (
+        <Link href={project.href} style={{ textDecoration: 'none' }}>
+          {card}
+        </Link>
+      )
+    : card
 
   return (
     <div
@@ -109,18 +92,10 @@ function MusicMapCard({ entry, project }: { entry: WorkEntry; project: Project }
       onMouseLeave={() => setHovering(false)}
       style={{ display: 'block' }}
     >
-      {project.external ? (
-        <a href={project.href} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none' }}>
-          {card}
-        </a>
-      ) : (
-        <Link href={project.href!} style={{ textDecoration: 'none' }}>
-          {card}
-        </Link>
-      )}
+      {linked}
       {mounted && (
         <HoverLabel
-          title="How Music Wandered?"
+          title={project.title}
           desc={entry.desc}
           label={entry.label}
           anchorRef={wrapRef}
@@ -233,7 +208,7 @@ export default function WorkPage() {
               return <WorkPageCard key={entry.projectId} entry={entry} project={project} index={i + 2} />
             })}
           </div>
-          {musicMap && <MusicMapCard entry={RIGHT_BOTTOM} project={musicMap} />}
+          {musicMap && <WorkPageCard entry={RIGHT_BOTTOM} project={musicMap} index={4} />}
         </div>
       </main>
 

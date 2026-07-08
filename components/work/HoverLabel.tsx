@@ -71,7 +71,6 @@ export default function HoverLabel({ title, desc, label, anchorRef, visible }: P
         lineHeight: 1.2,
         color: '#4e4e4e',
         letterSpacing: '0.48px',
-        whiteSpace: 'nowrap',
       }}>
         {title}
       </p>
