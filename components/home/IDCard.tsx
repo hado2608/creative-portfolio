@@ -3,7 +3,8 @@
 import { useCallback, useEffect, useRef } from 'react'
 import { useSpring2D } from '@/hooks/useSpring2D'
 
-const MAX_TILT = 7
+const MAX_TILT = 7        // top/bottom tilt
+const MAX_TILT_X = 2.5    // right-side swing — pivots at the far left edge, so keep it subtle
 
 export default function IDCard() {
   const cardRef = useRef<HTMLDivElement>(null)
@@ -25,7 +26,7 @@ export default function IDCard() {
       const ny = (e.clientY - rect.top - rect.height / 2) / (rect.height / 2)
       // Card is pinned to the hook at its left edge: never rotate the left side
       // forward — only swing the right side (and tilt top/bottom freely)
-      setTarget(Math.max(0, nx) * MAX_TILT, ny * MAX_TILT)
+      setTarget(Math.max(0, nx) * MAX_TILT_X, ny * MAX_TILT)
       if (glossRef.current) {
         const px = ((e.clientX - rect.left) / rect.width) * 100
         const py = ((e.clientY - rect.top) / rect.height) * 100
