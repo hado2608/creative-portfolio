@@ -7,6 +7,7 @@ import HomeBackground from '@/components/home/HomeBackground'
 import IDCard from '@/components/home/IDCard'
 import MapHotspots from '@/components/home/MapHotspots'
 import WorkGridSection from '@/components/work/WorkGridSection'
+import AboutSection from '@/components/about/AboutSection'
 
 // Resets on hard reload (module re-evaluates). Persists across SPA nav (module stays cached).
 let loaderShown = false
@@ -197,6 +198,11 @@ export default function Home() {
       <div className="home-work-bridge" aria-hidden />
       <section className="home-work-section">
         <WorkGridSection />
+      </section>
+
+      {/* …and the about section continues right below, same infinite page */}
+      <section className="home-about-section">
+        <AboutSection />
       </section>
     </>
   )

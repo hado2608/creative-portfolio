@@ -298,13 +298,18 @@
 .home-work-section {
   position: relative;
   background: #f7f7f7;
-  /* Clear the fixed footer at the bottom of the scroll */
-  padding-bottom: 147px;
+}
+
+/* About continues below the work grid on the same page; .about-page inside it
+   already carries the lined-paper background and footer clearance */
+.home-about-section {
+  position: relative;
 }
 
 @media (max-width: 760px) {
   .home-work-bridge,
-  .home-work-section {
+  .home-work-section,
+  .home-about-section {
     display: none;
   }
 }
